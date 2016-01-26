@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="gtApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>green.thumb</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/greenthumb.css" rel="stylesheet">
+
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+        <div id="gtContainer">
+            <div class="container-fluid">
+                
+
+                <div class="row" id="gt-header">
+                    <h1><span class="green">green</span><span class="white">.</span>thumb</h1>
+                    <p>garden planning application</p>
+                </div>
+
+           
+                <div class="row" ng-controller="gtSchedule">
+                    <div class="col-md-4">
+                        <h3><span class="glyphicon glyphicon-ok"></span><span ng-bind="datetasks"></span>Today's Tasks</h3>
+                        <date-entry data="tasksToday" data2="params"></date-entry>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <h3><span class="glyphicon glyphicon-list"></span>Upcoming Tasks<a class="subtext" href="#" ng-click="toggleTasks('prev')">Previous</a></h3>
+                            <date-entry data="tasksNext" data2="params"></date-entry>
+                        </div>
+                        <div ng-if="taskpanel == 'prev'">
+                            <h3> <span class ="glyphicon glyphicon-list"></span>Previous Tasks<a class="subtext" href="#" ng-click="toggleTasks('next')">Upcoming</a></h3>
+                            <date-entry data="tasksPrev" data2="params"></date-entry>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h3><span class="glyphicon glyphicon-wrench"></span>Filtering Options:<a class="subtext" href="#" ng-click="filterSort('reset')">Reset All</a></h3>
+                        <p>Date : <input type="text" class="form-control" uib-datepicker-popup="{{format}}" id="dp1" style="width:150px;" ng-value="datetoday" ng-model="date" ng-change="filterSort()" is-open="status.opened"> 
+                            <a type="submit" class="button fi-calendar large"  id="dropcal" value="Cal" ng-click="open($event)"></a> 
+                        </p>
+
+                        <form action="#" id="gt-filter-season">
+                            <div class="row">
+                                <div class="col-md-6 columns">
+                                    <h4>Season</h4>
+                                    <input type="checkbox" value="smart" name="smart" id="smart" ng-model="filterOptions.season.smart" ng-click="filterSort()"><label for="smart" title="Show only produce items currently growing">Smart View</label><br/>
+                                    <input type="checkbox" value="spring" name="spring" id="spring" ng-model="filterOptions.season.spring" ng-click="filterSort()"><label for="spring" title="(Mar - May)">Spring</label><br/>
+                                    <input type="checkbox" value="summer" name="summer" id="summer" ng-model="filterOptions.season.summer" ng-click="filterSort()"><label for="summer" title="(June - Aug)">Summer</label><br/>
+                                    <input type="checkbox" value="fall" name="fall" id="fall" ng-model="filterOptions.season.fall" ng-click="filterSort()"><label for="fall" title="(Sept - Nov)">Fall</label><br/>
+                                    <input type="checkbox" value="winter" name="winter" id="winter" ng-model="filterOptions.season.winter" ng-click="filterSort()"><label for="winter" title="(Dec - Feb)">Winter</label>
+                                </div>
+
+                                <div class="col-md-6 columns">
+                                    <h4>Task Type</h4>
+                                    <input type="checkbox" value="seedlings" name="seedlings" id="gt-filter-task-start-seedlings" ng-click="filterSort()" ng-model="filterOptions.tasks.seedlings"><label for="gt-filter-task-start-seedlings">Start Seedlings</label><br/>
+                                    <input type="checkbox" value="planting" name="planting" id="gt-filter-task-plant" ng-click="filterSort()" ng-model="filterOptions.tasks.plant"><label for="gt-filter-task-plant">Plant</label><br/>
+                                    <input type="checkbox" value="harvestStart" name="harvestStart" id="gt-filter-task-harvest" ng-click="filterSort()" ng-model="filterOptions.tasks.harvest_start"><label for="gt-filter-task-harvest">Harvest</label><br/>
+                                    <input type="checkbox" value="harvestComplete" name="harvestComplete" id="gt-filter-task-complete-harvest" ng-click="filterSort()" ng-model="filterOptions.tasks.harvest_complete"><label for="gt-filter-task-complete-harvest">Complete Harvest</label>
+                                </div>
+                            </div>
+
+                            <div class="row hide">
+                                <div class="columns">
+                                    <h4>Misc</h4>
+                                    <input type="checkbox" id="calcSeedlings" value="Calculate # of Plants" ng-model="calcSeedlings" ng-click="filterSort()" class="ng-pristine ng-untouched ng-valid"><label for="calcSeedlings">Calculate # of Plants</label>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+           
+                
+                <div id="gt-calendar" ng-controller="gtCalendar">
+                
+                        <h2>
+                            <span class="glyphicon glyphicon-picture"></span>
+                            <span ng-bind="label"></span>
+                        </h2>
+                 
+
+                    <div class="row" id="gt-cal-header">
+                        <div class="col-md-3 " id="legend">
+                            Legend: 
+                            <span class="leg-seedling rounded-5">Seedling</span>
+                            <span class="leg-growing">Growing</span>
+                            <span class="leg-harvest">Harvest</span>
+                            <span class="leg-frost">Frost</span>
+                        </div>
+
+                        <div class="col-md-9 ">
+                            <div class="gt-col" data-days="31"><span class="visible-xs">J</span><span class="visible-md visible-sm ">Jan</span><span class="visible-lg">January</span></div>
+                            <div class="gt-col" data-days="28"><span class="visible-xs">F</span><span class="visible-md visible-sm ">Feb</span><span class="visible-lg">February</span></div>
+                            <div class="gt-col" data-days="31"><span class="visible-xs">M</span><span class="visible-md visible-sm ">Mar</span><span class="visible-lg">March</span></div>
+                            <div class="gt-col" data-days="30"><span class="visible-xs">A</span><span class="visible-md visible-sm ">Apr</span><span class="visible-lg">April</span></div>
+                            <div class="gt-col" data-days="31"><span class="visible-xs">M</span><span class="visible-md visible-sm ">May</span><span class="visible-lg">May</span></div>
+                            <div class="gt-col" data-days="30"><span class="visible-xs">J</span><span class="visible-md visible-sm ">June</span><span class="visible-lg">June</span></div>
+                            <div class="gt-col" data-days="31"><span class="visible-xs">J</span><span class="visible-md visible-sm ">July</span><span class="visible-lg">July</span></div>
+                            <div class="gt-col" data-days="31"><span class="visible-xs">A</span><span class="visible-md visible-sm ">Aug</span><span class="visible-lg">August</span></div>
+                            <div class="gt-col" data-days="30"><span class="visible-xs">S</span><span class="visible-md visible-sm ">Sept</span><span class="visible-lg">September</span></div>
+                            <div class="gt-col" data-days="31"><span class="visible-xs">O</span><span class="visible-md visible-sm ">Oct</span><span class="visible-lg">October</span></div>
+                            <div class="gt-col" data-days="30"><span class="visible-xs">N</span><span class="visible-md visible-sm ">Nov</span><span class="visible-lg">November</span></div>
+                            <div class="gt-col" data-days="31"><span class="visible-xs">D</span><span class="visible-md visible-sm ">Dec</span><span class="visible-lg">December</span></div>
+                        </div>
+                    </div>
+
+
+                    <div class="row" id="gt-areas">
+
+                        <div id="gt-today">
+                            <div class="col-lg-3 "></div>
+                            <div class="col-lg-9 "><div id="gt-today2">
+                                    <div id="gt-main-line" class="" ng-style="{left: main_pos + '%'}"></div>
+                                    <div id="gt-today-line" class="" ng-style="{left: today_pos + '%'}"></div>
+                                    <div id="gt-frost-spring" class="" ng-style="{width: frost_spring + '%'}"></div>
+                                    <div id="gt-frost-fall" class="" ng-style="{width: frost_fall + '%'}"></div>
+                                </div></div>
+                        </div>
+
+                        <areas data="garden" data2="params"></areas>
+                    </div>
+
+
+                </div>   
+            </div>
+
+
+        </div>
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-ui-router.min.js"></script>
+        <script src="js/moment.min.js"></script>
+
+        <script src="js/model.js"></script>
+        <script src="js/produce.js"></script>
+        <script src="js/greenthumb.js"></script>
+    </body>
+</html>
