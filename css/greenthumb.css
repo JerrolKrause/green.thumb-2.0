@@ -297,8 +297,11 @@ input[type="checkbox"] {
 .gt-area {
   padding-bottom: 10px;
   padding-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 5px;
   background-color: #f7f7f7; }
+
+.gt-area:first-child {
+  margin-top: 0px; }
 
 .gt-area-row {
   position: relative;
