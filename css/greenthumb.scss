@@ -36,13 +36,15 @@ $bg-color:          #f7f7f7;
 
 
 
+
 /*
  * Content
  */
 
 /* Generic HTML */
 body{background-color:#fff;}
-h1, h2, h3, h4, h5{color:$green-dk;font-family: "BPreplay", sans-serif;position:relative;}
+h1, h2, h3, h4, h5{color:$green-dk;font-family: "BPreplay", sans-serif;position:relative;border-bottom:1px solid $orange-mid;padding-bottom:10px;}
+    h1{border-bottom:0px;}
 a, a:link{color:$link-color;}
 a:hover{color:$link-color-hover;text-decoration:underline;}
 *:focus {outline: none;}
@@ -50,6 +52,7 @@ label{color:$link-color;cursor:pointer;margin-right:0px!important;}
     label:hover{color:$link-color-hover;text-decoration:underline;}
 input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {display: none !important;}
+
 
 
 /* Universal Styles */
@@ -62,7 +65,6 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 .error{color:#f00;font-size:12px;}
 .glyphicon{margin-right: 10px;}
 .subtext{font-size:12px;float:right;margin-top: 15px;}    
-
 
 .tooltip{
     border-radius:5px;padding:5px 10px;display:inline!important;box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.5);background-color: #1e1f22!important;width:250px;
@@ -119,9 +121,10 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 
 #gt-header{
     background-color:#1e1f22;padding-left:10px;padding-bottom:10px;
-    h1{color:$brown-mid;margin-bottom:0px;}
-    h1 .green{color:$green-mid;}
-    h1 .white{color:#fff;}
+    #logo{font-size: 36px;margin-top: 20px;margin-bottom: 10px;}
+    #logo{color:$brown-mid;margin-bottom:0px;}
+    #logo .green{color:$green-mid;}
+    #logo .white{color:#fff;}
     p{margin:0px;color:#fff;font-family: "BPreplay", sans-serif;position: relative;top: -8px;left: 25px;margin-bottom: -5px;display:inline;}
 }
 
@@ -144,8 +147,9 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 
 #dropcal{border-radius: 0px 5px 5px 0px;position:relative;left:-4px;padding:0px;padding-left: 10px;padding-right: 10px;height:auto;font-size:30px;top: 6px;}
     
+
 #gt-calendar{
-    h2{border-top: 1px solid $border-color;padding-top: 5px;}
+    h2{border-top: 1px solid $border-color;border-bottom:0px;padding-top:20px;}
     #legend{
         font-size:10px;
         span{padding:3px 5px;color:#fff;border-radius: 5px;}
@@ -230,34 +234,26 @@ input.calendar{border-radius: 5px 0px 0px 5px;}
 /*
  * Media Queries
  */
-
-/* Small */
-@media only screen and (max-width: 40em) { 
-    #gt-areas{background-color: $bg-color;padding-top:5px;padding-bottom:5px}
-    .gt-area{padding:0px;margin:0px;background-color: transparent;}
-    #gt-calendar .small-2, #gt-calendar .small-10{padding-left: .25rem;padding-right: .25rem;}
-    .gt-area-item img{float:none;margin-left:auto;margin-right:auto;    display: block;}
-    .gt-produce .show-for-small{ font-size: .8em;position: absolute;bottom: 0px;line-height: initial;text-shadow: -1px -1px #fff;left: 20px;}
-    .dropdown-menu{
-        position:absolute;left:0px!important;
-        table {min-width: 304px;}
-        button{padding:0px;}
-    }
-    
-}
-
-/* Medium */
-@media only screen and (min-width: 40.063em) and (max-width: 64em){ 
-
+/* XS Small devices (cell phones) */
+@media (max-width: 767px) {
+    h1{font-size:30px;}
+    h2{font-size: 24px;}
+    h3{font-size: 18px;}
 }
 
 
-/* Large */
-@media only screen and (min-width: 64.0625em){
-    #gt-calendar #legend{font-size:12px;}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
 }
 
-/* XT-Large */
-@media only screen and (min-width: 90.063em) { 
-   
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
 }

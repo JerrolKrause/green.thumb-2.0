@@ -26,6 +26,8 @@ window.greenthumb = (function () {
             produce                 : window.gtProduce      //Holds produce content
         };
         
+        //data.params.dates.main = moment().set({year: 2016, month: 2, date: 1, hours: 0});
+       
         //Create new instances
         data.create = {
             
@@ -249,12 +251,6 @@ window.greenthumb = (function () {
                         str += produce.label_parent ;
                     }
                     
-                    //Obj to hold data to embed in dates object
-                    var obj = {
-                        label: str,
-                        slug: key
-                    };
-                    
                     if (!angular.isObject(data.activeGarden.tasks[value.format("YYYYMMDD")])) {
                         data.activeGarden.tasks[value.format("YYYYMMDD")] = {
                             label: value.format("dddd, MMMM Do"),
@@ -267,24 +263,6 @@ window.greenthumb = (function () {
                     //console.log(obj);
                     
                 });
-                
-                
-                /*
-                 //Obj to hold data to embed in dates object
-                 var obj = {
-                 label: str,
-                 slug: key
-                 };
-                 
-                 //Make sure the date object exists, if not create it
-                 if (!angular.isObject(taskObj[dateItems.date.format("YYYYMMDD")])) {
-                 taskObj[dateItems.date.format("YYYYMMDD")] = {
-                 label: dateItems.date.format("dddd, MMMM Do"),
-                 items: []
-                 };
-                 }
-                 */
-                
                 
             }
             
@@ -310,10 +288,56 @@ window.greenthumb = (function () {
     });
     
     
+    /**
+     * 
+     */
+    greenThumb.controller('gtMeta', function ($scope, gtGetData) {
+        $scope.$on('dataPassed', function () {
+            $scope.name = gtGetData.activeGarden.label;
+            $scope.title = gtGetData.activeGarden.label + ' | ' + 'green.thumb';
+        });
+    });
+    
+    
+    /**
+     * 
+     */
     greenThumb.controller('gtSchedule', function ($scope, gtGetData) {
         $scope.$on('dataPassed', function () {
-         
+
+            $scope.tasksToday   = [];
+            $scope.tasksNext    = [];
+            $scope.tasksPrev    = [];
+
+            if (angular.isDefined(gtGetData.activeGarden.tasks[gtGetData.params.dates.main.format("YYYYMMDD")])) {
+                $scope.tasksToday.push(gtGetData.activeGarden.tasks[gtGetData.params.dates.main.format("YYYYMMDD")]);
+            } else {
+                $scope.tasksToday.push({
+                    label: gtGetData.params.dates.main.format("dddd, MMMM Do"),
+                    items: ['Nothing for Today!']
+                });
+            }
+
+            //Loop through the tasks object
+            angular.forEach(gtGetData.activeGarden.tasks, function (value) {
+                //Check if the current task object is upcoming 1 month
+                if(value.date.isBetween(gtGetData.params.dates.main, gtGetData.params.dates.main.clone().add(1, 'month'))){
+                    $scope.tasksNext.push(value);
+                //Check if previous task object occurs 1 month prior    
+                } else if (value.date.isBetween(gtGetData.params.dates.main.clone().subtract(1, 'month'), gtGetData.params.dates.main)){
+                    $scope.tasksPrev.push(value);
+                }
+            });
+
         });
+    }).directive('tasks', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                data: '='
+            },
+            templateUrl: 'partials/tasks-entry.html'
+        };
     });
     
     

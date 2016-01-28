@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="gtApp">
-    <head>
+    <head ng-controller="gtMeta">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>green.thumb</title>
+        <title ng-bind="title">green.thumb</title>
 
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -26,28 +26,39 @@
                 
 
                 <div class="row" id="gt-header">
-                    <h1><span class="green">green</span><span class="white">.</span>thumb</h1>
+                    <div id="logo"><span class="green">green</span><span class="white">.</span>thumb</div>
                     <p>garden planning application</p>
                 </div>
+                
+                
+                <div ng-controller="gtMeta" class="hide">
+                    <h1>
+                        <span class="glyphicon glyphicon-picture"></span>
+                        <span ng-bind="name"></span>
+                    </h1>
+                </div>
 
-           
+                
                 <div class="row" ng-controller="gtSchedule">
                     <div class="col-md-4">
-                        <h3><span class="glyphicon glyphicon-ok"></span><span ng-bind="datetasks"></span>Today's Tasks</h3>
-                        <date-entry data="tasksToday" data2="params"></date-entry>
+                        <h2><span class="glyphicon glyphicon-ok"></span><span ng-bind="datetasks"></span>Today's Tasks</h2>
+                        <tasks data="tasksToday"></tasks>
                     </div>
                     <div class="col-md-4">
                         <div>
-                            <h3><span class="glyphicon glyphicon-list"></span>Upcoming Tasks<a class="subtext" href="#" ng-click="toggleTasks('prev')">Previous</a></h3>
-                            <date-entry data="tasksNext" data2="params"></date-entry>
+                            <h2><span class="glyphicon glyphicon-list"></span>Upcoming Tasks<a class="subtext hide" href="#" ng-click="toggleTasks('prev')">Previous</a></h2>
+                            <tasks data="tasksNext"></tasks>
                         </div>
-                        <div ng-if="taskpanel == 'prev'">
-                            <h3> <span class ="glyphicon glyphicon-list"></span>Previous Tasks<a class="subtext" href="#" ng-click="toggleTasks('next')">Upcoming</a></h3>
-                            <date-entry data="tasksPrev" data2="params"></date-entry>
+                        <div ng-if="taskpanel == 'prev'" class=" hide">
+                            <h2> <span class ="glyphicon glyphicon-list"></span>Previous Tasks<a class="subtext hide" href="#" ng-click="toggleTasks('next')">Upcoming</a></h2>
+                            <tasks data="tasksPrev"></tasks>
                         </div>
                     </div>
 
                     <div class="col-md-4">
+                         <h2> <span class ="glyphicon glyphicon-list"></span>Previous Tasks<a class="subtext hide" href="#" ng-click="toggleTasks('next')">Upcoming</a></h2>
+                          <tasks data="tasksPrev"></tasks>
+                        <!-- 
                         <h3><span class="glyphicon glyphicon-wrench"></span>Filtering Options:<a class="subtext" href="#" ng-click="filterSort('reset')">Reset All</a></h3>
                         <p>Date : <input type="text" class="form-control" uib-datepicker-popup="{{format}}" id="dp1" style="width:150px;" ng-value="datetoday" ng-model="date" ng-change="filterSort()" is-open="status.opened"> 
                             <a type="submit" class="button fi-calendar large"  id="dropcal" value="Cal" ng-click="open($event)"></a> 
@@ -80,21 +91,15 @@
                                 </div>
                             </div>
                         </form>
-
+                        -->
                     </div>
                 </div>
            
                 
                 <div id="gt-calendar" ng-controller="gtCalendar">
-                
-                        <h2>
-                            <span class="glyphicon glyphicon-picture"></span>
-                            <span ng-bind="label"></span>
-                        </h2>
-                 
-
+                    <h2><span class ="glyphicon glyphicon-calendar"></span>Schedule</h2>
                     <div class="row" id="gt-cal-header">
-                        <div class="col-md-3 " id="legend">
+                        <div class="col-md-3 hidden-xs hidden-sm" id="legend">
                             Legend: 
                             <span class="leg-seedling rounded-5">Seedling</span>
                             <span class="leg-growing">Growing</span>
@@ -118,9 +123,8 @@
                         </div>
                     </div>
 
-
                     <div class="row" id="gt-areas">
-
+                        
                         <div id="gt-today">
                             <div class="col-lg-3 "></div>
                             <div class="col-lg-9 "><div id="gt-today2">

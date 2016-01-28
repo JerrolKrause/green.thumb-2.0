@@ -14,7 +14,12 @@ body {
 h1, h2, h3, h4, h5 {
   color: #005300;
   font-family: "BPreplay", sans-serif;
-  position: relative; }
+  position: relative;
+  border-bottom: 1px solid #aa6c39;
+  padding-bottom: 10px; }
+
+h1 {
+  border-bottom: 0px; }
 
 a, a:link {
   color: #aa6c39; }
@@ -183,12 +188,16 @@ input[type="checkbox"] {
   background-color: #1e1f22;
   padding-left: 10px;
   padding-bottom: 10px; }
-  #gt-header h1 {
+  #gt-header #logo {
+    font-size: 36px;
+    margin-top: 20px;
+    margin-bottom: 10px; }
+  #gt-header #logo {
     color: #aa6c39;
     margin-bottom: 0px; }
-  #gt-header h1 .green {
+  #gt-header #logo .green {
     color: #2d882d; }
-  #gt-header h1 .white {
+  #gt-header #logo .white {
     color: #fff; }
   #gt-header p {
     margin: 0px;
@@ -234,7 +243,8 @@ input[type="checkbox"] {
 
 #gt-calendar h2 {
   border-top: 1px solid #aa6c39;
-  padding-top: 5px; }
+  border-bottom: 0px;
+  padding-top: 20px; }
 #gt-calendar #legend {
   font-size: 10px; }
   #gt-calendar #legend span {
@@ -457,48 +467,18 @@ h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-e
 /*
  * Media Queries
  */
-/* Small */
-@media only screen and (max-width: 40em) {
-  #gt-areas {
-    background-color: #f7f7f7;
-    padding-top: 5px;
-    padding-bottom: 5px; }
+/* XS Small devices (cell phones) */
+@media (max-width: 767px) {
+  h1 {
+    font-size: 30px; }
 
-  .gt-area {
-    padding: 0px;
-    margin: 0px;
-    background-color: transparent; }
+  h2 {
+    font-size: 24px; }
 
-  #gt-calendar .small-2, #gt-calendar .small-10 {
-    padding-left: .25rem;
-    padding-right: .25rem; }
-
-  .gt-area-item img {
-    float: none;
-    margin-left: auto;
-    margin-right: auto;
-    display: block; }
-
-  .gt-produce .show-for-small {
-    font-size: .8em;
-    position: absolute;
-    bottom: 0px;
-    line-height: initial;
-    text-shadow: -1px -1px #fff;
-    left: 20px; }
-
-  .dropdown-menu {
-    position: absolute;
-    left: 0px !important; }
-    .dropdown-menu table {
-      min-width: 304px; }
-    .dropdown-menu button {
-      padding: 0px; } }
-/* Medium */
-/* Large */
-@media only screen and (min-width: 64.0625em) {
-  #gt-calendar #legend {
-    font-size: 12px; } }
-/* XT-Large */
+  h3 {
+    font-size: 18px; } }
+/* Small devices (tablets, 768px and up) */
+/* Medium devices (desktops, 992px and up) */
+/* Large devices (large desktops, 1200px and up) */
 
 /*# sourceMappingURL=greenthumb.css.map */
