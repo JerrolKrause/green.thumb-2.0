@@ -43,8 +43,8 @@ $bg-color:          #f7f7f7;
 
 /* Generic HTML */
 body{background-color:#fff;}
-h1, h2, h3, h4, h5{color:$green-dk;font-family: "BPreplay", sans-serif;position:relative;border-bottom:1px solid $orange-mid;padding-bottom:10px;}
-    h1{border-bottom:0px;}
+h1, h2, h3, h4, h5{color:$green-dk;font-family: "BPreplay", sans-serif;position:relative;}
+    h2{border-bottom:1px solid $orange-mid;padding-bottom:10px;}
 a, a:link{color:$link-color;}
 a:hover{color:$link-color-hover;text-decoration:underline;}
 *:focus {outline: none;}
@@ -120,7 +120,7 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 #today{position:relative;top:-2px;}
 
 #gt-header{
-    background-color:#1e1f22;padding-left:10px;padding-bottom:10px;
+    background-color:#1e1f22;padding-left:20px;padding-bottom:10px;border-radius: 0px;border:0px;
     #logo{font-size: 36px;margin-top: 20px;margin-bottom: 10px;}
     #logo{color:$brown-mid;margin-bottom:0px;}
     #logo .green{color:$green-mid;}
