@@ -4,10 +4,10 @@
 window.greenthumb = (function () {
     'use strict';
 
-    var greenThumb = angular.module('gtApp', []);     //Angular app
+    var greenThumb = angular.module('gtApp', ['ngRoute']);     //Angular app
 
     greenThumb.factory("gtGetData", function ($http, $rootScope) {
-        
+        console.log("gtGetData");
         var data = {
             params              : {                         //Holds application parameters
                 dates          : (function(){               //Generates the main dates used by the app
@@ -263,26 +263,27 @@ window.greenthumb = (function () {
                     //console.log(obj);
                     
                 });
-                
             }
-            
         };//end create
        
+       
+        data.load = function (url) {
+            console.log('data.load')
+            //Fetch JSON object of garden to use
+            //This call will be replaced by a CMS when that component is ready
+            $http({
+                method: 'GET',
+                url: url
+            }).then(function ($response) {
+                //Create a new instance of garden
+                var garden = new data.create.garden($response.data[0]);
+                //Add this garden to the gardens array
+                data.gardens.push(garden);
+                $rootScope.$broadcast('dataPassed');
+            });
+        };
+       
         
-        
-        //Fetch JSON object of garden to use
-        //This call will be replaced by a CMS when that component is ready
-        $http({
-            method: 'GET',
-            url: 'js/model.js'
-        }).then(function ($response) {
-            
-            //Create a new instance of garden
-            var garden = new  data.create.garden($response.data[0]);
-            //Add this garden to the gardens array
-            data.gardens.push(garden);
-            $rootScope.$broadcast('dataPassed');
-        });
         
         return data;
     });
@@ -299,15 +300,33 @@ window.greenthumb = (function () {
     });
     
     
-    /**
-     * 
-     */
-    greenThumb.controller('gtSchedule', function ($scope, gtGetData) {
+    
+    
+    
+    
+    
+    
+    greenThumb.controller('gtGarden', function ($scope, gtGetData) {
+        console.log('gtGarden')
+        
+        gtGetData.load('js/model.js');
+        
+        
+        
         $scope.$on('dataPassed', function () {
+            console.log('dataPassed in gtGarden');
+            $scope.garden = gtGetData.activeGarden.areas;
+            $scope.label = gtGetData.activeGarden.label;
+            $scope.frost_spring = gtGetData.activeGarden.frost_spring.position;
+            $scope.frost_fall = gtGetData.activeGarden.frost_fall.position;
 
-            $scope.tasksToday   = [];
-            $scope.tasksNext    = [];
-            $scope.tasksPrev    = [];
+            $scope.main_pos = gtGetData.params.dates.main_pos;
+            $scope.today_pos = gtGetData.params.dates.today_pos;
+
+
+            $scope.tasksToday = [];
+            $scope.tasksNext = [];
+            $scope.tasksPrev = [];
 
             if (angular.isDefined(gtGetData.activeGarden.tasks[gtGetData.params.dates.main.format("YYYYMMDD")])) {
                 $scope.tasksToday.push(gtGetData.activeGarden.tasks[gtGetData.params.dates.main.format("YYYYMMDD")]);
@@ -321,15 +340,17 @@ window.greenthumb = (function () {
             //Loop through the tasks object
             angular.forEach(gtGetData.activeGarden.tasks, function (value) {
                 //Check if the current task object is upcoming 1 month
-                if(value.date.isBetween(gtGetData.params.dates.main, gtGetData.params.dates.main.clone().add(1, 'month'))){
+                if (value.date.isBetween(gtGetData.params.dates.main, gtGetData.params.dates.main.clone().add(1, 'month'))) {
                     $scope.tasksNext.push(value);
-                //Check if previous task object occurs 1 month prior    
-                } else if (value.date.isBetween(gtGetData.params.dates.main.clone().subtract(1, 'month'), gtGetData.params.dates.main)){
+                    //Check if previous task object occurs 1 month prior    
+                } else if (value.date.isBetween(gtGetData.params.dates.main.clone().subtract(1, 'month'), gtGetData.params.dates.main)) {
                     $scope.tasksPrev.push(value);
                 }
             });
 
+            //console.log(gtGetData.activeGarden.tasks);
         });
+
     }).directive('tasks', function () {
         return {
             restrict: 'E',
@@ -338,23 +359,6 @@ window.greenthumb = (function () {
             },
             templateUrl: 'partials/tasks-entry.html'
         };
-    });
-    
-    
-    greenThumb.controller('gtCalendar', function ($scope, gtGetData) {
-        $scope.$on('dataPassed', function () {
-            $scope.garden           = gtGetData.activeGarden.areas;
-            $scope.label            = gtGetData.activeGarden.label;
-            $scope.frost_spring     = gtGetData.activeGarden.frost_spring.position;
-            $scope.frost_fall       = gtGetData.activeGarden.frost_fall.position;
-            
-            $scope.main_pos         = gtGetData.params.dates.main_pos;
-            $scope.today_pos        = gtGetData.params.dates.today_pos;
-            
-            console.log(gtGetData.activeGarden.tasks);
-        });
-        
-        
     }).directive('areas', function () {
         return {
             restrict: 'E',
@@ -362,7 +366,42 @@ window.greenthumb = (function () {
                 data: '='
             },
             templateUrl: 'partials/calendar-row.html'
-           };
+        };
+    });
+     
+
+    greenThumb.config(['$routeProvider', function ($routeProvider) {
+            $routeProvider.
+                    when('/', {
+                        templateUrl: 'partials/home.html',
+                        controller: 'AddOrderController'
+                    }).
+                    when('/about', {
+                        templateUrl: 'partials/about.html',
+                        controller: 'ShowOrdersController'
+                    }).
+                    when('/contact', {
+                        templateUrl: 'partials/contact.html',
+                        controller: 'ShowOrdersController'
+                    }).
+                    when('/garden', {
+                        templateUrl: 'partials/garden.html',
+                        controller: 'gtGarden'
+                    }).
+                    otherwise({
+                        //redirectTo: '/home'
+                        templateUrl: 'partials/home.html'
+                    });
+        }]);
+
+
+    greenThumb.controller('AddOrderController', function ($scope) {
+        $scope.message = 'This is Add new order screen';
+    });
+
+
+    greenThumb.controller('ShowOrdersController', function ($scope) {
+        $scope.message = 'This is Show orders screen';
     });
 
    
