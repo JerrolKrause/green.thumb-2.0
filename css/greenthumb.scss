@@ -120,13 +120,16 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 #today{position:relative;top:-2px;}
 
 #gt-header{
-    background-color:#1e1f22;padding-left:20px;padding-bottom:10px;border-radius: 0px;border:0px;
-    #logo{font-size: 36px;margin-top: 20px;margin-bottom: 10px;}
-    #logo{color:$brown-mid;margin-bottom:0px;}
-    #logo .green{color:$green-mid;}
-    #logo .white{color:#fff;}
-    p{margin:0px;color:#fff;font-family: "BPreplay", sans-serif;position: relative;top: -8px;left: 25px;margin-bottom: -5px;display:inline;}
+    background-color:#1e1f22;padding-left:20px;padding-bottom:10px;border-radius: 0px;border:0px;margin-bottom:0px;
+    #logo{
+        font-family: "BPreplay", sans-serif;font-size: 36px;margin-top: 20px;margin-bottom: 10px;display:block;
+        .green{color:$green-mid!important;}
+        .white{color:#fff!important;}
+        &:hover{color:$orange-mid;text-decoration: none;}
+    }
+    p{margin:0px;color:#fff;font-family: "BPreplay", sans-serif;position: relative;top: -20px;left: 25px;margin-bottom: -5px;display:inline;}
 }
+
 
 #gt-container{
     font-size:0.9em;
@@ -142,7 +145,6 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 #gt-schedule{
     border-top:1px solid $border-color;padding-top:20px;
     h3, .tabs{border-bottom:1px solid $border-color}
-    
 }
 
 #dropcal{border-radius: 0px 5px 5px 0px;position:relative;left:-4px;padding:0px;padding-left: 10px;padding-right: 10px;height:auto;font-size:30px;top: 6px;}
@@ -162,8 +164,7 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 
 #gt-areas{position:relative;clear:both;}       
     #gt-today{position:absolute;left: 0px;right: 0px;top: 0px;bottom: 0px;}    
-      #gt-today .col-lg-9{height: 100%;}  
-      #gt-today2{height:100%;position: relative;}
+      #gt-today .tall{height: 100%;position: relative;}  
         #gt-main-line{background-color:#f00;position: absolute;width: 1px;height: 100%;}
         #gt-today-line{background-color:#007ba4;position: absolute;width: 1px;height: 100%;}
         #gt-frost-spring{position: absolute;left:0px;height: 100%;background-color:#00aeef;opacity:0.1;}
@@ -238,20 +239,23 @@ input.calendar{border-radius: 5px 0px 0px 5px;}
 @media (max-width: 767px) {
     h1{font-size:30px;}
     h2{font-size: 24px;}
-    h3{font-size: 18px;}
+    h3{font-size: 18px;margin-top:0px;}
 }
 
 
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-
+    .gt-produce span{font-size:10px;}
 }
+
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-
+    .gt-produce span{font-size:14px;}
 }
+
+
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {

@@ -7,11 +7,11 @@ window.greenthumb = (function () {
     var greenThumb = angular.module('gtApp', ['ngRoute']);     //Angular app
 
     greenThumb.factory("gtGetData", function ($http, $rootScope) {
-        console.log("gtGetData");
+
         var data = {
-            params              : {                         //Holds application parameters
-                dates          : (function(){               //Generates the main dates used by the app
-                    var today = moment();
+            params                  : {                         //Holds application parameters
+                dates               : (function(){               //Generates the main dates used by the app
+                    var today       = moment();
                     var obj = {
                         main        : today.clone(),        //This is the user adjustable date
                         main_pos    : Math.round((((today.format("M") - 1) * 8.333) + ((today.format("D") / today.daysInMonth()) * 8.333)) * 10) / 10,
@@ -170,6 +170,9 @@ window.greenthumb = (function () {
                     self.img = produce.id;
                 }
                 
+                self.label_short = self.label.charAt(0) + self.label.charAt(1);
+               
+                
                 //Figure out this produce items set dates
                 var plantMe = moment().set('month', produce.plantDate.month).set('date', produce.plantDate.date);
                 self.dates = {
@@ -260,20 +263,17 @@ window.greenthumb = (function () {
                     }
                     
                     data.activeGarden.tasks[value.format("YYYYMMDD")].items.push(str);
-                    //console.log(obj);
-                    
                 });
             }
         };//end create
        
        
         data.load = function (url) {
-            console.log('data.load')
             //Fetch JSON object of garden to use
             //This call will be replaced by a CMS when that component is ready
             $http({
-                method: 'GET',
-                url: url
+                method  : 'GET',
+                url     : url
             }).then(function ($response) {
                 //Create a new instance of garden
                 var garden = new data.create.garden($response.data[0]);
@@ -283,8 +283,6 @@ window.greenthumb = (function () {
             });
         };
        
-        
-        
         return data;
     });
     
@@ -307,14 +305,13 @@ window.greenthumb = (function () {
     
     
     greenThumb.controller('gtGarden', function ($scope, gtGetData) {
-        console.log('gtGarden')
+        
         
         gtGetData.load('js/model.js');
         
         
         
         $scope.$on('dataPassed', function () {
-            console.log('dataPassed in gtGarden');
             $scope.garden = gtGetData.activeGarden.areas;
             $scope.label = gtGetData.activeGarden.label;
             $scope.frost_spring = gtGetData.activeGarden.frost_spring.position;
