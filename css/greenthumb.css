@@ -178,6 +178,8 @@ input[type="checkbox"] {
     background-position: 0px -1200px; }
   .gt-produce2.bell_pepper {
     background-position: 0px -1300px; }
+  .gt-produce2.spinach {
+    background-position: 0px -1400px; }
 
 #today {
   position: relative;
@@ -386,6 +388,8 @@ input[type="checkbox"] {
     background-position: 0px -600px; }
   .gt-produce.bell_pepper {
     background-position: 0px -650px; }
+  .gt-produce.spinach {
+    background-position: 0px -700px; }
   .gt-produce .inline {
     display: inline !important; }
 
@@ -394,6 +398,16 @@ input[type="checkbox"] {
   .gt-area-item img {
     margin-right: 10px;
     float: left; }
+
+.gt-details {
+  float: right;
+  padding-top: 6px;
+  opacity: 0.4; }
+  .gt-details:hover {
+    text-decoration: none; }
+
+.gt-produce:hover .gt-details {
+  opacity: 1; }
 
 /*Calendar Styling*/
 #gt-cal-header {

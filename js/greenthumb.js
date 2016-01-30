@@ -173,9 +173,9 @@ window.greenthumb = (function () {
                     self.img = produce.id;
                 }
                 
+                self.id = produce.id;
                 self.label_short = self.label.charAt(0) + self.label.charAt(1);
-               
-                
+                self.numPlants = produce.numPlants;
                 //Figure out this produce items set dates
                 var plantMe = moment().set('month', produce.plantDate.month).set('date', produce.plantDate.date);
                 
@@ -254,8 +254,8 @@ window.greenthumb = (function () {
                             break;
                     }
                     
-                    if(produce.plantCount){
-                        str += produce.plantCount + ' ';
+                    if(produce.numPlants){
+                        str += produce.numPlants + ' ';
                     }
                     
                     str +=  produce.label + ' ';
@@ -317,13 +317,15 @@ window.greenthumb = (function () {
     
     greenThumb.controller('gtGarden', function ($scope, gtGetData, $routeParams) {
         $scope.gardenID = $routeParams.gardenID;
-        console.log($scope.gardenID);
         
         if($scope.gardenID !== 'mine'){
             gtGetData.load('js/'+$scope.gardenID+'.js');
         };
         
         
+        $scope.gtDetails = function(plantID){
+          console.log(plantID);
+        };
         
         
         
@@ -377,7 +379,8 @@ window.greenthumb = (function () {
             scope: {
                 data: '='
             },
-            templateUrl: 'partials/calendar-row.html'
+            templateUrl: 'partials/calendar-row.html',
+            controller: 'gtGarden'
         };
     });
      
@@ -389,16 +392,13 @@ window.greenthumb = (function () {
     greenThumb.config(['$routeProvider', function ($routeProvider) {
             $routeProvider.
                     when('/', {
-                        templateUrl: 'partials/home.html',
-                        controller: 'AddOrderController'
+                        templateUrl: 'partials/home.html'
                     }).
                     when('/about/', {
-                        templateUrl: 'partials/about.html',
-                        controller: 'ShowOrdersController'
+                        templateUrl: 'partials/about.html'
                     }).
                     when('/contact/', {
-                        templateUrl: 'partials/contact.html',
-                        controller: 'ShowOrdersController'
+                        templateUrl: 'partials/contact.html'
                     }).
                     when('/garden/:gardenID/', {
                         templateUrl: 'partials/garden.html'

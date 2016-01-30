@@ -115,7 +115,9 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
     &.swiss_chard{      @include sprite-vertical(10,100)}
     &.tomato{           @include sprite-vertical(11,100)}
     &.bell_pepper{      @include sprite-vertical(12,100)} 
+    &.spinach{          @include sprite-vertical(13,100)} 
 }
+
 
 #today{position:relative;top:-2px;}
 
@@ -200,6 +202,7 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
             &.swiss_chard{          background-position:0px -550px;}
             &.tomato{               background-position:0px -600px;}
             &.bell_pepper{          background-position:0px -650px;} 
+            &.spinach{              background-position:0px -700px;} 
             .inline {display:inline!important;}
         }
         
@@ -207,7 +210,15 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
             margin-bottom:1px;
             img{margin-right:10px;float:left;}
         }
-
+        
+        .gt-details{
+            float:right;padding-top:6px;opacity:0.4;
+            &:hover{text-decoration:none;}
+        }
+        .gt-produce:hover .gt-details{opacity:1;}
+        
+        
+        
 /*Calendar Styling*/
 #gt-cal-header{padding-bottom: 5px!important;}
 input.calendar{border-radius: 5px 0px 0px 5px;}

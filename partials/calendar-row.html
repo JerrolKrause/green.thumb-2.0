@@ -16,12 +16,15 @@
          <div class="col-md-3 col-sm-2 col-xs-2">
             <div class="gt-produce {{produce2.img}}">
                 <div class="inline">
+                     <a class="glyphicon glyphicon-search gt-details" data-tooltip href="" uib-tooltip="View this produce's information" tooltip-placement="top" ng-click="gtDetails(produce2)"></a>
                     <!-- 
                     <span class="visible-xs  visible-sm">{{produce2.label_short}}</span>
                     -->
                     <span class="visible-sm visible-md">{{produce2.label}} </span>
                     <span class="visible-lg">{{produce2.label}} {{produce2.label_parent}}</span>
                     <span class="visible-lg" ng-if="produce2.plantCount"></span>
+                   
+                   
                     <!-- 
                     <a class="fi fi-x gt-edit gt-delete has-tip" data-tooltip href="#" uib-tooltip="Delete this produce item" tooltip-placement="top" ng-click="gtEdit()"></a>
                     <a class="fi fi-widget gt-edit has-tip" data-tooltip href="#" uib-tooltip="Edit this produce item" tooltip-placement="top" data-reveal-id="gt-modal-edit" ng-click="gtEdit({label : produce2.label, update : false})"></a>

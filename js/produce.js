@@ -143,8 +143,26 @@ var gtProduce = {
         vertical: false,
         rowsPer: 1
     },
+    spinach: {
+        label           : "Spinach",
+        startType       : 'Either',
+        hardiness       : 'Hardy',
+        spacing         : 6,
+        rowsPerBed      : 2,
+        seedDepth       : .25,
+        yield           : 46,
+        yieldType       : 'lbs',
+        //numPlants       : 41,
+        plantHeight     : 8,
+        plantInside     : -7,
+        plantOutside    : -4,
+        maturity        : 45,
+        harvest         : 4,
+        vertical        : false,
+        seedling        : 3
+    },
     sweet_potato: {
-        label: "Sweet Potato",
+        label           : "Sweet Potato",
         startType       : 'Slip',
         hardiness       : 'Frost-Intolerant',
         spacing         : 12,
