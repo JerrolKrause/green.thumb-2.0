@@ -72,7 +72,7 @@ var gtProduce = {
         label: "Lettuce",
         maturity: 55,
         seedling: 3,
-        harvest: 2,
+        harvest: 4,
         spacing: 12,
         vertical: false,
         rowsPerBed: 2

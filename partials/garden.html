@@ -1,5 +1,10 @@
-<div id="gtGarden">
+<div id="gtGarden" ng-controller="gtGarden">
 
+    <h1>
+        <span class="glyphicon glyphicon-picture"></span>
+        <span ng-bind="label"></span>
+    </h1>
+             
     <div class="row">
         <div class="col-md-4">
             <h2><span class="glyphicon glyphicon-ok"></span><span ng-bind="datetasks"></span>Today's Tasks</h2>
@@ -66,7 +71,7 @@
                     <span class="leg-seedling rounded-5">Seedling</span>
                     <span class="leg-growing">Growing</span>
                     <span class="leg-harvest">Harvest</span>
-                    <span class="leg-frost">Frost</span>
+                    <span class="leg-frost">Frost Risk</span>
                 </div>
             </div>
 

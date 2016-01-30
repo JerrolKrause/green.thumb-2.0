@@ -26,7 +26,7 @@ window.greenthumb = (function () {
             produce                 : window.gtProduce      //Holds produce content
         };
         
-        //data.params.dates.main = moment().set({year: 2016, month: 2, date: 1, hours: 0});
+        //data.params.dates.main = moment().set({year: 2016, month: 3, date: 1, hours: 0});
        
         //Create new instances
         data.create = {
@@ -38,9 +38,12 @@ window.greenthumb = (function () {
              * @returns {undefined}
              */
             garden: function (garden) {
+                console.log(garden);
                 var self            = this;
                 //Load this garden's attributes
                 self.label          = garden.label;
+                self.plantOnSat     = garden.options.plantOnSat;
+                self.capHarvest     = garden.options.capHarvest;
                 
                 //Check if the frost_spring date is present and has been set
                 if (angular.isDefined(garden.options.frost_spring) && angular.isDefined(garden.options.frost_spring.month)) {
@@ -175,6 +178,13 @@ window.greenthumb = (function () {
                 
                 //Figure out this produce items set dates
                 var plantMe = moment().set('month', produce.plantDate.month).set('date', produce.plantDate.date);
+                
+                //If the plant on sat flag has been set, round the plant date to the nearest Saturday
+                if(data.activeGarden.plantOnSat === true){
+                    plantMe.day("Saturday");
+                }
+                
+                
                 self.dates = {
                     seedlings           : plantMe.clone().subtract(self.seedling, 'weeks'),
                     plant               : plantMe,
@@ -292,8 +302,9 @@ window.greenthumb = (function () {
      */
     greenThumb.controller('gtMeta', function ($scope, gtGetData) {
         $scope.$on('dataPassed', function () {
-            $scope.name = gtGetData.activeGarden.label;
-            $scope.title = gtGetData.activeGarden.label + ' | ' + 'green.thumb';
+            $scope.name     = gtGetData.activeGarden.label;
+            $scope.title    = gtGetData.activeGarden.label + ' | ' + 'green.thumb';
+            
         });
     });
     
@@ -304,10 +315,15 @@ window.greenthumb = (function () {
     
     
     
-    greenThumb.controller('gtGarden', function ($scope, gtGetData) {
+    greenThumb.controller('gtGarden', function ($scope, gtGetData, $routeParams) {
+        $scope.gardenID = $routeParams.gardenID;
+        console.log($scope.gardenID);
+        
+        if($scope.gardenID !== 'mine'){
+            gtGetData.load('js/'+$scope.gardenID+'.js');
+        };
         
         
-        gtGetData.load('js/model.js');
         
         
         
@@ -319,7 +335,6 @@ window.greenthumb = (function () {
 
             $scope.main_pos = gtGetData.params.dates.main_pos;
             $scope.today_pos = gtGetData.params.dates.today_pos;
-
 
             $scope.tasksToday = [];
             $scope.tasksNext = [];
@@ -366,40 +381,36 @@ window.greenthumb = (function () {
         };
     });
      
-
+     
+     
+     /**
+      * Manage URL routing for the single page app
+      */
     greenThumb.config(['$routeProvider', function ($routeProvider) {
             $routeProvider.
                     when('/', {
                         templateUrl: 'partials/home.html',
                         controller: 'AddOrderController'
                     }).
-                    when('/about', {
+                    when('/about/', {
                         templateUrl: 'partials/about.html',
                         controller: 'ShowOrdersController'
                     }).
-                    when('/contact', {
+                    when('/contact/', {
                         templateUrl: 'partials/contact.html',
                         controller: 'ShowOrdersController'
                     }).
-                    when('/garden', {
-                        templateUrl: 'partials/garden.html',
-                        controller: 'gtGarden'
+                    when('/garden/:gardenID/', {
+                        templateUrl: 'partials/garden.html'
+                    }).
+                    when('/garden/', {
+                        templateUrl: 'partials/garden.html'
                     }).
                     otherwise({
                         //redirectTo: '/home'
                         templateUrl: 'partials/home.html'
                     });
         }]);
-
-
-    greenThumb.controller('AddOrderController', function ($scope) {
-        $scope.message = 'This is Add new order screen';
-    });
-
-
-    greenThumb.controller('ShowOrdersController', function ($scope) {
-        $scope.message = 'This is Show orders screen';
-    });
 
    
     return greenThumb;

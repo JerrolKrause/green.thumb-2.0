@@ -120,15 +120,22 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 #today{position:relative;top:-2px;}
 
 #gt-header{
-    background-color:#1e1f22;padding-left:20px;padding-bottom:10px;border-radius: 0px;border:0px;margin-bottom:0px;
+    background-color:#1e1f22;padding-left:20px;padding-bottom:10px;border-radius: 0px;border:0px;margin-bottom:0px;position:relative;
     #logo{
-        font-family: "BPreplay", sans-serif;font-size: 36px;margin-top: 20px;margin-bottom: 10px;display:block;
+        color:$orange-mid;font-family: "BPreplay", sans-serif;font-size: 36px;margin-top: 20px;margin-bottom: 10px;display:block;text-decoration: none!important;
         .green{color:$green-mid!important;}
         .white{color:#fff!important;}
-        &:hover{color:$orange-mid;text-decoration: none;}
+        &:hover, &:active{color:$orange-mid!important;}
     }
     p{margin:0px;color:#fff;font-family: "BPreplay", sans-serif;position: relative;top: -20px;left: 25px;margin-bottom: -5px;display:inline;}
+    
+    #gtViewing{
+        position:absolute;right:20px;bottom:15px;color:#fff;
+        span{color:$green-mid;}
+    }
 }
+
+
 
 
 #gt-container{

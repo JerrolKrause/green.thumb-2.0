@@ -189,20 +189,22 @@ input[type="checkbox"] {
   padding-bottom: 10px;
   border-radius: 0px;
   border: 0px;
-  margin-bottom: 0px; }
+  margin-bottom: 0px;
+  position: relative; }
   #gt-header #logo {
+    color: #aa6c39;
     font-family: "BPreplay", sans-serif;
     font-size: 36px;
     margin-top: 20px;
     margin-bottom: 10px;
-    display: block; }
+    display: block;
+    text-decoration: none !important; }
     #gt-header #logo .green {
       color: #2d882d !important; }
     #gt-header #logo .white {
       color: #fff !important; }
-    #gt-header #logo:hover {
-      color: #aa6c39;
-      text-decoration: none; }
+    #gt-header #logo:hover, #gt-header #logo:active {
+      color: #aa6c39 !important; }
   #gt-header p {
     margin: 0px;
     color: #fff;
@@ -212,6 +214,13 @@ input[type="checkbox"] {
     left: 25px;
     margin-bottom: -5px;
     display: inline; }
+  #gt-header #gtViewing {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    color: #fff; }
+    #gt-header #gtViewing span {
+      color: #2d882d; }
 
 #gt-container {
   font-size: 0.9em; }
