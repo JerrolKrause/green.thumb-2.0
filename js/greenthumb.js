@@ -424,7 +424,7 @@ window.greenthumb = (function () {
             //Loop through the tasks object
             angular.forEach(gtGetData.activeGarden.tasks, function (value) {
                 //Check if the current task object is upcoming 1 month
-                if (value.date.isBetween(gtGetData.params.dates.main.add(1, 'day'), gtGetData.params.dates.main.clone().add(1, 'month'))) {
+                if (value.date.isBetween(gtGetData.params.dates.main.clone().add(1, 'day'), gtGetData.params.dates.main.clone().add(1, 'month'))) {
                     $scope.tasksNext.push(value);
                     //Check if previous task object occurs 1 month prior    
                 } else if (value.date.isBetween(gtGetData.params.dates.main.clone().subtract(1, 'month'), gtGetData.params.dates.main)) {
@@ -463,13 +463,13 @@ window.greenthumb = (function () {
     greenThumb.config(['$routeProvider', function ($routeProvider) {
             $routeProvider.
                     when('/', {
-                        templateUrl: 'partials/home.html'
+                        templateUrl: 'pages/home.html'
                     }).
                     when('/about/', {
-                        templateUrl: 'partials/about.html'
+                        templateUrl: 'pages/about.html'
                     }).
                     when('/contact/', {
-                        templateUrl: 'partials/contact.html'
+                        templateUrl: 'pages/contact.html'
                     }).
                     when('/garden/:gardenID/', {
                         templateUrl: 'partials/garden.html'
@@ -479,7 +479,7 @@ window.greenthumb = (function () {
                     }).
                     otherwise({
                         //redirectTo: '/home'
-                        templateUrl: 'partials/home.html'
+                        templateUrl: 'pages/home.html'
                     });
         }]);
 

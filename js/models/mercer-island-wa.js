@@ -1,5 +1,5 @@
 [{
-        "label": "Mercer Island, WA",
+        "label": "Garden Plan For Mercer Island, WA ",
         "options": {
             "zip"       : 98040,
             "plantOnSat": true,

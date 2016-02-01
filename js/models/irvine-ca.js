@@ -1,5 +1,5 @@
 [{
-        "label": "Irvine, CA",
+        "label": "Garden Plan For Irvine, CA",
         "options": {
             "plantOnSat": true,
             "capHarvest": true,
