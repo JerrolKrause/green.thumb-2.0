@@ -1,13 +1,13 @@
 /*
  * Variables
  */
-@font-face {
-  font-family: 'BPreplay';
-  src: url(../fonts/BPreplay.otf); }
 /*
  * Content
  */
 /* Generic HTML */
+@font-face {
+  font-family: 'BPreplay';
+  src: url(../fonts/BPreplay.otf); }
 body {
   background-color: #fff; }
 
@@ -47,6 +47,10 @@ input[type="checkbox"] {
   position: relative;
   top: 2px; }
 
+input.date {
+  display: inline-block;
+  width: 150px; }
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important; }
 
@@ -75,10 +79,8 @@ table {
 .button, .reveal-modal .button.close-reveal-modal {
   background-color: #aa6c39;
   color: #fff;
-  height: 2.3125rem;
-  margin: 0 0 1rem;
-  padding: .5rem 0.85rem;
-  font-size: 0.9rem;
+  padding: 10px;
+  font-size: 14px;
   margin-bottom: 0px;
   border-radius: 5px;
   position: initial;
@@ -236,10 +238,6 @@ table {
   padding-right: 10px;
   height: auto;
   font-size: 30px; }
-
-#dp1 {
-  display: inline-block;
-  width: 150px; }
 
 #gt-calendar h2 {
   border-top: 1px solid #aa6c39;

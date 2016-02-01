@@ -51,6 +51,8 @@ window.greenthumb = (function () {
                         date: moment().set('month', garden.options.frost_spring.month).set('date', garden.options.frost_spring.date)
                     };
                     self.frost_spring.position = Math.floor(self.frost_spring.date.format('DDD') * 100 / 365 * 10) / 10;
+                } else if(angular.isDefined(garden.options.frost_spring) && garden.options.frost_spring === false){
+                    self.frost_spring = 'No Risk Of Frost';
                 } else {
                     self.frost_spring = 'Not Set';
                 }
@@ -62,6 +64,8 @@ window.greenthumb = (function () {
                         date: moment().set('month', garden.options.frost_fall.month).set('date', garden.options.frost_fall.date)
                     };
                     self.frost_fall.position = Math.floor((365 - self.frost_fall.date.format('DDD')) * 100 / 365 * 10) / 10;
+                } else if (angular.isDefined(garden.options.frost_fall) && garden.options.frost_fall === false) {
+                    self.frost_fall = 'No Risk Of Frost';
                 } else {
                     self.frost_fall = 'Not Set';
                 }
@@ -89,7 +93,7 @@ window.greenthumb = (function () {
                 };
                 
                 //If this garden has areas on load, create them automatically
-                if(garden.areas.length > 0){
+                if(angular.isDefined(garden.areas) && garden.areas.length > 0){
                     angular.forEach(garden.areas, function(value){
                         self.addArea(value);
                     });
@@ -133,7 +137,7 @@ window.greenthumb = (function () {
                 };
                 
                 //If this area has produce on default load, create all the entries
-                if(area.produce.length > 0){
+                if(angular.isDefined(area.produce) && area.produce.length > 0){
                     angular.forEach(area.produce, function(value){
                         self.addProduce(value);
                     });
@@ -176,6 +180,7 @@ window.greenthumb = (function () {
                 self.seedling = parseInt(self.plantOutside) - parseInt(self.plantInside);
                 self.label_short = self.label.charAt(0) + self.label.charAt(1);
                 self.numPlants = produce.numPlants;
+                
                 //Figure out this produce items set dates
                 var plantMe = moment().set('month', produce.plantDate.month).set('date', produce.plantDate.date);
                 
@@ -291,7 +296,8 @@ window.greenthumb = (function () {
                 //Create a new instance of garden
                 var garden = new data.create.garden($response.data[0]);
                 //Add this garden to the gardens array
-                data.gardens.push(garden);
+                //data.gardens.push(garden);
+                console.log(data);
                 $rootScope.$broadcast('dataPassed');
             });
         };
@@ -329,40 +335,6 @@ window.greenthumb = (function () {
     
     
     /**
-     * Manage the filtering/sorting behavior
-     */
-    greenThumb.controller('gtFilter', function ($scope, gtGetData) {
-
-        //Needed by calendar dropdown
-        $scope.open     = function ($event) { $scope.status.opened = true;};
-        $scope.status   = {opened: false};
-        $scope.date     = new Date();
-
-        $scope.$on('dataPassed', function () {
-            //Update the date from the factory
-            //$scope.date = gtGetData.params.dates.main.toDate();
-        });
-
-        /**
-         * When filter sorting params have been adjusted
-         * @param {type} params
-         * @returns {undefined}
-         */
-        $scope.filterSort = function(params){
-            var params = {
-                dates : {
-                    main : moment($scope.date)
-                }
-            };
-            
-            gtGetData.update(params);
-        };
-
-    });
-    
-    
-    
-    /**
      * Manage the garden behavior
      */
     greenThumb.controller('gtGarden', function ($scope, gtGetData, $routeParams) {
@@ -372,7 +344,7 @@ window.greenthumb = (function () {
         
         if($scope.gardenID !== 'mine'){
             gtGetData.load('js/models/'+$scope.gardenID+'.js');
-        };
+        }
         
        
         /*
@@ -393,11 +365,19 @@ window.greenthumb = (function () {
             $scope.taskpanel = pane;
         };
         
+        /**
+        * 
+        * @param {type} id
+        * @returns {undefined}
+        */
+       $scope.step1 = function(id){
         
+           console.log(id);
+       };
+       
         
         $scope.$on('dataPassed', function () {
            
-            
             $scope.garden       = gtGetData.activeGarden.areas;
             $scope.label        = gtGetData.activeGarden.label;
             $scope.frost_spring = gtGetData.activeGarden.frost_spring.position;
@@ -455,6 +435,160 @@ window.greenthumb = (function () {
         };
     });
      
+     
+     
+    /**
+     * Manage the filtering/sorting behavior
+     */
+    greenThumb.controller('gtFilter', function ($scope, gtGetData) {
+
+        //Needed by calendar dropdown
+        $scope.open     = function () { $scope.status.opened = true;};
+        $scope.status   = {opened: false};
+        $scope.date     = new Date();
+
+        $scope.$on('dataPassed', function () {
+            //Update the date from the factory
+            //$scope.date = gtGetData.params.dates.main.toDate();
+        });
+
+        /**
+         * When filter sorting params have been adjusted
+         * @returns {undefined}
+         */
+        $scope.filterSort = function(){
+            var params = {
+                dates : {
+                    main : moment($scope.date)
+                }
+            };
+            
+            gtGetData.update(params);
+        };
+
+    });
+    
+    /**
+     * Manage the produce select component
+     */
+    greenThumb.controller('gtInteractive', function ($scope, $rootScope, gtGetData) {
+        $scope.addProduce       = {};
+        $scope.error            = {};
+        //Needed by calendar dropdown
+        $scope.open             = function () { $scope.status.opened = true;};
+        $scope.status           = {opened: false};
+        $scope.options          = {
+            //date   : new Date()
+        };
+        
+        
+        
+        //Create an array for the produce search tool
+        var produce = [];
+        angular.forEach(gtGetData.produce, function (value, key) {
+            var searchObj = {
+                id      : key,
+                img     : key,
+                label   : value.label
+            };
+
+            if (value.parent) {
+                searchObj.img   = value.parent;
+                searchObj.label = gtGetData.produce[value.parent].label + ', ' + searchObj.label;
+            }
+
+            produce.push(searchObj);
+        });
+        //Now that the produce array has been created, assign it to the type ahead object
+        $scope.produce = produce;
+        
+        
+        //When the produce search tool is changed, either by user action or programatically
+        $scope.$watch('gtSearchTerm', function () {
+            //Make sure the var and property are not undefined
+            if (typeof $scope.gtSearchTerm !== 'undefined' && typeof $scope.gtSearchTerm.id !== 'undefined') {
+                $scope.error.plant = false;
+                //Pass to step 1
+                $scope.step2($scope.gtSearchTerm.id);
+            }
+        });
+        
+       
+       
+       
+        /**
+         * Create an object for the search tool to use
+         * @param {type} id - The id of the produce item
+         * @returns {undefined}
+         */
+        $scope.step2 = function(id){
+            //Add the ID to the add produce object
+            $scope.addProduce.id = id;
+            
+            //Create the dropdown list needed by the type-ahead plugin
+            //This is used for the produce search tool
+            var searchProduce;
+            if (gtGetData.produce[id].parent) {
+                searchProduce = gtGetData.produce[gtGetData.produce[id].parent];
+                angular.merge(searchProduce, gtGetData.produce[id]);
+            } else {
+                searchProduce = gtGetData.produce[id];
+            }
+            //Send the object to the search tool
+            $scope.selection = searchProduce;
+            
+            
+            $scope.dateRange = {};
+            
+            //Calcuate the earliest outdoor plant date
+            if (moment.isMoment(gtGetData.activeGarden.frost_spring.date)) {
+                $scope.dateRange.frost_spring   = gtGetData.activeGarden.frost_spring.date.format('MMMM Do');
+                $scope.dateRange.warm_earliest  = gtGetData.activeGarden.frost_spring.date.clone().add(searchProduce.plantOutside, 'weeks').add(4, 'weeks').format('MMMM Do');
+                $scope.dateRange.cold_earliest  = gtGetData.activeGarden.frost_spring.date.clone().add(searchProduce.plantOutside, 'weeks').format('MMMM Do');
+            } else if(gtGetData.activeGarden.frost_spring === 'No Risk Of Frost'){
+                $scope.dateRange.frost_spring   = 'No Risk Of Frost';
+            } else {
+                $scope.dateRange.frost_spring   = 'Not Set';
+            }
+            
+            //Calculate the latest outdoor plant date
+            if (moment.isMoment(gtGetData.activeGarden.frost_fall.date)) {
+                $scope.dateRange.frost_fall     = gtGetData.activeGarden.frost_fall.date.format('MMMM Do');
+                $scope.dateRange.warm_latest    = gtGetData.activeGarden.frost_fall.date.clone().subtract(searchProduce.maturity, 'day').subtract(4, 'weeks').format('MMMM Do');
+                $scope.dateRange.cold_latest    = gtGetData.activeGarden.frost_fall.date.clone().subtract(searchProduce.maturity, 'day').format('MMMM Do');
+            } else if(gtGetData.activeGarden.frost_fall === 'No Risk Of Frost'){
+                $scope.dateRange.frost_fall     = 'No Risk Of Frost';
+            } else {
+                $scope.dateRange.frost_fall     = 'Not Set';
+            }
+            
+            //Get the growing season length
+            if(moment.isMoment(gtGetData.activeGarden.frost_spring.date) && moment.isMoment(gtGetData.activeGarden.frost_fall.date)){
+                 $scope.dateRange.growingseason = gtGetData.activeGarden.frost_fall.date.format('DDD') - gtGetData.activeGarden.frost_spring.date.format('DDD');
+            }
+           
+            
+            
+        };
+        
+        /**
+         * Adds the produce to the correct array
+         * @returns {undefined}
+         */
+        $scope.step3 = function(){
+            
+            $scope.addProduce.plantDate = {
+                month       : parseInt(moment($scope.options.date).format('M') - 1),
+                date        : parseInt(moment($scope.options.date).format('D') - 1)
+            };
+            
+            gtGetData.activeGarden.areas[0].addProduce($scope.addProduce);
+            $rootScope.$broadcast('dataPassed');
+            
+        };
+        
+        
+    });
      
      
      /**
