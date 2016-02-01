@@ -33,7 +33,7 @@
                              is-open="status.opened"/>
             </div>
             <div class="pull-left">
-                <a type="submit" href="" class="glyphicon glyphicon-calendar"  id="dropcal" value="Cal" ng-click="open($event)"></a>
+                <a type="submit" href="" class="glyphicon glyphicon-calendar dropcal button" value="Cal" ng-click="open($event)"></a>
             </div>
            
             
@@ -117,157 +117,170 @@
     </div>
    
     
+    
+    
+    
+    
+
+
     <!-- Product Select Modal -->
-    <div id="gtProduceSelect" style="padding:20px;width:700px;" ng-controller="gtInteractive" class="hide">
+    <div class="modal fade" id="gtModalAdd" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
 
-        <div class="row">
-            <h2><span class="fi fi-plus" ></span>Add Produce</h2>
-            <div class="large-6 columns">
-                <script type="text/ng-template" id="customTemplate.html">
-                    <a class="gtSearchOption">
-                    <div class="gt-produce {{match.model.img}}"></div>
-                    <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
-                    </a>
-                </script>
-                <div id="gtProduceSearch">
-                    <p>
-                        <input type="text" 
-                               ng-model="gtSearchTerm" 
-                               placeholder="Enter Search Term" 
-                               uib-typeahead="item as item.label for item in produce | filter:{label:$viewValue}" 
-                               typeahead-template-url="customTemplate.html" 
-                               class="form-control" 
-                               typeahead-show-hint="true" 
-                               typeahead-min-length="1"/>
-                    </p>
-                    <div class="error" ng-if="error.plant">Please select a plant</div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2><span class="fi fi-plus" ></span>Add Produce</h2>
                 </div>
-            </div>
-            <div class="large-6 columns hide">
-                <h3>Select</h3>
-                <a href="" class="gt-produce2 {{key}}" ng-repeat="(key,value) in produce" ng-if="!value.parent"></a>
+
+                <div class="modal-body" style="padding:20px;">
+                    <div id="gtProduceSelect" ng-controller="gtInteractive">
+
+                        <script type="text/ng-template" id="customTemplate.html">
+                            <a class="gtSearchOption">
+                            <div class="gt-produce {{match.model.img}}"></div>
+                            <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+                            </a>
+                        </script>
+                        <div id="gtProduceSearch">
+                            <p>
+                                <input type="text" 
+                                       ng-model="gtSearchTerm" 
+                                       placeholder="Enter Search Term" 
+                                       uib-typeahead="item as item.label for item in produce | filter:{label:$viewValue}" 
+                                       typeahead-template-url="customTemplate.html" 
+                                       class="form-control" 
+                                       typeahead-show-hint="true" 
+                                       typeahead-min-length="1"/>
+                            </p>
+                            <div class="error" ng-if="error.plant">Please select a plant</div>
+                        </div>
+
+                            <div ng-if="selection.label">
+                                <div class="row">
+                                    <hr/>
+                                    <div class="col-md-6">
+                                        <h3>Pick Outdoor Plant Date</h3>
+                                        <div class="clearfix">
+                                            <div class="pull-left">
+                                                Date : <input type="text" class="form-control date"
+                                                              uib-datepicker-popup="MM/dd/yyyy" 
+                                                              ng-model="options.date"
+                                                              is-open="status.opened"/>
+                                            </div>
+                                            <div class="pull-left">
+                                                <a type="submit" href="" class="glyphicon glyphicon-calendar dropcal button" value="Cal" ng-click="open($event)"></a>
+                                                <div class="error" ng-if="error.date2">Please select an outdoor plant date</div>
+                                            </div>
+                                        </div>
+
+
+                                        <h4>Recommended Plant Dates:</h4>
+                                        <table ng-if="dateRange.growingseason">
+                                            <th>Without Cold Weather Gardening Techniques</th>
+                                            <tr>
+                                                <td>Plant between <strong ng-bind="dateRange.warm_earliest"></strong> and <strong ng-bind="dateRange.warm_latest "></strong></td>
+                                            </tr>
+
+                                            <th>With Cold Weather Gardening Techniques</th>
+                                            <tr>
+                                                <td>Plant between <strong ng-bind="dateRange.cold_earliest"></strong> and <strong ng-bind="dateRange.cold_latest "></strong></td>
+                                            </tr>
+
+                                        </table>
+
+                                        <div ng-if="dateRange.frost_spring == 'No Risk Of Frost' && dateRange.frost_spring !='Not Set' ">
+                                            <p>No risk of frost. Lucky you.</p>
+                                        </div>
+
+                                        <div ng-if="dateRange.frost_spring == 'Not Set' ">
+                                            <p>First/last frost dates not specified. Please add those in the options menu to get recommendations for planting dates.</p>
+                                        </div>
+
+
+                                        <table class="hide">
+                                            <tr>
+                                                <td style="width: 160px;">Average Last Day Of Frost</td>
+                                                <td><strong ng-bind="daterange.frost_spring"></strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Average First Day Of Frost</td>
+                                                <td><strong ng-bind="daterange.frost_fall"></strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Growing Season</td>
+                                                <td><strong ng-bind="daterange.growingseason + ' days'"></strong></td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <h3>Plant Details <a href="" style="font-size:11px;">Edit/Customize</a></h3>
+                                        <table>
+                                            <tr ng-if="selection.label">
+                                                <td style="width:50%;">Name / Variety</td>
+                                                <td ng-bind="selection.label"></td>
+                                            </tr>
+                                            <tr ng-if="selection.maturity">
+                                                <td style="width:50%;">Days To Maturity</td>
+                                                <td ng-bind="selection.maturity"></td>
+                                            </tr>
+                                            <tr ng-if="selection.harvest">
+                                                <td>Harvest Length</td>
+                                                <td ng-bind="selection.harvest + ' Week/s'"></td>
+                                            </tr>
+                                            <tr ng-if="selection.startType">
+                                                <td>Direct Sow / Seedlings</td>
+                                                <td ng-bind="selection.startType"></td>
+                                            </tr>
+
+                                            <tr ng-if="selection.spacing">
+                                                <td>Spacing</td>
+                                                <td  ng-bind="selection.spacing + ' Inches'"></td>
+                                            </tr>
+                                            <tr ng-if="selection.rowsPerBed">
+                                                <td>Rows Per Bed</td>
+                                                <td ng-bind="selection.rowsPerBed"></td>
+                                            </tr>
+                                            <tr ng-if="selection.vertical">
+                                                <td>Grow Vertically / Trellis </td>
+                                                <td ng-bind="selection.vertical ? 'Yes'  : 'No'"></td>
+                                            </tr>
+                                            <tr ng-if="selection.yield">
+                                                <td>Estimated Yield<br/> per 1.5' x 30' bed</td>
+                                                <td ng-bind="selection.yield + ' ' + selection.yieldType"></td>
+                                            </tr>
+                                            <tr ng-if="selection.hardiness">
+                                                <td>Hardiness</td>
+                                                <td>
+                                                    <abbr title="Will Not Survive Frost"    ng-if="selection.hardiness == 'Frost-Intolerant' ">Frost-Intolerant</abbr>
+                                                    <abbr title="Protect From Frost"        ng-if="selection.hardiness == 'Frost-Sensitive' ">Frost-Sensitive</abbr>
+                                                    <abbr title="Handle A Little Frost"     ng-if="selection.hardiness == 'Moderately-Hardy' ">Moderately-Hardy</abbr>
+                                                    <abbr title="Frost Tolerant"            ng-if="selection.hardiness == 'Hardy' ">Hardy</abbr>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <hr/>
+                                        <a href="" class="button" ng-click="step3()" ng-class="{ 'disabled': !error.date}">Add Produce</a>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <hr/>
-
-
-        <div class="row" ng-if="selection">
-            <div class="col-md-6">
-                <h3>Pick Outdoor Plant Date</h3>
-                <div class="clearfix">
-                    <div class="pull-left">
-                        Date : <input type="text" class="form-control date"
-                                      uib-datepicker-popup="MM/dd/yyyy" 
-                                      ng-model="options.date"
-                                      is-open="status.opened"/>
-                    </div>
-                    <div class="pull-left">
-                        <a type="submit" href="" class="glyphicon glyphicon-calendar"  id="dropcal" value="Cal" ng-click="open($event)"></a>
-                        <div class="error" ng-if="error.date">Please select an outdoor plant date</div>
-                    </div>
-                </div>
-
-                
-                <h4>Recommended Plant Dates:</h4>
-                <table ng-if="dateRange.growingseason">
-                    <th>Without Cold Weather Gardening Techniques</th>
-                    <tr>
-                        <td>Plant between <strong ng-bind="dateRange.warm_earliest"></strong> and <strong ng-bind="dateRange.warm_latest "></strong></td>
-                    </tr>
-                   
-                    <th>With Cold Weather Gardening Techniques</th>
-                     <tr>
-                        <td>Plant between <strong ng-bind="dateRange.cold_earliest"></strong> and <strong ng-bind="dateRange.cold_latest "></strong></td>
-                    </tr>
-                  
-                </table>
-                
-                <div ng-if="dateRange.frost_spring == 'No Risk Of Frost' && dateRange.frost_spring !='Not Set' ">
-                    <p>No risk of frost. Lucky you.</p>
-                </div>
-
-                <div ng-if="dateRange.frost_spring == 'Not Set' ">
-                    <p>First/last frost dates not specified. Please add those in the options menu to get recommendations for planting dates.</p>
-                </div>
-
-                
-                <table class="hide">
-                    <tr>
-                        <td style="width: 160px;">Average Last Day Of Frost</td>
-                        <td><strong ng-bind="daterange.frost_spring"></strong></td>
-                    </tr>
-                    <tr>
-                        <td>Average First Day Of Frost</td>
-                        <td><strong ng-bind="daterange.frost_fall"></strong></td>
-                    </tr>
-                    <tr>
-                        <td>Growing Season</td>
-                        <td><strong ng-bind="daterange.growingseason + ' days'"></strong></td>
-                    </tr>
-                </table>
-
-            </div>
-
-            <div class="col-md-6">
-
-                <h3>Plant Details <a href="" style="font-size:11px;">Edit/Customize</a></h3>
-                <table>
-                    <tr ng-if="selection.label">
-                        <td style="width:50%;">Name / Variety</td>
-                        <td ng-bind="selection.label"></td>
-                    </tr>
-                    <tr ng-if="selection.maturity">
-                        <td style="width:50%;">Days To Maturity</td>
-                        <td ng-bind="selection.maturity"></td>
-                    </tr>
-                    <tr ng-if="selection.harvest">
-                        <td>Harvest Length</td>
-                        <td ng-bind="selection.harvest + ' Week/s'"></td>
-                    </tr>
-                    <tr ng-if="selection.startType">
-                        <td>Direct Sow / Seedlings</td>
-                        <td ng-bind="selection.startType"></td>
-                    </tr>
-
-                    <tr ng-if="selection.spacing">
-                        <td>Spacing</td>
-                        <td  ng-bind="selection.spacing + ' Inches'"></td>
-                    </tr>
-                    <tr ng-if="selection.rowsPerBed">
-                        <td>Rows Per Bed</td>
-                        <td ng-bind="selection.rowsPerBed"></td>
-                    </tr>
-                    <tr ng-if="selection.vertical">
-                        <td>Grow Vertically / Trellis </td>
-                        <td ng-bind="selection.vertical ? 'Yes'  : 'No'"></td>
-                    </tr>
-                    <tr ng-if="selection.yield">
-                        <td>Estimated Yield<br/> per 1.5' x 30' bed</td>
-                        <td ng-bind="selection.yield + ' ' + selection.yieldType"></td>
-                    </tr>
-                    <tr ng-if="selection.hardiness">
-                        <td>Hardiness</td>
-                        <td>
-                            <abbr title="Will Not Survive Frost"    ng-if="selection.hardiness == 'Frost-Intolerant' ">Frost-Intolerant</abbr>
-                            <abbr title="Protect From Frost"        ng-if="selection.hardiness == 'Frost-Sensitive' ">Frost-Sensitive</abbr>
-                            <abbr title="Handle A Little Frost"     ng-if="selection.hardiness == 'Moderately-Hardy' ">Moderately-Hardy</abbr>
-                            <abbr title="Frost Tolerant"            ng-if="selection.hardiness == 'Hardy' ">Hardy</abbr>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <hr/>
-        <a href="" class="button" ng-click="step3()">Add Produce</a>
-
     </div>
     <!-- End Product Select Modal -->
     
     
-    
     <!-- Info Modal Window -->
-    <div class="modal fade" id="gtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="gtModalDetails" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 
@@ -378,7 +391,8 @@
                 </div>
             </div>
         </div>
-    </div><!-- End info modal window -->
+    </div>
+    <!-- End info modal window -->
     
     
 </div>

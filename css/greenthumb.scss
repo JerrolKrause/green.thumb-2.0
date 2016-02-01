@@ -46,7 +46,7 @@ a:hover{color:$link-color-hover;text-decoration:underline;}
 label{color:$link-color;cursor:pointer;margin-right:0px!important;font-weight:normal;margin-left:10px;}
     label:hover{color:$link-color-hover;text-decoration:underline;}
 input[type="checkbox"]{cursor:pointer;border-color:$link-color;position: relative;top: 2px;}
-    input.date{display:inline-block;width: 150px;}
+    input.date{display:inline-block;width: 150px;border-radius:5px 0px 0px 5px;}
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {display: none !important;}
 table{
     border: 1px solid #DDD;width:100%;margin-bottom: 1.25rem;
@@ -61,12 +61,18 @@ table{
 
 
 
+
+
 /* Universal Styles */
 .button, .reveal-modal .button.close-reveal-modal{
     @include link-color-dk();padding: 10px;font-size: 14px;margin-bottom:0px;border-radius: 5px;position:initial;font-weight:initial;line-height:initial;
     &:hover, button:hover, &.close-reveal-modal:hover{color:#fff!important;background-color:$orange-dk;text-decoration:none!important;}
     &.reverse{@include link-color-lt();border:1px solid $link-color-hover;}
     &.reverse:hover{@include link-color-dk();}
+    &.sm{padding:5px;position: relative;top: -2px;}
+    &.fade{opacity: 0.2;}
+    &.fade:hover{opacity: 1;}
+    &.disabled{cursor:not-allowed;background-color:#8A8A8A;}
 }
 .error{color:#f00;font-size:12px;}
 .glyphicon{margin-right: 10px;}
@@ -74,8 +80,11 @@ table{
 
 .tooltip{
     border-radius:5px;padding:5px 10px;display:inline!important;box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.5);background-color: #1e1f22!important;width:250px;
+    .tooltip-inner{background:none;width:100%!important;max-width:250px;}
     &.top{margin-top:-10px;}
 }
+
+
 
 /* Modal Window Styling */
 .modal-header {
@@ -146,7 +155,7 @@ table{
     h3, .tabs{border-bottom:1px solid $border-color}
 }
 
-#dropcal{display:inline-block;border-radius: 0px 5px 5px 0px;padding:0px;padding-left: 10px;padding-right: 10px;height:auto;font-size:30px;}
+.dropcal{display:inline-block;border-radius: 0px 5px 5px 0px;padding:0px;padding-left: 10px;padding-right: 10px;height:auto;font-size:20px;line-height: 34px;}
 
 
 
@@ -203,7 +212,7 @@ table{
         }
         
         .gt-details{
-            float:right;padding-top:6px;opacity:0.4;
+            float:right;padding-top:6px;opacity:0.2;
             &:hover{text-decoration:none;}
         }
         .gt-produce:hover .gt-details{opacity:1;}

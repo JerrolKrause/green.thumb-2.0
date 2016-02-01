@@ -353,6 +353,7 @@ window.greenthumb = (function () {
          * @returns {undefined}
          */
         $scope.gtDetails = function(produce){
+            console.log(produce)
            $scope.gtSelection = produce;
         };
         
@@ -468,19 +469,21 @@ window.greenthumb = (function () {
 
     });
     
+    
     /**
      * Manage the produce select component
      */
     greenThumb.controller('gtInteractive', function ($scope, $rootScope, gtGetData) {
         $scope.addProduce       = {};
-        $scope.error            = {};
+        $scope.error            = {
+            date                : false
+        };
         //Needed by calendar dropdown
         $scope.open             = function () { $scope.status.opened = true;};
         $scope.status           = {opened: false};
         $scope.options          = {
             //date   : new Date()
         };
-        
         
         
         //Create an array for the produce search tool
@@ -513,7 +516,17 @@ window.greenthumb = (function () {
             }
         });
         
-       
+        //When the produce plant date calendar feature is changed, IE a date was added
+        $scope.$watch('options.date', function () {
+            //Make sure the var and property are not undefined
+            if (typeof $scope.options.date !== 'undefined' && typeof $scope.options.date !== '' && typeof $scope.options.date !== null) {
+                //Pass to step 1
+                
+                $scope.error.date = true;
+            } else {
+                $scope.error.date = false;
+            }
+        });
        
        
         /**
@@ -567,9 +580,8 @@ window.greenthumb = (function () {
                  $scope.dateRange.growingseason = gtGetData.activeGarden.frost_fall.date.format('DDD') - gtGetData.activeGarden.frost_spring.date.format('DDD');
             }
            
-            
-            
         };
+        
         
         /**
          * Adds the produce to the correct array
@@ -577,18 +589,29 @@ window.greenthumb = (function () {
          */
         $scope.step3 = function(){
             
+            if($scope.error.date === false){
+                return false;
+            }
+            
             $scope.addProduce.plantDate = {
                 month       : parseInt(moment($scope.options.date).format('M') - 1),
                 date        : parseInt(moment($scope.options.date).format('D') - 1)
             };
             
+            //NEED TO GET THE CORRECT AREA ID
             gtGetData.activeGarden.areas[0].addProduce($scope.addProduce);
             $rootScope.$broadcast('dataPassed');
             
+            //Hide modal window on click
+            $('#gtModalAdd').modal('hide');
+            //Now reset the window for the next produce
+            $scope.addProduce = {};
+            $scope.gtSearchTerm = '';
+            $scope.selection = {};
         };
         
         
-    });
+    });//end gtInteractive
      
      
      /**
