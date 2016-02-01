@@ -217,17 +217,17 @@ table{
         .gt-produce:hover .gt-details{opacity:1;}
         
         
-        
 /*Calendar Styling*/
 #gt-cal-header{padding-bottom: 5px!important;}
 input.calendar{border-radius: 5px 0px 0px 5px;}
 .dropdown-menu{
-    font-size:14px;list-style:none;margin:0px;padding:0px;position:absolute;z-index: 1;background-color: #f5f5f5;border: 1px solid #e3e3e3; box-shadow: 10px 10px 25px 0px rgba(0,0,0,0.5);outline:0px;
+    z-index: 20;font-size:14px;list-style:none;margin:0px;padding:0px;position:absolute;background-color: #f5f5f5;border: 1px solid #e3e3e3; box-shadow: 10px 10px 25px 0px rgba(0,0,0,0.5);outline:0px;
     div:active{outline:none;}
         li{list-style:none;margin:0px;padding:0px;}
         table{min-width:350px;}
         thead, tr, th{background:none;padding:0px;}
 
+        
         td{background:none;border:0px;padding:0px;width:42px;}
         button{font-size:14px;padding:0px;margin:0px; border-radius: 3px;border-color: #fff;padding: .5625rem .625rem;@include link-color-lt();}  
             button:hover, button.btn-info{@include link-color-dk();}

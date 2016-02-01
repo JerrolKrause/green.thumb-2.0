@@ -302,8 +302,12 @@ window.greenthumb = (function () {
          * @returns {undefined}
          */
         data.update = function(params){
+            
             //Overwrite any parameters supplied by the input object
             angular.merge(data.params, params);
+            
+            data.params.dates.main_pos = Math.round((((data.params.dates.main.format("M") - 1) * 8.333) + ((data.params.dates.main.format("D") / data.params.dates.main.daysInMonth()) * 8.333)) * 10) / 10;
+            
             //Now rebuild the appropriate items in the garden
             $rootScope.$broadcast('dataPassed');
         };
@@ -313,7 +317,7 @@ window.greenthumb = (function () {
     
     
     /**
-     * 
+     * Handle meta content shared between controllers
      */
     greenThumb.controller('gtMeta', function ($scope, gtGetData) {
         $scope.$on('dataPassed', function () {
@@ -330,24 +334,28 @@ window.greenthumb = (function () {
     greenThumb.controller('gtFilter', function ($scope, gtGetData) {
 
         //Needed by calendar dropdown
-        $scope.open = function ($event) { $scope.status.opened = true;};
-        $scope.status = {opened: false};
+        $scope.open     = function ($event) { $scope.status.opened = true;};
+        $scope.status   = {opened: false};
+        $scope.date     = new Date();
 
         $scope.$on('dataPassed', function () {
             //Update the date from the factory
-            //$scope.date = gtGetData.params.dates.main.toDate();;
+            //$scope.date = gtGetData.params.dates.main.toDate();
         });
 
+        /**
+         * When filter sorting params have been adjusted
+         * @param {type} params
+         * @returns {undefined}
+         */
         $scope.filterSort = function(params){
-       
             var params = {
                 dates : {
                     main : moment($scope.date)
                 }
             };
             
-            console.log(params.dates.main);
-            gtGetData.update(params.dates.main);
+            gtGetData.update(params);
         };
 
     });
@@ -376,6 +384,11 @@ window.greenthumb = (function () {
            $scope.gtSelection = produce;
         };
         
+        /**
+         * Toggle between the previous and next pain
+         * @param {type} pane
+         * @returns {undefined}
+         */
         $scope.toggleTasks = function(pane){
             $scope.taskpanel = pane;
         };
@@ -383,7 +396,7 @@ window.greenthumb = (function () {
         
         
         $scope.$on('dataPassed', function () {
-            console.log(gtGetData.params.dates);
+           
             
             $scope.garden       = gtGetData.activeGarden.areas;
             $scope.label        = gtGetData.activeGarden.label;
@@ -411,7 +424,7 @@ window.greenthumb = (function () {
             //Loop through the tasks object
             angular.forEach(gtGetData.activeGarden.tasks, function (value) {
                 //Check if the current task object is upcoming 1 month
-                if (value.date.isBetween(gtGetData.params.dates.main, gtGetData.params.dates.main.clone().add(1, 'month'))) {
+                if (value.date.isBetween(gtGetData.params.dates.main.add(1, 'day'), gtGetData.params.dates.main.clone().add(1, 'month'))) {
                     $scope.tasksNext.push(value);
                     //Check if previous task object occurs 1 month prior    
                 } else if (value.date.isBetween(gtGetData.params.dates.main.clone().subtract(1, 'month'), gtGetData.params.dates.main)) {
