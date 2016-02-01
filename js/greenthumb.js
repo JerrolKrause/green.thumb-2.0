@@ -6,6 +6,10 @@ window.greenthumb = (function () {
 
     var greenThumb = angular.module('gtApp', ['ngRoute', 'ui.bootstrap']);     //Angular app
 
+
+    /**
+     * Creates the end to end garden model from the user JSON file
+     */
     greenThumb.factory("gtGetData", function ($http, $rootScope) {
 
         var data = {
@@ -109,6 +113,7 @@ window.greenthumb = (function () {
              * @returns {undefined}
              */
             area : function(area){
+                console.log(area);
                 var self            = this;
                 //Load area arguments
                 self.label          = area.label;
@@ -321,6 +326,18 @@ window.greenthumb = (function () {
         return data;
     });
     
+    /**
+     * Generic shared data between controllers
+     */
+     greenThumb.factory("gtShared", function () {
+         var data = {
+             gardenID   : false,
+             areaID     : false
+         };
+         
+         return data;
+     });
+    
     
     /**
      * Handle meta content shared between controllers
@@ -337,7 +354,7 @@ window.greenthumb = (function () {
     /**
      * Manage the garden behavior
      */
-    greenThumb.controller('gtGarden', function ($scope, gtGetData, $routeParams) {
+    greenThumb.controller('gtGarden', function ($scope, gtGetData, $routeParams, gtShared) {
         $scope.Math = window.Math;
         $scope.gardenID = $routeParams.gardenID;
         $scope.taskpanel = 'next';
@@ -346,14 +363,12 @@ window.greenthumb = (function () {
             gtGetData.load('js/models/'+$scope.gardenID+'.js');
         }
         
-       
         /*
          * Fires a modal window that contains the specific plant characteristics
          * @param {type} plantID
          * @returns {undefined}
          */
         $scope.gtDetails = function(produce){
-            console.log(produce)
            $scope.gtSelection = produce;
         };
         
@@ -367,16 +382,31 @@ window.greenthumb = (function () {
         };
         
         /**
-        * 
+        * Set the correct area ID for the add produce component
         * @param {type} id
         * @returns {undefined}
         */
        $scope.step1 = function(id){
-        
-           console.log(id);
+           //Send to gtShared factory
+           gtShared.areaID = id;
        };
        
-        
+       /**
+        * Add a new area to the garden
+        * @returns {undefined}
+        */
+       $scope.addArea = function(){
+           //Create default object
+           var obj = {
+               label    : $scope.area.label,
+               width    : 12,
+               length   : 12
+           };
+           //Add the new area to the model
+           gtGetData.activeGarden.addArea(obj);
+       };//end addArea
+       
+        //When the garden model is updated, update the data on the page
         $scope.$on('dataPassed', function () {
            
             $scope.garden       = gtGetData.activeGarden.areas;
@@ -386,8 +416,6 @@ window.greenthumb = (function () {
 
             $scope.main_pos     = gtGetData.params.dates.main_pos;
             $scope.today_pos    = gtGetData.params.dates.today_pos;
-
-           
 
             $scope.tasksToday   = [];
             $scope.tasksNext    = [];
@@ -473,7 +501,7 @@ window.greenthumb = (function () {
     /**
      * Manage the produce select component
      */
-    greenThumb.controller('gtInteractive', function ($scope, $rootScope, gtGetData) {
+    greenThumb.controller('gtInteractive', function ($scope, $rootScope, gtGetData, gtShared) {
         $scope.addProduce       = {};
         $scope.error            = {
             date                : false
@@ -598,8 +626,8 @@ window.greenthumb = (function () {
                 date        : parseInt(moment($scope.options.date).format('D') - 1)
             };
             
-            //NEED TO GET THE CORRECT AREA ID
-            gtGetData.activeGarden.areas[0].addProduce($scope.addProduce);
+            //Add the new produce to the area
+            gtGetData.activeGarden.areas[gtShared.areaID].addProduce($scope.addProduce);
             $rootScope.$broadcast('dataPassed');
             
             //Hide modal window on click

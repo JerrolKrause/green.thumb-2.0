@@ -86,7 +86,8 @@ table {
   border-radius: 5px;
   position: initial;
   font-weight: initial;
-  line-height: initial; }
+  line-height: initial;
+  display: inline-block; }
   .button:hover, .button button:hover, .button.close-reveal-modal:hover, .reveal-modal .button.close-reveal-modal:hover, .reveal-modal .button.close-reveal-modal button:hover, .reveal-modal .button.close-reveal-modal.close-reveal-modal:hover {
     color: #fff !important;
     background-color: #552700;
