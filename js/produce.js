@@ -46,22 +46,38 @@ var gtProduce = {
         rowsPerBed: 1
     },
     carrot: {
-        label: "Carrots",
-        maturity: 75,
-        seedling: 0,
-        harvest: 16,
-        spacing: 1,
-        vertical: false,
-        rowsPer: 2
+        label           : "Carrot",
+        startType       : 'Direct Sow',
+        hardiness       : 'Moderately-Hardy',
+        spacing         : 1,
+        rowsPerBed      : 2,
+        seedDepth       : 0.125,
+        yield           : 90,
+        yieldType       : 'lbs',
+        //numPlants       : 41,
+        plantHeight     : 12,
+        plantInside     : 0,
+        plantOutside    : -2,
+        maturity        : 75,
+        harvest         : 16,
+        vertical        : false
     },
     cucumber: {
         label: "Cucumber",
-        maturity: 60,
-        seedling: 3,
-        harvest: 4,
-        spacing: 9,
-        vertical: true,
-        rowsPer: 1
+        startType       : 'Seedling',
+        hardiness       : 'Frost-Intolerant',
+        spacing         : 9,
+        rowsPerBed      : 1,
+        seedDepth       : 0.5,
+        yield           : 410,
+        yieldType       : 'lbs',
+        //numPlants       : 41,
+        plantHeight     : 84,
+        plantInside     : -1,
+        plantOutside    : 2,
+        maturity        : 60,
+        harvest         : 4,
+        vertical        : true
     },
     cucumber_diva: {
         label: "Diva",
@@ -69,13 +85,21 @@ var gtProduce = {
         parent: "cucumber"
     },
     lettuce: {
-        label: "Lettuce",
-        maturity: 55,
-        seedling: 3,
-        harvest: 4,
-        spacing: 12,
-        vertical: false,
-        rowsPerBed: 2
+        label           : "Lettuce",
+        startType       : 'Either',
+        hardiness       : 'Hardy',
+        spacing         : 12,
+        rowsPerBed      : 2,
+        seedDepth       : 0.125,
+        yield           : 112,
+        yieldType       : 'lbs',
+        //numPlants       : 41,
+        plantHeight     : 12,
+        plantInside     : -7,
+        plantOutside    : -4,
+        maturity        : 55,
+        harvest         : 6,
+        vertical        : false
     },
     melon: {
         label           : 'Melon',
@@ -88,12 +112,11 @@ var gtProduce = {
         yieldType       : 'lbs',
         //numPlants       : 41,
         plantHeight     : 84,
-        plantInside     : 1,
+        plantInside     : -1,
         plantOutside    : 2,
         maturity        : 85,
         harvest         : 8,
-        vertical        : true,
-        seedling        : 3
+        vertical        : true
     },
     melon_earlichamp: {
         label: "Earlichamp Cantalope",
@@ -158,8 +181,7 @@ var gtProduce = {
         plantOutside    : -4,
         maturity        : 45,
         harvest         : 4,
-        vertical        : false,
-        seedling        : 3
+        vertical        : false
     },
     sweet_potato: {
         label           : "Sweet Potato",
@@ -172,21 +194,28 @@ var gtProduce = {
         yieldType       : 'lbs',
         //numPlants       : 41,
         plantHeight     : 12,
-        plantInside     : 2,
+        plantInside     : -2,
         plantOutside    : 6,
         maturity        : 120,
         harvest         : 1,
-        vertical        : false,
-        seedling        : 8
+        vertical        : false
     },
     squash: {
         label: "Squash",
-        maturity: 90,
-        seedling: 3,
-        harvest: 14,
-        spacing: 9,
-        vertical: true,
-        rowsPer: 1
+        startType       : 'either',
+        hardiness       : 'Frost-Intolerant',
+        spacing         : 9,
+        rowsPerBed      : 1,
+        seedDepth       : 0.5,
+        yield           : 154,
+        yieldType       : 'lbs',
+        //numPlants       : 41,
+        plantHeight     : 84,
+        plantInside     : -1,
+        plantOutside    : 2,
+        maturity        : 90,
+        harvest         : 14,
+        vertical        : true
     },
     squash_butternut: {
         label: "Waltham Butternut",
@@ -216,19 +245,18 @@ var gtProduce = {
         label           : "Tomato",
         startType       : 'Either',
         hardiness       : 'Frost-Sensitive',
-        spacing         : 9,
+        spacing         : 24,
         rowsPerBed      : 1,
         seedDepth       : 0.25,
         yield           : 615,
         yieldType       : 'lbs',
         //numPlants       : 41,
         plantHeight     : 84,
-        plantInside     : 8,
+        plantInside     : -8,
         plantOutside    : 0,
         maturity        : 90,
         harvest         : 16,
-        vertical        : true,
-        seedling        : 8
+        vertical        : true
     },
     tomato_big_beef: {
         label: "Big Beef",

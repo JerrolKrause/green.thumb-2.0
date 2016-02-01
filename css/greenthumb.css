@@ -33,7 +33,9 @@ a:hover {
 label {
   color: #aa6c39;
   cursor: pointer;
-  margin-right: 0px !important; }
+  margin-right: 0px !important;
+  font-weight: normal;
+  margin-left: 10px; }
 
 label:hover {
   color: #552700;
@@ -41,10 +43,33 @@ label:hover {
 
 input[type="checkbox"] {
   cursor: pointer;
-  border-color: #aa6c39; }
+  border-color: #aa6c39;
+  position: relative;
+  top: 2px; }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important; }
+
+table {
+  border: 1px solid #DDD;
+  width: 100%;
+  margin-bottom: 1.25rem; }
+  table th {
+    padding: 5px;
+    font-size: 14px; }
+  table tr.alt, table tr.even, table tr:nth-of-type(2n) {
+    background: #F9F9F9 none repeat scroll 0% 0%; }
+  table td {
+    padding: 5px;
+    font-size: 12px; }
+  table.quiet {
+    padding: 0px;
+    margin: 0px;
+    border: 0px; }
+    table.quiet td, table.quiet td {
+      padding: 0px;
+      margin: 0px;
+      border: 0px; }
 
 /* Universal Styles */
 .button, .reveal-modal .button.close-reveal-modal {
@@ -94,12 +119,9 @@ input[type="checkbox"] {
     margin-top: -10px; }
 
 /* Modal Window Styling */
-.reveal-modal .close-reveal-modal {
-  color: #aa6c39; }
-
-.reveal-modal:hover .close-reveal-modal:hover {
-  color: #552700;
-  text-decoration: underline; }
+.modal-header {
+  padding: 10px 15px 0px 15px;
+  border: 0px; }
 
 #gt-new-area {
   padding-bottom: 10px;
@@ -141,45 +163,6 @@ input[type="checkbox"] {
   width: 100%; }
   #gtProduceSearch .dropdown-menu a {
     padding-left: 5px; }
-
-.gt-produce2 {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url("../img/thumbs/sprite-produce-med.png") no-repeat 0px 0px;
-  border-radius: 5px;
-  border: 1px solid #fff; }
-  .gt-produce2:hover {
-    background-color: #f7f7f7;
-    border-color: #552700; }
-  .gt-produce2.cucumber {
-    background-position: 0px -100px; }
-  .gt-produce2.broccoli {
-    background-position: 0px -200px; }
-  .gt-produce2.brussel_sprouts {
-    background-position: 0px -300px; }
-  .gt-produce2.carrot {
-    background-position: 0px -400px; }
-  .gt-produce2.lettuce {
-    background-position: 0px -500px; }
-  .gt-produce2.melon {
-    background-position: 0px -600px; }
-  .gt-produce2.potato {
-    background-position: 0px -700px; }
-  .gt-produce2.pumpkin {
-    background-position: 0px -800px; }
-  .gt-produce2.sweet_potato {
-    background-position: 0px -900px; }
-  .gt-produce2.squash {
-    background-position: 0px -1000px; }
-  .gt-produce2.swiss_chard {
-    background-position: 0px -1100px; }
-  .gt-produce2.tomato {
-    background-position: 0px -1200px; }
-  .gt-produce2.bell_pepper {
-    background-position: 0px -1300px; }
-  .gt-produce2.spinach {
-    background-position: 0px -1400px; }
 
 #today {
   position: relative;
@@ -246,15 +229,17 @@ input[type="checkbox"] {
     border-bottom: 1px solid #aa6c39; }
 
 #dropcal {
+  display: inline-block;
   border-radius: 0px 5px 5px 0px;
-  position: relative;
-  left: -4px;
   padding: 0px;
   padding-left: 10px;
   padding-right: 10px;
   height: auto;
-  font-size: 30px;
-  top: 6px; }
+  font-size: 30px; }
+
+#dp1 {
+  display: inline-block;
+  width: 150px; }
 
 #gt-calendar h2 {
   border-top: 1px solid #aa6c39;
@@ -417,6 +402,7 @@ input.calendar {
   border-radius: 5px 0px 0px 5px; }
 
 .dropdown-menu {
+  font-size: 14px;
   list-style: none;
   margin: 0px;
   padding: 0px;
@@ -443,24 +429,32 @@ input.calendar {
     padding: 0px;
     width: 42px; }
   .dropdown-menu button {
+    font-size: 14px;
     padding: 0px;
     margin: 0px;
     border-radius: 3px;
-    border-color: #ccc;
+    border-color: #fff;
     padding: .5625rem .625rem;
     background-color: #fff7f1;
     color: #552700; }
   .dropdown-menu button:hover, .dropdown-menu button.btn-info {
     background-color: #aa6c39;
     color: #fff; }
+  .dropdown-menu .btn-group {
+    width: 100%;
+    padding: 0px 10px; }
   .dropdown-menu .btn {
     width: 100%; }
+  .dropdown-menu .btn.active span {
+    color: #fff; }
   .dropdown-menu .btn-group .btn-info {
     margin-bottom: 10px; }
   .dropdown-menu .btn-danger, .dropdown-menu .btn-success {
     display: none; }
   .dropdown-menu button span {
     background-color: none; }
+  .dropdown-menu .glyphicon {
+    margin: 0px; }
 
 .gt-edit {
   display: none;
@@ -497,11 +491,17 @@ h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-e
     font-size: 30px; }
 
   h2 {
-    font-size: 24px; }
+    font-size: 24px;
+    padding-top: 10px;
+    border-top: 1px solid #AA6C39;
+    border-bottom: 0px; }
 
   h3 {
     font-size: 18px;
-    margin-top: 0px; } }
+    margin-top: 0px; }
+
+  .gt-details {
+    display: none; } }
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .gt-produce span {

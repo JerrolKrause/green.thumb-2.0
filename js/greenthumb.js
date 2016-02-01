@@ -4,13 +4,13 @@
 window.greenthumb = (function () {
     'use strict';
 
-    var greenThumb = angular.module('gtApp', ['ngRoute']);     //Angular app
+    var greenThumb = angular.module('gtApp', ['ngRoute', 'ui.bootstrap']);     //Angular app
 
     greenThumb.factory("gtGetData", function ($http, $rootScope) {
 
         var data = {
-            params                  : {                         //Holds application parameters
-                dates               : (function(){               //Generates the main dates used by the app
+            params                  : {                      //Holds application parameters
+                dates               : (function(){           //Generates the main dates used by the app
                     var today       = moment();
                     var obj = {
                         main        : today.clone(),        //This is the user adjustable date
@@ -38,7 +38,6 @@ window.greenthumb = (function () {
              * @returns {undefined}
              */
             garden: function (garden) {
-                console.log(garden);
                 var self            = this;
                 //Load this garden's attributes
                 self.label          = garden.label;
@@ -174,6 +173,7 @@ window.greenthumb = (function () {
                 }
                 
                 self.id = produce.id;
+                self.seedling = parseInt(self.plantOutside) - parseInt(self.plantInside);
                 self.label_short = self.label.charAt(0) + self.label.charAt(1);
                 self.numPlants = produce.numPlants;
                 //Figure out this produce items set dates
@@ -217,8 +217,11 @@ window.greenthumb = (function () {
                     self.season = 'winter';
                 }
                 
-                data.create.tasks(self);
+                self.plantInsideWarm = self.plantInside + 4;
+                self.plantOutsideWarm = self.plantOutside + 4;
+                        
                 
+                data.create.tasks(self);
                 //Set the value of this produce entry to the content
                 return self;
             },//end create.produce
@@ -292,6 +295,18 @@ window.greenthumb = (function () {
                 $rootScope.$broadcast('dataPassed');
             });
         };
+        
+        /**
+         * 
+         * @param {type} params
+         * @returns {undefined}
+         */
+        data.update = function(params){
+            //Overwrite any parameters supplied by the input object
+            angular.merge(data.params, params);
+            //Now rebuild the appropriate items in the garden
+            $rootScope.$broadcast('dataPassed');
+        };
        
         return data;
     });
@@ -309,38 +324,80 @@ window.greenthumb = (function () {
     });
     
     
+    /**
+     * Manage the filtering/sorting behavior
+     */
+    greenThumb.controller('gtFilter', function ($scope, gtGetData) {
+
+        //Needed by calendar dropdown
+        $scope.open = function ($event) { $scope.status.opened = true;};
+        $scope.status = {opened: false};
+
+        $scope.$on('dataPassed', function () {
+            //Update the date from the factory
+            //$scope.date = gtGetData.params.dates.main.toDate();;
+        });
+
+        $scope.filterSort = function(params){
+       
+            var params = {
+                dates : {
+                    main : moment($scope.date)
+                }
+            };
+            
+            console.log(params.dates.main);
+            gtGetData.update(params.dates.main);
+        };
+
+    });
     
     
     
-    
-    
-    
+    /**
+     * Manage the garden behavior
+     */
     greenThumb.controller('gtGarden', function ($scope, gtGetData, $routeParams) {
+        $scope.Math = window.Math;
         $scope.gardenID = $routeParams.gardenID;
+        $scope.taskpanel = 'next';
         
         if($scope.gardenID !== 'mine'){
-            gtGetData.load('js/'+$scope.gardenID+'.js');
+            gtGetData.load('js/models/'+$scope.gardenID+'.js');
         };
         
+       
+        /*
+         * Fires a modal window that contains the specific plant characteristics
+         * @param {type} plantID
+         * @returns {undefined}
+         */
+        $scope.gtDetails = function(produce){
+           $scope.gtSelection = produce;
+        };
         
-        $scope.gtDetails = function(plantID){
-          console.log(plantID);
+        $scope.toggleTasks = function(pane){
+            $scope.taskpanel = pane;
         };
         
         
         
         $scope.$on('dataPassed', function () {
-            $scope.garden = gtGetData.activeGarden.areas;
-            $scope.label = gtGetData.activeGarden.label;
+            console.log(gtGetData.params.dates);
+            
+            $scope.garden       = gtGetData.activeGarden.areas;
+            $scope.label        = gtGetData.activeGarden.label;
             $scope.frost_spring = gtGetData.activeGarden.frost_spring.position;
-            $scope.frost_fall = gtGetData.activeGarden.frost_fall.position;
+            $scope.frost_fall   = gtGetData.activeGarden.frost_fall.position;
 
-            $scope.main_pos = gtGetData.params.dates.main_pos;
-            $scope.today_pos = gtGetData.params.dates.today_pos;
+            $scope.main_pos     = gtGetData.params.dates.main_pos;
+            $scope.today_pos    = gtGetData.params.dates.today_pos;
 
-            $scope.tasksToday = [];
-            $scope.tasksNext = [];
-            $scope.tasksPrev = [];
+           
+
+            $scope.tasksToday   = [];
+            $scope.tasksNext    = [];
+            $scope.tasksPrev    = [];
 
             if (angular.isDefined(gtGetData.activeGarden.tasks[gtGetData.params.dates.main.format("YYYYMMDD")])) {
                 $scope.tasksToday.push(gtGetData.activeGarden.tasks[gtGetData.params.dates.main.format("YYYYMMDD")]);
@@ -379,6 +436,7 @@ window.greenthumb = (function () {
             scope: {
                 data: '='
             },
+            replace: true,
             templateUrl: 'partials/calendar-row.html',
             controller: 'gtGarden'
         };

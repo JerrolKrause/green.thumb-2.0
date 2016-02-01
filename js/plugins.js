@@ -1,0 +1,7 @@
+// @koala-prepend "jquery-2.2.0.min.js"
+// @koala-prepend "bootstrap.min.js"
+// @koala-prepend "angular.min.js"
+// @koala-prepend "angular-route.min.js"
+// @koala-prepend "ui-bootstrap-tpls.min.js"
+// @koala-prepend "moment.min.js"
+// @koala-prepend "produce.js"

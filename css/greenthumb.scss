@@ -30,7 +30,7 @@ $bg-color:          #f7f7f7;
 @mixin link-color-dk(){background-color:$orange-mid;color:#fff;}
 @mixin link-color-lt(){background-color:$orange-lt;color:$orange-dk;}
 
-@mixin sprite-vertical($position, $spacing){background-position:0px (-$position * $spacing) - 100 + px;}
+@mixin sprite-vertical($position, $spacing){background-position:0px (-$position * $spacing) + px;}
 
 @font-face{font-family:'BPreplay';src:url(../fonts/BPreplay.otf);}
 
@@ -48,10 +48,24 @@ h1, h2, h3, h4, h5{color:$green-dk;font-family: "BPreplay", sans-serif;position:
 a, a:link{color:$link-color;}
 a:hover{color:$link-color-hover;text-decoration:underline;}
 *:focus {outline: none;}
-label{color:$link-color;cursor:pointer;margin-right:0px!important;}
+label{color:$link-color;cursor:pointer;margin-right:0px!important;font-weight:normal;margin-left:10px;}
     label:hover{color:$link-color-hover;text-decoration:underline;}
-input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
+input[type="checkbox"]{cursor:pointer;border-color:$link-color;position: relative;top: 2px;}
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {display: none !important;}
+table{
+    border: 1px solid #DDD;width:100%;margin-bottom: 1.25rem;
+    th{padding: 5px;font-size: 14px;}
+    tr.alt, tr.even, tr:nth-of-type(2n){background: #F9F9F9 none repeat scroll 0% 0%;}
+    td{padding: 5px;font-size: 12px;}
+    &.quiet{
+        padding:0px;margin:0px;border:0px;
+        td, td{ padding:0px;margin:0px;border:0px;}
+    }
+};
+
+
+
+
 
 
 
@@ -72,8 +86,12 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 }
 
 /* Modal Window Styling */
-.reveal-modal .close-reveal-modal{color:$link-color;}
-    .reveal-modal:hover .close-reveal-modal:hover{color:$link-color-hover;text-decoration:underline;}
+.modal-header {
+    padding: 10px 15px 0px 15px;
+    border:0px;
+}
+
+
 
 #gt-new-area{padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;display:inline-block;text-align:left;margin-left: 10px;margin-top: 5px;}
 
@@ -98,26 +116,6 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
         a{padding-left:5px;}
     }
 }
-
-.gt-produce2{
-    display:inline-block;width:50px;height:50px;background: url('../img/thumbs/sprite-produce-med.png') no-repeat 0px 0px;border-radius:5px;border:1px solid #fff;
-    &:hover{background-color:$bg-color;border-color:$link-color-hover}
-    &.cucumber{         @include sprite-vertical(0,100)}
-    &.broccoli{         @include sprite-vertical(1,100)}
-    &.brussel_sprouts{  @include sprite-vertical(2,100)}
-    &.carrot{           @include sprite-vertical(3,100)}
-    &.lettuce{          @include sprite-vertical(4,100)}
-    &.melon{            @include sprite-vertical(5,100)}
-    &.potato{           @include sprite-vertical(6,100)}
-    &.pumpkin{          @include sprite-vertical(7,100)}
-    &.sweet_potato{     @include sprite-vertical(8,100)}
-    &.squash{           @include sprite-vertical(9,100)}
-    &.swiss_chard{      @include sprite-vertical(10,100)}
-    &.tomato{           @include sprite-vertical(11,100)}
-    &.bell_pepper{      @include sprite-vertical(12,100)} 
-    &.spinach{          @include sprite-vertical(13,100)} 
-}
-
 
 #today{position:relative;top:-2px;}
 
@@ -156,8 +154,9 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
     h3, .tabs{border-bottom:1px solid $border-color}
 }
 
-#dropcal{border-radius: 0px 5px 5px 0px;position:relative;left:-4px;padding:0px;padding-left: 10px;padding-right: 10px;height:auto;font-size:30px;top: 6px;}
-    
+#dropcal{display:inline-block;border-radius: 0px 5px 5px 0px;padding:0px;padding-left: 10px;padding-right: 10px;height:auto;font-size:30px;}
+#dp1{display:inline-block;width: 150px;}
+
 
 #gt-calendar{
     h2{border-top: 1px solid $border-color;border-bottom:0px;padding-top:20px;}
@@ -189,20 +188,20 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
         
         .gt-produce{
             background: url('../img/thumbs/sprite-produce.png') no-repeat 0px 0px;padding-left: 30px;line-height: 25px;    min-height: 25px;position:relative;
-            &.cucumber{             background-position:0px -50px;}
-            &.broccoli{             background-position:0px -100px;}
-            &.brussel_sprouts{      background-position:0px -150px;}
-            &.carrot{               background-position:0px -200px;}
-            &.lettuce{              background-position:0px -250px;}
-            &.melon{                background-position:0px -300px;}
-            &.potato{               background-position:0px -350px;}
-            &.pumpkin{              background-position:0px -400px;}
-            &.sweet_potato{         background-position:0px -450px;}
-            &.squash{               background-position:0px -500px;}
-            &.swiss_chard{          background-position:0px -550px;}
-            &.tomato{               background-position:0px -600px;}
-            &.bell_pepper{          background-position:0px -650px;} 
-            &.spinach{              background-position:0px -700px;} 
+            &.cucumber{             @include sprite-vertical(1,50)}
+            &.broccoli{             @include sprite-vertical(2,50)}
+            &.brussel_sprouts{      @include sprite-vertical(3,50)}
+            &.carrot{               @include sprite-vertical(4,50)}
+            &.lettuce{              @include sprite-vertical(5,50)}
+            &.melon{                @include sprite-vertical(6,50)}
+            &.potato{               @include sprite-vertical(7,50)}
+            &.pumpkin{              @include sprite-vertical(8,50)}
+            &.sweet_potato{         @include sprite-vertical(9,50)}
+            &.squash{               @include sprite-vertical(10,50)}
+            &.swiss_chard{          @include sprite-vertical(11,50)}
+            &.tomato{               @include sprite-vertical(12,50)}
+            &.bell_pepper{          @include sprite-vertical(13,50)}
+            &.spinach{              @include sprite-vertical(14,50)}
             .inline {display:inline!important;}
         }
         
@@ -223,20 +222,27 @@ input[type="checkbox"]{cursor:pointer;border-color:$link-color;}
 #gt-cal-header{padding-bottom: 5px!important;}
 input.calendar{border-radius: 5px 0px 0px 5px;}
 .dropdown-menu{
-    list-style:none;margin:0px;padding:0px;position:absolute;z-index: 1;background-color: #f5f5f5;border: 1px solid #e3e3e3; box-shadow: 10px 10px 25px 0px rgba(0,0,0,0.5);outline:0px;
+    font-size:14px;list-style:none;margin:0px;padding:0px;position:absolute;z-index: 1;background-color: #f5f5f5;border: 1px solid #e3e3e3; box-shadow: 10px 10px 25px 0px rgba(0,0,0,0.5);outline:0px;
     div:active{outline:none;}
         li{list-style:none;margin:0px;padding:0px;}
         table{min-width:350px;}
         thead, tr, th{background:none;padding:0px;}
 
         td{background:none;border:0px;padding:0px;width:42px;}
-        button{padding:0px;margin:0px; border-radius: 3px;border-color: #ccc;padding: .5625rem .625rem;@include link-color-lt();}  
+        button{font-size:14px;padding:0px;margin:0px; border-radius: 3px;border-color: #fff;padding: .5625rem .625rem;@include link-color-lt();}  
             button:hover, button.btn-info{@include link-color-dk();}
+            .btn-group{width:100%;padding:0px 10px;}
             .btn{width:100%;}
+                .btn.active span{color:#fff;}
                 .btn-group .btn-info{margin-bottom:10px;}
                 .btn-danger, .btn-success{display:none;}
         button span{background-color: none;}
+        .glyphicon{margin:0px;}
 }
+
+
+
+
         
 .gt-edit{
     display:none;font-size:75%;vertical-align: text-top;margin: 0px;margin-left:5px;border:0px;color:$link-color;
@@ -256,8 +262,9 @@ input.calendar{border-radius: 5px 0px 0px 5px;}
 /* XS Small devices (cell phones) */
 @media (max-width: 767px) {
     h1{font-size:30px;}
-    h2{font-size: 24px;}
+    h2{font-size: 24px;padding-top:10px;border-top: 1px solid #AA6C39;border-bottom: 0px;}
     h3{font-size: 18px;margin-top:0px;}
+    .gt-details{display:none;}
 }
 
 

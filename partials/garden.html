@@ -11,25 +11,32 @@
             <tasks data="tasksToday"></tasks>
         </div>
         <div class="col-md-4">
-            <div>
-                <h2><span class="glyphicon glyphicon-list"></span>Upcoming Tasks<a class="subtext hide" href="#" ng-click="toggleTasks('prev')">Previous</a></h2>
+            <div ng-if="taskpanel == 'next'">
+                <h2><span class="glyphicon glyphicon-list"></span>Upcoming Tasks<a class="subtext" href="" ng-click="toggleTasks('prev')">Previous</a></h2>
                 <tasks data="tasksNext"></tasks>
             </div>
-            <div ng-if="taskpanel == 'prev'" class=" hide">
-                <h2> <span class ="glyphicon glyphicon-list"></span>Previous Tasks<a class="subtext hide" href="#" ng-click="toggleTasks('next')">Upcoming</a></h2>
+            <div ng-if="taskpanel == 'prev'" ng-cloak>
+                <h2> <span class ="glyphicon glyphicon-list"></span>Previous Tasks<a class="subtext" href="" ng-click="toggleTasks('next')">Upcoming</a></h2>
                 <tasks data="tasksPrev"></tasks>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <h2> <span class ="glyphicon glyphicon-list"></span>Previous Tasks<a class="subtext hide" href="#" ng-click="toggleTasks('next')">Upcoming</a></h2>
-            <tasks data="tasksPrev"></tasks>
-            <!-- 
-            <h3><span class="glyphicon glyphicon-wrench"></span>Filtering Options:<a class="subtext" href="#" ng-click="filterSort('reset')">Reset All</a></h3>
-            <p>Date : <input type="text" class="form-control" uib-datepicker-popup="{{format}}" id="dp1" style="width:150px;" ng-value="datetoday" ng-model="date" ng-change="filterSort()" is-open="status.opened"> 
-                <a type="submit" class="button fi-calendar large"  id="dropcal" value="Cal" ng-click="open($event)"></a> 
-            </p>
-    
+        <div class="col-md-4" ng-controller="gtFilter">
+          
+            <h3><span class="glyphicon glyphicon-wrench"></span>Filtering Options:<a class="subtext hide" href="" ng-click="filterSort('reset')">Reset All</a></h3>
+            
+            <div class="pull-left">
+                Date : <input type="text" class="form-control" id="dp1"
+                             uib-datepicker-popup="MM/dd/yyyy" 
+                             ng-model="date" 
+                             ng-change="filterSort()" 
+                             is-open="status.opened"/>
+            </div>
+            <div class="pull-left">
+                <a type="submit" href="" class="glyphicon glyphicon-calendar"  id="dropcal" value="Cal" ng-click="open($event)"></a>
+            </div>
+           
+            
             <form action="#" id="gt-filter-season">
                 <div class="row">
                     <div class="col-md-6 columns">
@@ -57,64 +64,11 @@
                     </div>
                 </div>
             </form>
-            -->
+            
         </div>
     </div>
 
     
-                <h3>Plant Details</h3>
-                    <table>
-                        <tr ng-if="selection.label">
-                            <td style="width:50%;">Name / Variety</td>
-                            <td ng-bind="selection.label"></td>
-                        </tr>
-                        <tr ng-if="selection.maturity">
-                            <td style="width:50%;">Days To Maturity</td>
-                            <td ng-bind="selection.maturity"></td>
-                        </tr>
-                        <tr ng-if="selection.harvest">
-                            <td>Harvest Length</td>
-                            <td ng-bind="selection.harvest + ' Week/s'"></td>
-                        </tr>
-                        <tr ng-if="selection.hardiness">
-                            <td>Hardiness</td>
-                            <td>
-                                <abbr title="Will Not Survive Frost" ng-if="selection.hardiness == 'Frost-Intolerant' ">Frost-Intolerant</abbr>
-                                <abbr title="Protect From Frost" ng-if="selection.hardiness == 'Frost-Sensitive' ">Frost-Sensitive</abbr>
-                                <abbr title="Handle A Little Frost" ng-if="selection.hardiness == 'Moderately-Hardy' ">Moderately-Hardy</abbr>
-                                <abbr title="Frost Tolerant" ng-if="selection.hardiness == 'Hardy' ">Hardy</abbr>
-                            </td>
-                        </tr>
-                        <tr ng-if="selection.startType">
-                            <td>Direct Sow / Seedlings</td>
-                            <td ng-bind="selection.startType"></td>
-                        </tr>
-                        <tr ng-if="selection.plantInside">
-                            <td>Start Seedlings Indoors</td>
-                            <td><span ng-bind="selection.plantInside"></span> Week/s Before <abbr title="Average Last Day Of Frost">ALDF</abbr></td>
-                        </tr>
-                        <tr ng-if="selection.plantOutside || selection.plantOutside == 0">
-                            <td>Plant Outdoors</td>
-                            <td>
-                                <div ng-if="selection.plantOutside"><span ng-bind="selection.plantOutside"></span> Week/s After <abbr title="Average Last Day Of Frost">ALDF</abbr></div>
-                                <div ng-if="selection.plantOutside == 0">On The <abbr title="Average Last Day Of Frost">ALDF</abbr></div>
-                            </td>
-                        </tr>
-                        <tr ng-if="selection.spacing">
-                            <td>Spacing</td>
-                            <td  ng-bind="selection.spacing + ' Inches'"></td>
-                        </tr>
-                        <tr ng-if="selection.rowsPerBed">
-                            <td>Rows Per Bed</td>
-                            <td ng-bind="selection.rowsPerBed"></td>
-                        </tr>
-                        <tr ng-if="selection.vertical">
-                            <td>Grow Vertically / Trellis </td>
-                            <td ng-bind="selection.vertical ? 'Yes'  : 'No'"></td>
-                        </tr>
-                    </table>
-
-     
     <div id="gt-calendar">
         <h2><span class ="glyphicon glyphicon-calendar"></span>Schedule</h2>
         <div class="row" id="gt-cal-header">
@@ -161,4 +115,122 @@
             <areas data="garden"></areas>
         </div>
     </div>
+    
+    
+    
+    <!-- Info Modal Window -->
+    <div class="modal fade" id="gtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 ng-bind="gtSelection.label + ' ' + gtSelection.label_parent + ' Details'"></h3>
+                </div>
+
+                <div class="modal-body">
+                    <table>
+                        <tr ng-if="gtSelection.label">
+                            <td style="width:50%;">Name / Variety</td>
+                            <td ng-bind="gtSelection.label"></td>
+                        </tr>
+                        <tr ng-if="gtSelection.maturity">
+                            <td style="width:50%;">Days To Maturity</td>
+                            <td ng-bind="gtSelection.maturity"></td>
+                        </tr>
+                        <tr ng-if="gtSelection.harvest">
+                            <td>Harvest Length</td>
+                            <td ng-bind="gtSelection.harvest + ' Week/s'"></td>
+                        </tr>
+                        <tr ng-if="gtSelection.startType">
+                            <td>Direct Sow / Seedlings</td>
+                            <td ng-bind="gtSelection.startType"></td>
+                        </tr>
+
+                        <tr ng-if="gtSelection.spacing">
+                            <td>Spacing</td>
+                            <td  ng-bind="gtSelection.spacing + ' Inche/s'"></td>
+                        </tr>
+                        <tr ng-if="gtSelection.rowsPerBed">
+                            <td>Rows Per Bed</td>
+                            <td ng-bind="gtSelection.rowsPerBed"></td>
+                        </tr>
+                        <tr ng-if="gtSelection.vertical">
+                            <td>Grow Vertically / Trellis </td>
+                            <td ng-bind="gtSelection.vertical ? 'Yes'  : 'No'"></td>
+                        </tr>
+                        <tr ng-if="gtSelection.yield">
+                            <td>Estimate Yield per 1.5' x 30' bed</td>
+                            <td ng-bind="gtSelection.yield + ' ' + gtSelection.yieldType"></td>
+                        </tr>
+                        <tr ng-if="gtSelection.hardiness">
+                            <td>Hardiness</td>
+                            <td>
+                                <abbr title="Will Not Survive Frost" ng-if="gtSelection.hardiness == 'Frost-Intolerant' ">Frost-Intolerant</abbr>
+                                <abbr title="Protect From Frost" ng-if="gtSelection.hardiness == 'Frost-Sensitive' ">Frost-Sensitive</abbr>
+                                <abbr title="Handle A Little Frost" ng-if="gtSelection.hardiness == 'Moderately-Hardy' ">Moderately-Hardy</abbr>
+                                <abbr title="Frost Tolerant" ng-if="gtSelection.hardiness == 'Hardy' ">Hardy</abbr>
+                            </td>
+                        </tr>
+
+                        <!-- If this is a hardy/moderately hardy plant -->
+                        <tr ng-if="gtSelection.plantInside && (gtSelection.hardiness == 'Moderately-Hardy' || gtSelection.hardiness == 'Hardy') ">
+                            <td>Start Seedlings Indoors</td>
+                            <td ng-if="gtSelection.plantInside >= 0"><span ng-bind="gtSelection.plantInside"></span> Week/s After Average Last Day Of Frost</td>
+                            <td ng-if="gtSelection.plantInside < 0"><span ng-bind="Math.abs(gtSelection.plantInside)"></span> Week/s Before Average Last Day Of Frost</td>
+                        </tr>
+                        <tr ng-if="gtSelection.plantOutside && (gtSelection.hardiness == 'Moderately-Hardy' || gtSelection.hardiness == 'Hardy') ">
+                            <td>Plant Outdoors</td>
+                            <td>
+                                <div ng-if="gtSelection.plantOutside > 0"><span ng-bind="gtSelection.plantOutside"></span> Week/s After Average Last Day Of Frost</div>
+                                <div ng-if="gtSelection.plantOutside < 0"><span ng-bind="Math.abs(gtSelection.plantOutside)"></span> Week/s Before Average Last Day Of Frost</div>
+                                <div ng-if="gtSelection.plantOutside == 0">On The <abbr title="Average Last Day Of Frost">ALDF</abbr></div>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <hr/>
+                    
+                    <div ng-if="gtSelection.hardiness != 'Moderately-Hardy' && gtSelection.hardiness != 'Hardy'">
+                        <h3>Frost/Temperature Considerations</h3>
+                        <table>
+                            <th colspan="2">Conventional Gardening</th>  
+                            <tr ng-if="gtSelection.plantInsideWarm && (gtSelection.hardiness == 'Frost-Sensitive' || gtSelection.hardiness == 'Frost-Intolerant') ">
+                                <td>Start Seedlings Indoors</td>
+                                <td ng-if="gtSelection.plantInsideWarm >= 0"><span ng-bind="gtSelection.plantInsideWarm"></span> Week/s After Average Last Day Of Frost</td>
+                                <td ng-if="gtSelection.plantInsideWarm < 0"><span ng-bind="Math.abs(gtSelection.plantInsideWarm)"></span> Week/s Before Average Last Day Of Frost</td>
+                            </tr>
+                            <tr ng-if="gtSelection.plantOutsideWarm && (gtSelection.hardiness == 'Frost-Sensitive' || gtSelection.hardiness == 'Frost-Intolerant') ">
+                                <td>Plant Outdoors</td>
+                                <td>
+                                    <div ng-if="gtSelection.plantOutsideWarm > 0"><span ng-bind="gtSelection.plantOutsideWarm"></span> Week/s After Average Last Day Of Frost</div>
+                                    <div ng-if="gtSelection.plantOutsideWarm < 0"><span ng-bind="Math.abs(gtSelection.plantOutsideWarm)"></span> Week/s Before Average Last Day Of Frost</div>
+                                    <div ng-if="gtSelection.plantOutsideWarm == 0">On The <abbr title="Average Last Day Of Frost">ALDF</abbr></div>
+                                </td>
+                            </tr>   
+                        </table>
+
+                        <table>
+                            <th colspan="2">With Cold Weather Gardening Techniques</th>
+                            <tr ng-if="gtSelection.plantInside">
+                                <td>Start Seedlings Indoors</td>
+                                <td ng-if="gtSelection.plantInside >= 0"><span ng-bind="gtSelection.plantInside"></span> Week/s After Average Last Day Of Frost</td>
+                                <td ng-if="gtSelection.plantInside < 0"><span ng-bind="Math.abs(gtSelection.plantInside)"></span> Week/s Before Average Last Day Of Frost</td>
+                            </tr>
+                            <tr ng-if="gtSelection.plantOutside || gtSelection.plantOutside == 0">
+                                <td>Plant Outdoors</td>
+                                <td>
+                                    <div ng-if="gtSelection.plantOutside > 0"><span ng-bind="gtSelection.plantOutside"></span> Week/s After Average Last Day Of Frost</div>
+                                    <div ng-if="gtSelection.plantOutside < 0"><span ng-bind="Math.abs(gtSelection.plantOutside)"></span> Week/s Before Average Last Day Of Frost</div>
+                                    <div ng-if="gtSelection.plantOutside == 0">On The Average Last Day Of Frost</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- End info modal window -->
+    
+    
 </div>
