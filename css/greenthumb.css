@@ -326,6 +326,8 @@ table {
   padding-top: 10px;
   margin-top: 5px;
   background-color: #f7f7f7; }
+  .gt-area .button.delete {
+    float: right; }
 
 .gt-area:first-child {
   margin-top: 0px; }

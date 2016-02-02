@@ -2,13 +2,8 @@
      <div class="col-md-12">
         <h3>
             {{area.label}}
+            <a class="glyphicon glyphicon-remove has-tip button sm fade delete" href="" data-toggle="modal" data-target="#gtModalDelete" uib-tooltip="Delete this produce item" data-placement="top" ng-click="deleteStep1('area',area.label,$index)"></a>
             <a class="glyphicon glyphicon-plus has-tip button sm fade" href="" data-toggle="modal" data-target="#gtModalAdd" uib-tooltip="Add new produce item to this area" data-placement="top" ng-click="addProduceStep1($index)"></a>
-            
-            <!-- 
-            <a class="fi fi-widget gt-edit has-tip" data-tooltip href="#" uib-tooltip="Edit the name of this growing area" data-reveal-id="gt-modal-edit" ng-click="gtEdit({label : area.label, update : false, type : 'area', id : $index})"></a>
-            
-            <a class="fi fi-x gt-edit gt-delete has-tip" data-tooltip href="#" uib-tooltip="Delete this growing area" tooltip-placement="left" ng-click="gtEdit()"></a>
-            -->
         </h3>
     </div>
   
@@ -27,12 +22,6 @@
                     <span class="visible-sm visible-md">{{produce2.label}} </span>
                     <span class="visible-lg">{{produce2.label}} {{produce2.label_parent}}</span>
                     <span class="visible-lg" ng-if="produce2.plantCount"></span>
-                   
-                   
-                    <!-- 
-                    <a class="fi fi-x gt-edit gt-delete has-tip" data-tooltip href="#" uib-tooltip="Delete this produce item" tooltip-placement="top" ng-click="gtEdit()"></a>
-                    <a class="fi fi-widget gt-edit has-tip" data-tooltip href="#" uib-tooltip="Edit this produce item" tooltip-placement="top" data-reveal-id="gt-modal-edit" ng-click="gtEdit({label : produce2.label, update : false})"></a>
-                    -->
                 </div>
             </div>
         </div>

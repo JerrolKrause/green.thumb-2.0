@@ -561,12 +561,15 @@ window.greenthumb = (function () {
             }
         });
        
-       
+       /**
+        * Delete Step 2. Can delete either an area or a produce item
+        * @returns {undefined}
+        */
         $scope.deleteStep2 = function () {
             if (gtShared.params.type === 'produce') {
                 gtGetData.activeGarden.areas[gtShared.params.areaID].produce.splice(gtShared.params.produceID, gtShared.params.produceID + 1);
-            } else if (gtShared.type === 'area') {
-
+            } else if (gtShared.params.type === 'area') {
+               gtGetData.activeGarden.areas.splice(gtShared.params.areaID, gtShared.params.areaID + 1);
             }
             
             $rootScope.$broadcast('dataPassed');
