@@ -39,7 +39,7 @@ $bg-color:          #f7f7f7;
 
 body{background-color:#fff;}
 h1, h2, h3, h4, h5{color:$green-dk;font-family: "BPreplay", sans-serif;position:relative;}
-    h2{border-bottom:1px solid $orange-mid;padding-bottom:10px;}
+    h2, .modal h3{border-bottom:1px solid $orange-mid;padding-bottom:10px;}
 a, a:link{color:$link-color;}
 a:hover{color:$link-color-hover;text-decoration:underline;}
 *:focus {outline: none;}
@@ -63,6 +63,7 @@ table{
 /* Universal Styles */
 .button, .reveal-modal .button.close-reveal-modal{
     @include link-color-dk();padding: 10px;font-size: 14px;margin-bottom:0px;border-radius: 5px;position:initial;font-weight:initial;line-height:initial;display: inline-block;
+    &:link, &:visited, &:active{@include link-color-dk();underline:none;}
     &:hover, button:hover, &.close-reveal-modal:hover{color:#fff!important;background-color:$orange-dk;text-decoration:none!important;}
     &.reverse{@include link-color-lt();border:1px solid $link-color-hover;}
     &.reverse:hover{@include link-color-dk();}
@@ -261,10 +262,12 @@ input.calendar{border-radius: 5px 0px 0px 5px;}
 @media (max-width: 767px) {
     h1{font-size:30px;}
     h2{font-size: 24px;padding-top:10px;border-top: 1px solid #AA6C39;border-bottom: 0px;}
+        .modal h2{border:0px;}
     h3{font-size: 18px;margin-top:0px;}
-    .gt-details{display:none;}
+        .modal h3{padding-top:15px;border-top: 1px solid #AA6C39;border-bottom: 0px;}
+   .gt-details{display:none;}
+   .modal hr{display:none;}
 }
-
 
 
 /* Small devices (tablets, 768px and up) */

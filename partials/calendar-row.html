@@ -2,7 +2,8 @@
      <div class="col-md-12">
         <h3>
             {{area.label}}
-            <a class="glyphicon glyphicon-plus has-tip button sm fade" href="" data-toggle="modal" data-target="#gtModalAdd" uib-tooltip="Add new produce item to this area" data-placement="top" ng-click="step1($index)"></a>
+            <a class="glyphicon glyphicon-plus has-tip button sm fade" href="" data-toggle="modal" data-target="#gtModalAdd" uib-tooltip="Add new produce item to this area" data-placement="top" ng-click="addProduceStep1($index)"></a>
+            
             <!-- 
             <a class="fi fi-widget gt-edit has-tip" data-tooltip href="#" uib-tooltip="Edit the name of this growing area" data-reveal-id="gt-modal-edit" ng-click="gtEdit({label : area.label, update : false, type : 'area', id : $index})"></a>
             
@@ -17,6 +18,8 @@
          <div class="col-md-3 col-sm-2 col-xs-2">
             <div class="gt-produce {{produce2.img}}">
                 <div class="inline">
+                    
+                    <a class="glyphicon glyphicon-remove gt-details has-tip" href="" data-toggle="modal" data-target="#gtModalDelete" uib-tooltip="Delete this produce item" data-placement="top" ng-click="deleteStep1('produce',produce2.label,$parent.$index,$index)"></a>
                     <a class="glyphicon glyphicon-search gt-details has-tip" href="" data-toggle="modal" data-target="#gtModalDetails" uib-tooltip="View {{produce2.label}} {{produce2.label_parent}} Details" data-placement="top" ng-click="gtDetails(produce2)"></a>
                     <!-- 
                     <span class="visible-xs  visible-sm">{{produce2.label_short}}</span>

@@ -113,7 +113,6 @@ window.greenthumb = (function () {
              * @returns {undefined}
              */
             area : function(area){
-                console.log(area);
                 var self            = this;
                 //Load area arguments
                 self.label          = area.label;
@@ -162,29 +161,35 @@ window.greenthumb = (function () {
                 
                 //Check if this produce item has a parent
                 if ('parent' in data.produce[produce.id]){
+                    
+                    
                     //Get the parent ID
                     var parentID = data.produce[produce.id].parent;
-                    //Copy the content from the parent produce object
-                    //self = angular.copy(data.produce[parentID]);
-                    angular.extend(self, data.produce[parentID]);
-                    //Now overwrite any of the default parent content with the child produce content
+                    
+                    
+                    angular.copy(data.produce[parentID], self);
                     self = angular.extend(self, data.produce[produce.id]);
+                    
+                    
                     //Set image class
-                    self.img = parentID;
-                    self.label_parent = data.produce[parentID].label;
+                    self.img            = parentID;
+                    self.label_parent   = data.produce[parentID].label;
+                    self.id_parent      = parentID;
+                   
+                    
+                    
                 //If this item does not have a parent    
                 } else {
                     //Just load the content right in
-                    //self = angular.copy(data.produce[produce.id]);
-                     angular.extend(self, data.produce[produce.id]);
+                    angular.copy(data.produce[produce.id], self);
                     //Set image class
                     self.img = produce.id;
                 }
                 
-                self.id = produce.id;
-                self.seedling = parseInt(self.plantOutside) - parseInt(self.plantInside);
-                self.label_short = self.label.charAt(0) + self.label.charAt(1);
-                self.numPlants = produce.numPlants;
+                self.id             = produce.id;
+                self.seedling       = parseInt(self.plantOutside) - parseInt(self.plantInside);
+                self.label_short    = self.label.charAt(0) + self.label.charAt(1);
+                self.numPlants      = produce.numPlants;
                 
                 //Figure out this produce items set dates
                 var plantMe = moment().set('month', produce.plantDate.month).set('date', produce.plantDate.date);
@@ -229,7 +234,7 @@ window.greenthumb = (function () {
                 
                 self.plantInsideWarm = self.plantInside + 4;
                 self.plantOutsideWarm = self.plantOutside + 4;
-                        
+                      //console.log(self);
                 
                 data.create.tasks(self);
                 //Set the value of this produce entry to the content
@@ -238,13 +243,12 @@ window.greenthumb = (function () {
             
             
             /**
-             * 
+             * Generate the tasks string and add to the tasks object
              * @param {type} produce
              * @returns {undefined}
              */
             tasks : function(produce){
-                //console.log(produce);
-                
+                //Loop through all the dates within the supplied produce object
                 angular.forEach(produce.dates, function(value,key){
                     var str;
 
@@ -290,8 +294,9 @@ window.greenthumb = (function () {
             }
         };//end create
        
-       
+        //Load content from a remote source
         data.load = function (url) {
+            console.log('data.load');
             //Fetch JSON object of garden to use
             //This call will be replaced by a CMS when that component is ready
             $http({
@@ -301,19 +306,18 @@ window.greenthumb = (function () {
                 //Create a new instance of garden
                 var garden = new data.create.garden($response.data[0]);
                 //Add this garden to the gardens array
-                //data.gardens.push(garden);
-                console.log(data);
+                data.gardens.push(garden);
                 $rootScope.$broadcast('dataPassed');
             });
         };
         
         /**
-         * 
+         * Update filtering/sorting options
          * @param {type} params
          * @returns {undefined}
          */
         data.update = function(params){
-            
+            console.log('data.update');
             //Overwrite any parameters supplied by the input object
             angular.merge(data.params, params);
             
@@ -324,19 +328,25 @@ window.greenthumb = (function () {
         };
        
         return data;
-    });
+    });//end gtGetData
+    
     
     /**
      * Generic shared data between controllers
      */
      greenThumb.factory("gtShared", function () {
-         var data = {
-             gardenID   : false,
-             areaID     : false
-         };
+        var data = {
+            params: {   gardenID    : false,
+                        areaID      : false,
+                        produceID   : false}
+        };
          
+         data.update = function(params){
+             angular.merge(data.params, params);
+         };
+         console.log(data.params);
          return data;
-     });
+     });//end gtShared
     
     
     /**
@@ -348,7 +358,7 @@ window.greenthumb = (function () {
             $scope.title    = gtGetData.activeGarden.label + ' | ' + 'green.thumb';
             
         });
-    });
+    });//end gtMeta
     
     
     /**
@@ -362,6 +372,35 @@ window.greenthumb = (function () {
         if($scope.gardenID !== 'mine'){
             gtGetData.load('js/models/'+$scope.gardenID+'.js');
         }
+        
+        /**
+         * Step 1 for adding new produce to an area. This just sets the area ID for use in the modal window that pops up
+         * @param {type} id
+         * @returns {undefined}
+         */
+        $scope.addProduceStep1 = function (id) {
+            //Send to gtShared factory
+            gtShared.areaID = id;
+        };
+        
+         /**
+          * Step 1 of deleting an item. This just stores the info so we do the actual delete in step 2
+          * @param {type} type
+          * @param {type} label
+          * @param {type} areaID
+          * @param {type} produceID
+          * @returns {undefined}
+          */
+        $scope.deleteStep1 = function (type, label, areaID, produceID) {
+            var params = {
+                areaID        : areaID,
+                produceID     : produceID,
+                type          : type,
+                label         : label
+            };
+            //Update the params in gtShared for use later by the modal
+            gtShared.update(params);
+        };
         
         /*
          * Fires a modal window that contains the specific plant characteristics
@@ -381,34 +420,9 @@ window.greenthumb = (function () {
             $scope.taskpanel = pane;
         };
         
-        /**
-        * Set the correct area ID for the add produce component
-        * @param {type} id
-        * @returns {undefined}
-        */
-       $scope.step1 = function(id){
-           //Send to gtShared factory
-           gtShared.areaID = id;
-       };
-       
-       /**
-        * Add a new area to the garden
-        * @returns {undefined}
-        */
-       $scope.addArea = function(){
-           //Create default object
-           var obj = {
-               label    : $scope.area.label,
-               width    : 12,
-               length   : 12
-           };
-           //Add the new area to the model
-           gtGetData.activeGarden.addArea(obj);
-       };//end addArea
-       
         //When the garden model is updated, update the data on the page
         $scope.$on('dataPassed', function () {
-           
+            console.log(gtGetData);
             $scope.garden       = gtGetData.activeGarden.areas;
             $scope.label        = gtGetData.activeGarden.label;
             $scope.frost_spring = gtGetData.activeGarden.frost_spring.position;
@@ -440,10 +454,7 @@ window.greenthumb = (function () {
                     $scope.tasksPrev.push(value);
                 }
             });
-
-            //console.log(gtGetData.activeGarden.tasks);
         });
-
     }).directive('tasks', function () {
         return {
             restrict: 'E',
@@ -459,10 +470,9 @@ window.greenthumb = (function () {
                 data: '='
             },
             replace: true,
-            templateUrl: 'partials/calendar-row.html',
-            controller: 'gtGarden'
+            templateUrl: 'partials/calendar-row.html'
         };
-    });
+    });//end gtGarden
      
      
      
@@ -476,10 +486,6 @@ window.greenthumb = (function () {
         $scope.status   = {opened: false};
         $scope.date     = new Date();
 
-        $scope.$on('dataPassed', function () {
-            //Update the date from the factory
-            //$scope.date = gtGetData.params.dates.main.toDate();
-        });
 
         /**
          * When filter sorting params have been adjusted
@@ -494,8 +500,7 @@ window.greenthumb = (function () {
             
             gtGetData.update(params);
         };
-
-    });
+    });//end gtFilter
     
     
     /**
@@ -540,14 +545,14 @@ window.greenthumb = (function () {
             if (typeof $scope.gtSearchTerm !== 'undefined' && typeof $scope.gtSearchTerm.id !== 'undefined') {
                 $scope.error.plant = false;
                 //Pass to step 1
-                $scope.step2($scope.gtSearchTerm.id);
+                $scope.addProduceStep2($scope.gtSearchTerm.id);
             }
         });
         
         //When the produce plant date calendar feature is changed, IE a date was added
         $scope.$watch('options.date', function () {
             //Make sure the var and property are not undefined
-            if (typeof $scope.options.date !== 'undefined' && typeof $scope.options.date !== '' && typeof $scope.options.date !== null) {
+            if (typeof $scope.options.date !== 'undefined' && $scope.options.date !== '' && $scope.options.date !== null) {
                 //Pass to step 1
                 
                 $scope.error.date = true;
@@ -557,12 +562,39 @@ window.greenthumb = (function () {
         });
        
        
+        $scope.deleteStep2 = function () {
+            if (gtShared.params.type === 'produce') {
+                gtGetData.activeGarden.areas[gtShared.params.areaID].produce.splice(gtShared.params.produceID, gtShared.params.produceID + 1);
+            } else if (gtShared.type === 'area') {
+
+            }
+            
+            $rootScope.$broadcast('dataPassed');
+            $('#gtModalDelete').modal('hide');
+        };
+
+        /**
+         * Add a new area to the garden
+         * @returns {undefined}
+         */
+        $scope.addArea = function () {
+            //Create default object
+            var obj = {
+                label: $scope.area.label,
+                width: 12,
+                length: 12
+            };
+            //Add the new area to the model
+            gtGetData.activeGarden.addArea(obj);
+        };//end addArea
+       
+       
         /**
          * Create an object for the search tool to use
          * @param {type} id - The id of the produce item
          * @returns {undefined}
          */
-        $scope.step2 = function(id){
+        $scope.addProduceStep2 = function(id){
             //Add the ID to the add produce object
             $scope.addProduce.id = id;
             
@@ -570,10 +602,10 @@ window.greenthumb = (function () {
             //This is used for the produce search tool
             var searchProduce;
             if (gtGetData.produce[id].parent) {
-                searchProduce = gtGetData.produce[gtGetData.produce[id].parent];
+                searchProduce = angular.copy(gtGetData.produce[gtGetData.produce[id].parent]);
                 angular.merge(searchProduce, gtGetData.produce[id]);
             } else {
-                searchProduce = gtGetData.produce[id];
+                searchProduce = angular.copy(gtGetData.produce[id]);
             }
             //Send the object to the search tool
             $scope.selection = searchProduce;
@@ -615,8 +647,7 @@ window.greenthumb = (function () {
          * Adds the produce to the correct array
          * @returns {undefined}
          */
-        $scope.step3 = function(){
-            
+        $scope.addProduceStep3 = function(){
             if($scope.error.date === false){
                 return false;
             }
@@ -666,8 +697,7 @@ window.greenthumb = (function () {
                         //redirectTo: '/home'
                         templateUrl: 'pages/home.html'
                     });
-        }]);
+        }]);//end $routeProvider
 
-   
     return greenThumb;
 })();
