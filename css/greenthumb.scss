@@ -59,10 +59,11 @@ table{
     }
 };
 
+
 /* Universal Styles */
 .button, .reveal-modal .button.close-reveal-modal{
     @include link-color-dk();padding: 10px;font-size: 14px;margin-bottom:0px;border-radius: 5px;position:initial;font-weight:initial;line-height:initial;display: inline-block;
-    &:link, &:visited, &:active{@include link-color-dk();underline:none;}
+    &:link, &:visited, &:active{@include link-color-dk();text-decoration:none!important;}
     &:hover, button:hover, &.close-reveal-modal:hover{color:#fff!important;background-color:$orange-dk;text-decoration:none!important;}
     &.reverse{@include link-color-lt();border:1px solid $link-color-hover;}
     &.reverse:hover{@include link-color-dk();}
@@ -72,14 +73,17 @@ table{
     &.disabled{cursor:not-allowed;background-color:#8A8A8A;}
 }
 .error{color:#f00;font-size:12px;}
-.glyphicon{margin-right: 10px;}
+.glyphicon{
+    margin-right: 10px;
+    &:hover, &:visited{text-decoration:none;}
+}
 .subtext{font-size:12px;float:right;margin-top: 15px;}    
-
 .tooltip{
     border-radius:5px;padding:5px 10px;display:inline!important;box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.5);background-color: #1e1f22!important;width:250px;
     .tooltip-inner{background:none;width:100%!important;max-width:250px;}
     &.top{margin-top:-10px;}
 }
+
 
 /* Modal Window Styling */
 .modal-header {
@@ -149,7 +153,6 @@ table{
 
 .dropcal{display:inline-block;border-radius: 0px 5px 5px 0px;padding:0px;padding-left: 10px;padding-right: 10px;height:auto;font-size:20px;line-height: 34px;}
 
-
 #gt-calendar{
     h2{border-top: 1px solid $border-color;border-bottom:0px;padding-top:20px;}
     #legend{
@@ -162,6 +165,7 @@ table{
     }
 }
 
+/* Garden View */
 #gt-areas{position:relative;clear:both;}       
     #gt-today{position:absolute;left: 0px;right: 0px;top: 0px;bottom: 0px;}    
       #gt-today .tall{height: 100%;position: relative;}  
@@ -169,10 +173,10 @@ table{
         #gt-today-line{background-color:#007ba4;position: absolute;width: 1px;height: 100%;}
         #gt-frost-spring{position: absolute;left:0px;height: 100%;background-color:#00aeef;opacity:0.1;}
         #gt-frost-fall{position: absolute;right:0px;height: 100%;background-color:#00aeef;opacity:0.1;}
-        
-        
+       
 .gt-area{
     padding-bottom: 10px;padding-top: 10px;margin-top: 5px;background-color: $bg-color;
+    .gt-area-title{min-width: 295px;display: inline-block;}
     .delete{float:right;}
     .gtAdd{font-size:10px;position: relative; top: -6px;}
 
@@ -242,12 +246,12 @@ input.calendar{border-radius: 5px 0px 0px 5px;}
     &.gt-delete{position:absolute;right:15px;padding-left:10px;}
 }  
 
-        h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-edit{display:inline-block;}
-            .gt-produce .gt-edit{vertical-align: initial;font-size:100%;float:right;position:initial;}
+h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-edit{display:inline-block;}
+    .gt-produce .gt-edit{vertical-align: initial;font-size:100%;float:right;position:initial;}
         
         
 /*
- * Media Queries
+ * Custom Media Queries
  */
 /* XS Small devices (cell phones) */
 @media (max-width: 767px) {

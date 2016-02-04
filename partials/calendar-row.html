@@ -1,13 +1,12 @@
 <div class="gt-area clearfix" ng-repeat="area in data track by $index">
      <div class="col-md-12">
         <h3>
-            {{area.label}}
+            <span class="gt-area-title">{{area.label}}</span>
             <a class="glyphicon glyphicon-remove has-tip sm delete" href="" data-toggle="modal" data-target="#gtModalDelete" uib-tooltip="Delete This Area" data-placement="top" ng-click="areaDelete($index, area.label)"></a>
             <a class="has-tip button sm gtAdd" href="" data-toggle="modal" data-target="#gtModalAdd" ng-click="addProduceStep1($index)"><span class="glyphicon glyphicon-plus "></span>Add Produce</a>
         </h3>
     </div>
   
-    
     <div class="gt-area-item clearfix gt-season-{{produce2.dom.season}}" ng-repeat="produce2 in area.produce track by $index" 1ng-if="produce2.visible == true">
         
          <div class="col-md-3 col-sm-2 col-xs-2">
