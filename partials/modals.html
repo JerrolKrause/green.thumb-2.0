@@ -1,43 +1,44 @@
 <div ng-controller="gtInteractive"> 
 
-<!-- Add Area -->
+    <!-- Add Area -->
     <div class="modal fade" id="gtModalArea" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                
+
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h3>Add New Growing Area</h3>
                 </div>
 
                 <div class="modal-body">
-                    <p><input type="text" class="form-control" placeholder="Enter Area Name" ng-model="area.label"/></p>
-                    <p><a href="" class="button" ng-click="addArea()">Add Area</a></p>
+                    <p><input type="text" class="form-control" placeholder="Enter Area Name" ng-model="area.label" id="areaAdd"/></p>
+                    <p><a href="" class="button" ng-click="area.add()">Add Area</a></p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End info modal window -->
-    
-     <!-- Delete Area/Produce -->
+    <!-- End Area -->
+
+    <!-- Delete Area/Produce -->
     <div class="modal fade" id="gtModalDelete" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                
+
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3>Delete This Item?</h3>
+                    <h3>Delete {{delete.label}}?</h3>
                 </div>
 
                 <div class="modal-body">
+                    <p ng-if="delete.type == 'area' ">This will also delete all the produce in this area.</p>
                     <p><a href="" class="button" ng-click="deleteStep2()">Yes</a></p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End info modal window -->
+    <!-- End Delete Area/Produce -->
 
-
+    
     <!-- Add Produce -->
     <div class="modal fade" id="gtModalAdd" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
@@ -59,14 +60,14 @@
                         </script>
                         <div id="gtProduceSearch">
                             <p>
-                                <input type="text" 
+                                <input type="text"
                                        ng-model="gtSearchTerm" 
                                        placeholder="Enter Search Term" 
                                        uib-typeahead="item as item.label for item in produce | filter:{label:$viewValue}" 
                                        typeahead-template-url="customTemplate.html" 
                                        class="form-control" 
                                        typeahead-show-hint="true" 
-                                       typeahead-min-length="1"/>
+                                       typeahead-min-length="1" focus="shouldBeOpen"/>
                             </p>
                             <div class="error" ng-if="error.plant">Please select a plant</div>
                         </div>
@@ -89,7 +90,6 @@
                                             </div>
                                         </div>
 
-
                                         <h4>Recommended Plant Dates:</h4>
                                         <table ng-if="dateRange.growingseason">
                                             <th>Without Cold Weather Gardening Techniques</th>
@@ -101,7 +101,6 @@
                                             <tr>
                                                 <td>Plant between <strong ng-bind="dateRange.cold_earliest"></strong> and <strong ng-bind="dateRange.cold_latest "></strong></td>
                                             </tr>
-
                                         </table>
 
                                         <div ng-if="dateRange.frost_spring == 'No Risk Of Frost' && dateRange.frost_spring !='Not Set' ">
@@ -112,7 +111,6 @@
                                         <div ng-if="dateRange.frost_spring == 'Not Set' ">
                                             <p>First/last frost dates not specified. Please add those in the options menu to get recommendations for planting dates.</p>
                                         </div>
-
 
                                         <table class="hide">
                                             <tr>
@@ -128,7 +126,6 @@
                                                 <td><strong ng-bind="daterange.growingseason + ' days'"></strong></td>
                                             </tr>
                                         </table>
-
                                     </div>
 
                                     <div class="col-md-6">
@@ -304,10 +301,19 @@
                             </tr>
                         </table>
                     </div>
+                    
+                    <div>
+                        <a href="" class="has-tip button pull-right" data-dismiss="modal" aria-label="Close">Close</a>
+                        <a href="" class="has-tip button" ng-click="deleteStep1(gtSelection)"><span class="glyphicon glyphicon-remove"></span>Delete</a>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
     <!-- End info modal window -->
     
-    </div>
+    
+    
+    
+</div>

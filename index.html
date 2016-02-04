@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="gtApp">
-    <head ng-controller="gtMeta">
+    <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title ng-bind="title">green.thumb</title>
+        <title>green.thumb</title>
 
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -69,7 +69,22 @@
         <!-- Plugins -->
         <script src="js/plugins.min.js?v=0.4"></script>
         
-        <!-- Application -->
-        <script src="js/greenthumb.js?v=0.4"></script>
+        <!-- Application
+        Production:
+        <script src="js/application.min.js?v=0.2.4"></script>
+        
+        Development:
+        <script src="js/greenthumb.js"></script>
+        <script src="js/services/services.js"></script>
+        <script src="js/controllers/gt-garden.js"></script>
+        <script src="js/controllers/gt-interactive.js"></script>
+        <script src="js/controllers/gt-filter.js"></script>
+        -->
+        <script src="js/greenthumb.js"></script>
+        <script src="js/services/services.js"></script>
+        <script src="js/controllers/gt-garden.js"></script>
+        <script src="js/controllers/gt-interactive.js"></script>
+        <script src="js/controllers/gt-filter.js"></script>
+       
     </body>
 </html>

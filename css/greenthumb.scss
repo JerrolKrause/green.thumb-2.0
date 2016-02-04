@@ -59,7 +59,6 @@ table{
     }
 };
 
-
 /* Universal Styles */
 .button, .reveal-modal .button.close-reveal-modal{
     @include link-color-dk();padding: 10px;font-size: 14px;margin-bottom:0px;border-radius: 5px;position:initial;font-weight:initial;line-height:initial;display: inline-block;
@@ -82,14 +81,11 @@ table{
     &.top{margin-top:-10px;}
 }
 
-
-
 /* Modal Window Styling */
 .modal-header {
     padding: 10px 15px 0px 15px;
     border:0px;
 }
-
 
 
 #gt-new-area{padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;display:inline-block;text-align:left;margin-left: 10px;margin-top: 5px;}
@@ -135,8 +131,6 @@ table{
 }
 
 
-
-
 #gt-container{
     font-size:0.9em;
     .row {max-width: 100%;}
@@ -154,7 +148,6 @@ table{
 }
 
 .dropcal{display:inline-block;border-radius: 0px 5px 5px 0px;padding:0px;padding-left: 10px;padding-right: 10px;height:auto;font-size:20px;line-height: 34px;}
-
 
 
 #gt-calendar{
@@ -177,35 +170,18 @@ table{
         #gt-frost-spring{position: absolute;left:0px;height: 100%;background-color:#00aeef;opacity:0.1;}
         #gt-frost-fall{position: absolute;right:0px;height: 100%;background-color:#00aeef;opacity:0.1;}
         
+        
 .gt-area{
     padding-bottom: 10px;padding-top: 10px;margin-top: 5px;background-color: $bg-color;
-    .button.delete{float:right;}
-}
-    .gt-area:first-child{margin-top:0px;}
+    .delete{float:right;}
+    .gtAdd{font-size:10px;position: relative; top: -6px;}
+
+    &:first-child{margin-top:0px;}
     .gt-area-row{position:relative;height: 25px;overflow:hidden;}
         .gt-seedlings{position:absolute;z-index:11;top:0px;background-color:#00a627;height: 25px;border-radius: 5px 0px 0px 5px;}
         .gt-directsow{background-color:#037200;}
         .gt-growing{position:absolute;z-index:12;top:0px;background-color:#037200;height: 25px;}
         .gt-harvest{position:absolute;z-index:10;top:0px;background-color:#c79359;height: 25px;border-radius: 0px 5px 5px 0px;}
-        
-        .gt-produce{
-            background: url('../img/thumbs/sprite-produce.png') no-repeat 0px 0px;padding-left: 30px;line-height: 25px;    min-height: 25px;position:relative;
-            &.cucumber{             @include sprite-vertical(1,50)}
-            &.broccoli{             @include sprite-vertical(2,50)}
-            &.brussel_sprouts{      @include sprite-vertical(3,50)}
-            &.carrot{               @include sprite-vertical(4,50)}
-            &.lettuce{              @include sprite-vertical(5,50)}
-            &.melon{                @include sprite-vertical(6,50)}
-            &.potato{               @include sprite-vertical(7,50)}
-            &.pumpkin{              @include sprite-vertical(8,50)}
-            &.sweet_potato{         @include sprite-vertical(9,50)}
-            &.squash{               @include sprite-vertical(10,50)}
-            &.swiss_chard{          @include sprite-vertical(11,50)}
-            &.tomato{               @include sprite-vertical(12,50)}
-            &.bell_pepper{          @include sprite-vertical(13,50)}
-            &.spinach{              @include sprite-vertical(14,50)}
-            .inline {display:inline!important;}
-        }
         
         .gt-area-item{
             margin-bottom:1px;
@@ -213,11 +189,29 @@ table{
         }
         
         .gt-details{
-            float:right;padding-top:6px;opacity:0.2;
+            float:right;padding-top:6px;
             &:hover{text-decoration:none;}
         }
-        .gt-produce:hover .gt-details{opacity:1;}
-        
+}     
+
+.gt-produce{
+    background: url('../img/thumbs/sprite-produce.png') no-repeat 0px 0px;padding-left: 30px;line-height: 25px;    min-height: 25px;position:relative;
+    &.cucumber{             @include sprite-vertical(1,50)}
+    &.broccoli{             @include sprite-vertical(2,50)}
+    &.brussel_sprouts{      @include sprite-vertical(3,50)}
+    &.carrot{               @include sprite-vertical(4,50)}
+    &.lettuce{              @include sprite-vertical(5,50)}
+    &.melon{                @include sprite-vertical(6,50)}
+    &.potato{               @include sprite-vertical(7,50)}
+    &.pumpkin{              @include sprite-vertical(8,50)}
+    &.sweet_potato{         @include sprite-vertical(9,50)}
+    &.squash{               @include sprite-vertical(10,50)}
+    &.swiss_chard{          @include sprite-vertical(11,50)}
+    &.tomato{               @include sprite-vertical(12,50)}
+    &.bell_pepper{          @include sprite-vertical(13,50)}
+    &.spinach{              @include sprite-vertical(14,50)}
+    .inline {display:inline!important;}
+}
         
 /*Calendar Styling*/
 #gt-cal-header{padding-bottom: 5px!important;}
@@ -241,11 +235,7 @@ input.calendar{border-radius: 5px 0px 0px 5px;}
         button span{background-color: none;}
         .glyphicon{margin:0px;}
 }
-
-
-
-
-        
+   
 .gt-edit{
     display:none;font-size:75%;vertical-align: text-top;margin: 0px;margin-left:5px;border:0px;color:$link-color;
     &:hover{text-decoration:none;border:0px;color:$link-color-hover;}
@@ -256,8 +246,6 @@ input.calendar{border-radius: 5px 0px 0px 5px;}
             .gt-produce .gt-edit{vertical-align: initial;font-size:100%;float:right;position:initial;}
         
         
-            
-            
 /*
  * Media Queries
  */
@@ -270,6 +258,7 @@ input.calendar{border-radius: 5px 0px 0px 5px;}
         .modal h3{padding-top:15px;border-top: 1px solid #AA6C39;border-bottom: 0px;}
    .gt-details{display:none;}
    .modal hr{display:none;}
+   .gt-area .button, .gt-area .delete{display:none;}
 }
 
 

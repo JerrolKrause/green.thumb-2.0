@@ -1,9 +1,9 @@
-<div class="gt-area clearfix" ng-repeat="area in data track by $index" 1ng-if="area.visible == true">
+<div class="gt-area clearfix" ng-repeat="area in data track by $index">
      <div class="col-md-12">
         <h3>
             {{area.label}}
-            <a class="glyphicon glyphicon-remove has-tip button sm fade delete" href="" data-toggle="modal" data-target="#gtModalDelete" uib-tooltip="Delete this produce item" data-placement="top" ng-click="deleteStep1('area',area.label,$index)"></a>
-            <a class="glyphicon glyphicon-plus has-tip button sm fade" href="" data-toggle="modal" data-target="#gtModalAdd" uib-tooltip="Add new produce item to this area" data-placement="top" ng-click="addProduceStep1($index)"></a>
+            <a class="glyphicon glyphicon-remove has-tip sm delete" href="" data-toggle="modal" data-target="#gtModalDelete" uib-tooltip="Delete This Area" data-placement="top" ng-click="areaDelete($index, area.label)"></a>
+            <a class="has-tip button sm gtAdd" href="" data-toggle="modal" data-target="#gtModalAdd" ng-click="addProduceStep1($index)"><span class="glyphicon glyphicon-plus "></span>Add Produce</a>
         </h3>
     </div>
   
@@ -14,8 +14,7 @@
             <div class="gt-produce {{produce2.img}}">
                 <div class="inline">
                     
-                    <a class="glyphicon glyphicon-remove gt-details has-tip" href="" data-toggle="modal" data-target="#gtModalDelete" uib-tooltip="Delete this produce item" data-placement="top" ng-click="deleteStep1('produce',produce2.label,$parent.$index,$index)"></a>
-                    <a class="glyphicon glyphicon-search gt-details has-tip" href="" data-toggle="modal" data-target="#gtModalDetails" uib-tooltip="View {{produce2.label}} {{produce2.label_parent}} Details" data-placement="top" ng-click="gtDetails(produce2)"></a>
+                    <a class="glyphicon glyphicon-search gt-details has-tip" href="" data-toggle="modal" data-target="#gtModalDetails" uib-tooltip="View {{produce2.label}} {{produce2.label_parent}} Details" data-placement="top" ng-click="gtDetails(produce2, $parent.$index, $index)"></a>
                     <!-- 
                     <span class="visible-xs  visible-sm">{{produce2.label_short}}</span>
                     -->

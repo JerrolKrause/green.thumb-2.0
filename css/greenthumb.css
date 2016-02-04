@@ -326,42 +326,50 @@ table {
   padding-top: 10px;
   margin-top: 5px;
   background-color: #f7f7f7; }
-  .gt-area .button.delete {
+  .gt-area .delete {
     float: right; }
-
-.gt-area:first-child {
-  margin-top: 0px; }
-
-.gt-area-row {
-  position: relative;
-  height: 25px;
-  overflow: hidden; }
-
-.gt-seedlings {
-  position: absolute;
-  z-index: 11;
-  top: 0px;
-  background-color: #00a627;
-  height: 25px;
-  border-radius: 5px 0px 0px 5px; }
-
-.gt-directsow {
-  background-color: #037200; }
-
-.gt-growing {
-  position: absolute;
-  z-index: 12;
-  top: 0px;
-  background-color: #037200;
-  height: 25px; }
-
-.gt-harvest {
-  position: absolute;
-  z-index: 10;
-  top: 0px;
-  background-color: #c79359;
-  height: 25px;
-  border-radius: 0px 5px 5px 0px; }
+  .gt-area .gtAdd {
+    font-size: 10px;
+    position: relative;
+    top: -6px; }
+  .gt-area:first-child {
+    margin-top: 0px; }
+  .gt-area .gt-area-row {
+    position: relative;
+    height: 25px;
+    overflow: hidden; }
+  .gt-area .gt-seedlings {
+    position: absolute;
+    z-index: 11;
+    top: 0px;
+    background-color: #00a627;
+    height: 25px;
+    border-radius: 5px 0px 0px 5px; }
+  .gt-area .gt-directsow {
+    background-color: #037200; }
+  .gt-area .gt-growing {
+    position: absolute;
+    z-index: 12;
+    top: 0px;
+    background-color: #037200;
+    height: 25px; }
+  .gt-area .gt-harvest {
+    position: absolute;
+    z-index: 10;
+    top: 0px;
+    background-color: #c79359;
+    height: 25px;
+    border-radius: 0px 5px 5px 0px; }
+  .gt-area .gt-area-item {
+    margin-bottom: 1px; }
+    .gt-area .gt-area-item img {
+      margin-right: 10px;
+      float: left; }
+  .gt-area .gt-details {
+    float: right;
+    padding-top: 6px; }
+    .gt-area .gt-details:hover {
+      text-decoration: none; }
 
 .gt-produce {
   background: url("../img/thumbs/sprite-produce.png") no-repeat 0px 0px;
@@ -399,22 +407,6 @@ table {
     background-position: 0px -700px; }
   .gt-produce .inline {
     display: inline !important; }
-
-.gt-area-item {
-  margin-bottom: 1px; }
-  .gt-area-item img {
-    margin-right: 10px;
-    float: left; }
-
-.gt-details {
-  float: right;
-  padding-top: 6px;
-  opacity: 0.2; }
-  .gt-details:hover {
-    text-decoration: none; }
-
-.gt-produce:hover .gt-details {
-  opacity: 1; }
 
 /*Calendar Styling*/
 #gt-cal-header {
@@ -534,6 +526,9 @@ h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-e
     display: none; }
 
   .modal hr {
+    display: none; }
+
+  .gt-area .button, .gt-area .delete {
     display: none; } }
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
