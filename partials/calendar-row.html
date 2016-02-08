@@ -2,8 +2,8 @@
      <div class="col-md-12">
         <h3>
             <span class="gt-area-title">{{area.label}}</span>
-            <a class="glyphicon glyphicon-remove has-tip sm delete" href="" data-toggle="modal" data-target="#gtModalDelete" uib-tooltip="Delete This Area" data-placement="top" ng-click="areaDelete($index, area.label)"></a>
-            <a class="has-tip button sm gtAdd" href="" data-toggle="modal" data-target="#gtModalAdd" ng-click="addProduceStep1($index)"><span class="glyphicon glyphicon-plus "></span>Add Produce</a>
+            <a class="glyphicon glyphicon-remove sm delete" href="" data-toggle="modal" data-target="#gtModalDelete" data-placement="top" ng-click="areaDelete($index, area.label)"></a>
+            <a class="has-tip button sm gtAdd" href="" data-toggle="modal" data-target="#gtModalAdd" ng-click="addProduceStep1($index)"><span class="glyphicon glyphicon-plus "></span><span class="visible-lg-inline visible-md-inline">Add Produce</span></a>
         </h3>
     </div>
   
@@ -17,7 +17,7 @@
                     <!-- 
                     <span class="visible-xs  visible-sm">{{produce2.label_short}}</span>
                     -->
-                    <span class="visible-sm visible-md">{{produce2.label}} </span>
+                    <span class="visible-md">{{produce2.label}} </span>
                     <span class="visible-lg">{{produce2.label}} {{produce2.label_parent}}</span>
                     <span class="visible-lg" ng-if="produce2.plantCount"></span>
                 </div>

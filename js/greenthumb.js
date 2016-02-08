@@ -2,7 +2,6 @@
 /* jshint unused: true */
 
 window.greenthumb = angular.module('gtApp', ['ngRoute', 'ui.bootstrap']);     //Angular app
-'use strict';
 
 greenthumb.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.

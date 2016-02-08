@@ -505,6 +505,10 @@ h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-e
 /*
  * Custom Media Queries
  */
+/* Custom media queries for inline elements, bootstrap uses block elements*/
+.visible-lg-inline {
+  display: none; }
+
 /* XS Small devices (cell phones) */
 @media (max-width: 767px) {
   h1 {
@@ -534,16 +538,40 @@ h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-e
   .modal hr {
     display: none; }
 
-  .gt-area .button, .gt-area .delete {
-    display: none; } }
+  .gt-area .glyphicon {
+    margin-right: 0px; }
+  .gt-area .delete, .gt-area .button {
+    display: none; }
+  .gt-area .gt-area-title {
+    min-width: auto;
+    top: 0px; }
+  .gt-area .gtAdd {
+    top: -3px; } }
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .gt-produce span {
-    font-size: 10px; } }
+    font-size: 10px; }
+
+  .gt-area .glyphicon {
+    margin-right: 0px; }
+  .gt-area .gt-area-title {
+    min-width: auto;
+    top: 0px; }
+  .gt-area .gtAdd {
+    top: -3px; } }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .gt-produce span {
-    font-size: 14px; } }
+    font-size: 14px; }
+
+  .visible-md-inline {
+    display: inherit !important; }
+
+  .gt-area .glyphicon {
+    margin-right: 10px; } }
 /* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .visible-lg-inline {
+    display: inherit !important; } }
 
 /*# sourceMappingURL=greenthumb.css.map */

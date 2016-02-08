@@ -292,6 +292,14 @@ window.greenthumb.factory("gtGetData", function ($http, $rootScope) {
             });
         }
     };//end create
+    
+    /* Transition to smarter use of prototype
+    data.create.garden.prototype = {
+        addArea : function(){},
+        addProduce : function(){},
+        addTask : function(){}
+    };
+     */               
 
     //Load content from a remote source
     data.load = function (url) {
