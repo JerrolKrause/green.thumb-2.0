@@ -3,7 +3,7 @@
         <h3>
             <span class="gt-area-title">{{area.label}}</span>
             <a class="glyphicon glyphicon-remove sm delete" href="" data-toggle="modal" data-target="#gtModalDelete" data-placement="top" ng-click="areaDelete($index, area.label)"></a>
-            <a class="has-tip button sm gtAdd" href="" data-toggle="modal" data-target="#gtModalAdd" ng-click="addProduceStep1($index)"><span class="glyphicon glyphicon-plus "></span><span class="visible-lg-inline visible-md-inline">Add Produce</span></a>
+            <a class="has-tip button sm gtAdd" href="" data-toggle="modal" data-target="#gtModalAdd" ng-click="addProduceStep1($index)"><span class="glyphicon glyphicon-plus "></span><span class="visible-md-inline visible-lg-inline visible-xl-inline">Add Produce</span></a>
         </h3>
     </div>
   
@@ -17,9 +17,9 @@
                     <!-- 
                     <span class="visible-xs  visible-sm">{{produce2.label_short}}</span>
                     -->
-                    <span class="visible-md">{{produce2.label}} </span>
-                    <span class="visible-lg">{{produce2.label}} {{produce2.label_parent}}</span>
-                    <span class="visible-lg" ng-if="produce2.plantCount"></span>
+                    <span class="visible-md-inline">{{produce2.label_parent}}</span>
+                    <span class="visible-lg-inline">{{produce2.label}}</span> <span class="visible-lg-inline" ng-if="produce2.label != produce2.label_parent">{{produce2.label_parent}}</span>
+                    <span class="visible-lg-inline" ng-if="produce2.plantCount"></span>
                 </div>
             </div>
         </div>

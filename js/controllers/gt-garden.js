@@ -75,10 +75,10 @@ window.greenthumb.controller('gtGarden', function ($scope, gtGetData, $routePara
         //Loop through the tasks object
         angular.forEach(gtGetData.activeGarden.tasks, function (value) {
             //Check if the current task object is upcoming 1 month
-            if (value.date.isBetween(gtGetData.params.dates.main.clone().add(1, 'day'), gtGetData.params.dates.main.clone().add(1, 'month'))) {
+            if (value.date.isBetween(gtGetData.params.dates.main.clone().add(1, 'day'), gtGetData.params.dates.main.clone().add(2, 'weeks'))) {
                 $scope.tasksNext.push(value);
                 //Check if previous task object occurs 1 month prior    
-            } else if (value.date.isBetween(gtGetData.params.dates.main.clone().subtract(1, 'month'), gtGetData.params.dates.main)) {
+            } else if (value.date.isBetween(gtGetData.params.dates.main.clone().subtract(2, 'weeks'), gtGetData.params.dates.main)) {
                 $scope.tasksPrev.push(value);
             }
         });

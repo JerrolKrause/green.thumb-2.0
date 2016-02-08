@@ -19,7 +19,6 @@ window.greenthumb.controller('gtInteractive', function ($scope, $rootScope, gtGe
         //date   : new Date()
     };
 
-
     //Create an array for the produce search tool
     var produce = [];
     angular.forEach(gtGetData.produce, function (value, key) {
@@ -68,12 +67,10 @@ window.greenthumb.controller('gtInteractive', function ($scope, $rootScope, gtGe
         $scope.delete = gtShared.params;
     });
   
-    
-  
-  
+    //Add an area, this needs to be updated
     $scope.area = {
         /**
-         * 
+         * Add an area
          * @returns {undefined}
          */
         add : function(){
@@ -90,6 +87,22 @@ window.greenthumb.controller('gtInteractive', function ($scope, $rootScope, gtGe
         }
     };
     
+    /**
+     * Add an area
+     * @returns {undefined}
+     */
+    $scope.areaAdd = function () {
+        //Create default object
+        var obj = {
+            label: $scope.area.label,
+            width: 12,
+            length: 12
+        };
+        //Add the new area to the model
+        gtGetData.activeGarden.addArea(obj);
+        //Close modal window
+        $('#gtModalArea').modal('hide');
+    }
    
    /**
     * Delete step 1, just closes the details window and opens the delete window
@@ -117,6 +130,7 @@ window.greenthumb.controller('gtInteractive', function ($scope, $rootScope, gtGe
         $rootScope.$broadcast('dataPassed');
         $('#gtModalDelete').modal('hide');
     };
+
 
     /**
      * Create an object for the search tool to use
@@ -198,7 +212,6 @@ window.greenthumb.controller('gtInteractive', function ($scope, $rootScope, gtGe
         $scope.selection = {};
     };
 
-
     //When the Add Area modal fires, automatically focus on the input
     $('#gtModalArea').on('shown.bs.modal', function () {
         $('#areaAdd').focus();
@@ -208,7 +221,5 @@ window.greenthumb.controller('gtInteractive', function ($scope, $rootScope, gtGe
     $('#gtModalAdd').on('shown.bs.modal', function () {
        $('#gtProduceSearch input')[1].focus();
     });
-
-
 
 });//end gtInteractive

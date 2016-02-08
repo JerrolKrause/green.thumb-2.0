@@ -2,39 +2,40 @@
  * Variables
  */
 
-$green-lt   :       #88cc88;
-$green-mid  :       #2d882d;
-$green-dk   :       #005300;
+$green-lt   :      #88cc88;
+$green-mid  :      #2d882d;
+$green-dk   :      #005300;
 
-$brown-mid  :       #aa6c39;
+$brown-mid  :      #aa6c39;
 
-$red-lt  :       #fff4f4;
-$red-mid  :      #aa3939;
-$red-dk  :       #550000;
+$red-lt  :         #fff4f4;
+$red-mid  :        #aa3939;
+$red-dk  :         #550000;
 
-$blue-lt  :       #669999;
-$blue-mid  :      #489999;
-$blue-dk  :       #004d4d;
+$blue-lt  :        #669999;
+$blue-mid  :       #489999;
+$blue-dk  :        #004d4d;
 
-$orange-lt  :       #fff7f1;
-$orange-mid  :      #aa6c39;
-$orange-dk  :       #552700;
+$orange-lt  :      #fff7f1;
+$orange-mid  :     #aa6c39;
+$orange-dk  :      #552700;
 
 $link-color:        $orange-mid;
 $link-color-hover:  $orange-dk ;
 $border-color:      $orange-mid;
 $bg-color:          #f7f7f7;
 
-@mixin link-color-dk(){background-color:$orange-mid;color:#fff;}
-@mixin link-color-lt(){background-color:$orange-lt;color:$orange-dk;}
-@mixin sprite-vertical($position, $spacing){background-position:0px (-$position * $spacing) + px;}
+@mixin link-color-dk(){background-color:$orange-mid;color:#fff;}//Button coloring
+@mixin link-color-lt(){background-color:$orange-lt;color:$orange-dk;}//Button coloring
+@mixin sprite-vertical($position, $spacing){background-position:0px (-$position * $spacing) + px;}//Manage CSS sprites
+
 
 
 /*
  * Content
  */
 
-/* Generic HTML */
+// Generic HTML
 @font-face{font-family:'BPreplay';src:url(../fonts/BPreplay.otf);}
 
 body{background-color:#fff;}
@@ -42,6 +43,7 @@ h1, h2, h3, h4, h5{color:$green-dk;font-family: "BPreplay", sans-serif;position:
     h2, .modal h3{border-bottom:1px solid $orange-mid;padding-bottom:10px;}
 a, a:link{color:$link-color;}
 a:hover{color:$link-color-hover;text-decoration:underline;}
+ul, ol{padding-left: 15px;}
 *:focus {outline: none;}
 label{color:$link-color;cursor:pointer;margin-right:0px!important;font-weight:normal;margin-left:10px;}
     label:hover{color:$link-color-hover;text-decoration:underline;}
@@ -60,7 +62,7 @@ table{
 };
 
 
-/* Universal Styles */
+// Universal Styles
 .button, .reveal-modal .button.close-reveal-modal{
     @include link-color-dk();padding: 10px;font-size: 14px;margin-bottom:0px;border-radius: 5px;position:initial;font-weight:initial;line-height:initial;display: inline-block;
     &:link, &:visited, &:active{@include link-color-dk();text-decoration:none!important;}
@@ -85,15 +87,11 @@ table{
 }
 
 
-/* Modal Window Styling */
+// Modal Window Styling
 .modal-header {
     padding: 10px 15px 0px 15px;
     border:0px;
 }
-
-
-#gt-new-area{padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;display:inline-block;text-align:left;margin-left: 10px;margin-top: 5px;}
-
 #gtProduceSelect{
     ul{list-style:none;margin:0px;margin-bottom: 1.25rem;}
     li{margin-bottom:2px;}
@@ -108,7 +106,6 @@ table{
         td{padding:0px;}
     }
 }
-
 #gtProduceSearch{
     .dropdown-menu{
         width:100%;
@@ -116,8 +113,21 @@ table{
     }
 }
 
-#today{position:relative;top:-2px;}
 
+// Masterpage
+#gt-container{
+    font-size:0.9em;
+    .row {max-width: 100%;}
+}
+.gt-col{
+    float:left;text-align:center;width:8.333%;background: $bg-color url('../img/pixel-white.png') repeat-y right top;
+    &:first-child{border-radius: 5px 0px 0px 5px;}
+    &:last-child{border-radius: 0px 5px 5px 0px;}
+}
+#gt-schedule{
+    border-top:1px solid $border-color;padding-top:20px;
+    h3, .tabs{border-bottom:1px solid $border-color}
+}
 #gt-header{
     background-color:#1e1f22;padding-left:20px;padding-bottom:10px;border-radius: 0px;border:0px;margin-bottom:0px;position:relative;
     #logo{
@@ -133,30 +143,17 @@ table{
         span{color:$green-mid;}
     }
 }
-
-
-#gt-container{
-    font-size:0.9em;
-    .row {max-width: 100%;}
-}
-
-.gt-col{
-    float:left;text-align:center;width:8.333%;background: $bg-color url('../img/pixel-white.png') repeat-y right top;
-    &:first-child{border-radius: 5px 0px 0px 5px;}
-    &:last-child{border-radius: 0px 5px 5px 0px;}
-}
-
-#gt-schedule{
-    border-top:1px solid $border-color;padding-top:20px;
-    h3, .tabs{border-bottom:1px solid $border-color}
-}
-
 .dropcal{display:inline-block;border-radius: 0px 5px 5px 0px;padding:0px;padding-left: 10px;padding-right: 10px;height:auto;font-size:20px;line-height: 34px;}
+
+
+// Garden View
+#today{position:relative;top:-2px;}
+#gt-new-area{padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;display:inline-block;text-align:left;margin-left: 10px;margin-top: 5px;}
 
 #gt-calendar{
     h2{border-top: 1px solid $border-color;border-bottom:0px;padding-top:20px;}
     #legend{
-        font-size:10px;
+        font-size:9px;
         span{padding:3px 5px;color:#fff;border-radius: 5px;}
         .leg-seedling{background-color:#00a627;}
         .leg-growing{background-color:#037200;}
@@ -165,7 +162,6 @@ table{
     }
 }
 
-/* Garden View */
 #gt-areas{position:relative;clear:both;}       
     #gt-today{position:absolute;left: 0px;right: 0px;top: 0px;bottom: 0px;}    
       #gt-today .tall{height: 100%;position: relative;}  
@@ -175,12 +171,13 @@ table{
         #gt-frost-fall{position: absolute;right:0px;height: 100%;background-color:#00aeef;opacity:0.1;}
        
 .gt-area{
-    padding-bottom: 10px;padding-top: 10px;margin-top: 5px;background-color: $bg-color;
+    padding-bottom: 10px;margin-bottom:5px;background-color: $bg-color;
     .gt-area-title{min-width: 295px;display: inline-block;}
     .delete{float:right;}
     .gtAdd{font-size:10px;position: relative; top: -6px;}
-
-    &:first-child{margin-top:0px;}
+    h3{margin:0px;padding-top: 20px; padding-bottom: 10px;}
+    
+    &:last-child{margin-bottom:0px;}
     .gt-area-row{position:relative;height: 25px;overflow:hidden;}
         .gt-seedlings{position:absolute;z-index:11;top:0px;background-color:#00a627;height: 25px;border-radius: 5px 0px 0px 5px;}
         .gt-directsow{background-color:#037200;}
@@ -198,6 +195,7 @@ table{
         }
 }     
 
+// Produce Sprite
 .gt-produce{
     background: url('../img/thumbs/sprite-produce.png') no-repeat 0px 0px;padding-left: 30px;line-height: 25px;    min-height: 25px;position:relative;
     &.cucumber{             @include sprite-vertical(1,50)}
@@ -217,7 +215,7 @@ table{
     .inline {display:inline!important;}
 }
         
-/*Calendar Styling*/
+// Calendar Styling
 #gt-cal-header{padding-bottom: 5px!important;}
 input.calendar{border-radius: 5px 0px 0px 5px;}
 .dropdown-menu{
@@ -239,68 +237,66 @@ input.calendar{border-radius: 5px 0px 0px 5px;}
         button span{background-color: none;}
         .glyphicon{margin:0px;}
 }
-   
 .gt-edit{
     display:none;font-size:75%;vertical-align: text-top;margin: 0px;margin-left:5px;border:0px;color:$link-color;
     &:hover{text-decoration:none;border:0px;color:$link-color-hover;}
     &.gt-delete{position:absolute;right:15px;padding-left:10px;}
 }  
-
 h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-edit{display:inline-block;}
     .gt-produce .gt-edit{vertical-align: initial;font-size:100%;float:right;position:initial;}
         
-        
+
+    
     
 /*
  * Custom Media Queries
  */
 
-/* Custom media queries for inline elements, bootstrap uses block elements*/
-   .visible-lg-inline{display:none;}
-
-/* XS Small devices (cell phones) */
-@media (max-width: 767px) {
+// Small screens 
+// max-width 640px, mobile-only styles, use when QAing mobile issues
+@media only screen and (max-width: 750px) { 
     h1{font-size:30px;}
     h2{font-size: 24px;padding-top:10px;border-top: 1px solid #AA6C39;border-bottom: 0px;}
-        .modal h2{border:0px;}
-    h3{font-size: 18px;margin-top:0px;}
-        .modal h3{padding-top:15px;border-top: 1px solid #AA6C39;border-bottom: 0px;}
+        .modal h2{border:0px;border-bottom: 1px solid #AA6C39;}
+    h3{font-size: 18px;margin-top:0px;position:relative;}
+        .modal h3{padding-top:15px;}
    .gt-details{display:none;}
    .modal hr{display:none;}
    
    .gt-area{
        .glyphicon{margin-right:0px;}
-       .delete, .button{display:none;}
+       .delete{display:none;}
        .gt-area-title {min-width: auto;top:0px;}
-       .gtAdd {top: -3px;}
-       
+       .gtAdd {top: auto;position: absolute;right: 0px;}
+       .gt-details {float: left;}
    }
    
-}
+   .uib-datepicker-popup{left:0px!important;right:0px!important;}
+} 
 
-
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-    .gt-produce span{font-size:10px;}
+// Medium screens 
+// min-width 641px and max-width 1024px, use when QAing tablet-only issues
+@media only screen and (min-width: 751px) and (max-width: 970px) { 
     .gt-area{
-       .glyphicon{margin-right:0px;}
-       .gt-area-title {min-width: auto;top:0px;}
-       .gtAdd {top: -3px;}
-   }
+        .gt-area-title {min-width: auto;}
+        .glyphicon{margin-right:0px;}
+        .gt-details {float: left;}
+    }
 }
 
-
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
+// Large screens
+// min-width 1025px and max-width 1440px, use when QAing large screen-only issues
+@media only screen and (min-width: 971px) and (max-width: 1170px) { 
     .gt-produce span{font-size:14px;}
-    .visible-md-inline{display:inherit!important;}
-    
-    .gt-area{
-       .glyphicon{margin-right:10px;}
-   }
-}
 
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-    .visible-lg-inline{display:inherit!important;}
-}
+    .gt-area{
+        .glyphicon{margin-right:10px;}
+    }
+    
+} 
+
+// XLarge screens
+// min-width 1441px
+@media only screen and (min-width: 1171px){ 
+    
+} 

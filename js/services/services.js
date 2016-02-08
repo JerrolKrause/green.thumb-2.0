@@ -184,7 +184,9 @@ window.greenthumb.factory("gtGetData", function ($http, $rootScope) {
                 //Set image class
                 self.img = produce.id;
                 self.label_full     = self.label;
+                self.label_parent   = self.label;
             }
+            
 
             self.id             = produce.id;
             self.seedling       = parseInt(self.plantOutside) - parseInt(self.plantInside);
@@ -276,7 +278,7 @@ window.greenthumb.factory("gtGetData", function ($http, $rootScope) {
 
                 str +=  produce.label + ' ';
 
-                if(produce.label_parent){
+                if(produce.label_parent && produce.label_parent !== produce.label){
                     str += produce.label_parent ;
                 }
 

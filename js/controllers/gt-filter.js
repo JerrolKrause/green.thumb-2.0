@@ -11,9 +11,9 @@ window.greenthumb.controller('gtFilter', function ($scope, gtGetData) {
     $scope.status   = {opened: false};
     $scope.date     = new Date();
 
-
     /**
      * When filter sorting params have been adjusted
+     * Just contains the date element at the moment
      * @returns {undefined}
      */
     $scope.filterSort = function(){

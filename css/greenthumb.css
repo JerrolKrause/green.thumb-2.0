@@ -4,7 +4,6 @@
 /*
  * Content
  */
-/* Generic HTML */
 @font-face {
   font-family: 'BPreplay';
   src: url(../fonts/BPreplay.otf); }
@@ -26,6 +25,9 @@ a, a:link {
 a:hover {
   color: #552700;
   text-decoration: underline; }
+
+ul, ol {
+  padding-left: 15px; }
 
 *:focus {
   outline: none; }
@@ -76,7 +78,6 @@ table {
       margin: 0px;
       border: 0px; }
 
-/* Universal Styles */
 .button, .reveal-modal .button.close-reveal-modal {
   background-color: #aa6c39;
   color: #fff;
@@ -143,19 +144,9 @@ table {
   .tooltip.top {
     margin-top: -10px; }
 
-/* Modal Window Styling */
 .modal-header {
   padding: 10px 15px 0px 15px;
   border: 0px; }
-
-#gt-new-area {
-  padding-bottom: 10px;
-  padding-top: 10px;
-  margin-bottom: 5px;
-  display: inline-block;
-  text-align: left;
-  margin-left: 10px;
-  margin-top: 5px; }
 
 #gtProduceSelect ul {
   list-style: none;
@@ -189,9 +180,26 @@ table {
   #gtProduceSearch .dropdown-menu a {
     padding-left: 5px; }
 
-#today {
-  position: relative;
-  top: -2px; }
+#gt-container {
+  font-size: 0.9em; }
+  #gt-container .row {
+    max-width: 100%; }
+
+.gt-col {
+  float: left;
+  text-align: center;
+  width: 8.333%;
+  background: #f7f7f7 url("../img/pixel-white.png") repeat-y right top; }
+  .gt-col:first-child {
+    border-radius: 5px 0px 0px 5px; }
+  .gt-col:last-child {
+    border-radius: 0px 5px 5px 0px; }
+
+#gt-schedule {
+  border-top: 1px solid #aa6c39;
+  padding-top: 20px; }
+  #gt-schedule h3, #gt-schedule .tabs {
+    border-bottom: 1px solid #aa6c39; }
 
 #gt-header {
   background-color: #1e1f22;
@@ -232,27 +240,6 @@ table {
     #gt-header #gtViewing span {
       color: #2d882d; }
 
-#gt-container {
-  font-size: 0.9em; }
-  #gt-container .row {
-    max-width: 100%; }
-
-.gt-col {
-  float: left;
-  text-align: center;
-  width: 8.333%;
-  background: #f7f7f7 url("../img/pixel-white.png") repeat-y right top; }
-  .gt-col:first-child {
-    border-radius: 5px 0px 0px 5px; }
-  .gt-col:last-child {
-    border-radius: 0px 5px 5px 0px; }
-
-#gt-schedule {
-  border-top: 1px solid #aa6c39;
-  padding-top: 20px; }
-  #gt-schedule h3, #gt-schedule .tabs {
-    border-bottom: 1px solid #aa6c39; }
-
 .dropcal {
   display: inline-block;
   border-radius: 0px 5px 5px 0px;
@@ -263,12 +250,25 @@ table {
   font-size: 20px;
   line-height: 34px; }
 
+#today {
+  position: relative;
+  top: -2px; }
+
+#gt-new-area {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-bottom: 5px;
+  display: inline-block;
+  text-align: left;
+  margin-left: 10px;
+  margin-top: 5px; }
+
 #gt-calendar h2 {
   border-top: 1px solid #aa6c39;
   border-bottom: 0px;
   padding-top: 20px; }
 #gt-calendar #legend {
-  font-size: 10px; }
+  font-size: 9px; }
   #gt-calendar #legend span {
     padding: 3px 5px;
     color: #fff;
@@ -282,7 +282,6 @@ table {
   #gt-calendar #legend .leg-frost {
     background-color: #00aeef; }
 
-/* Garden View */
 #gt-areas {
   position: relative;
   clear: both; }
@@ -326,8 +325,7 @@ table {
 
 .gt-area {
   padding-bottom: 10px;
-  padding-top: 10px;
-  margin-top: 5px;
+  margin-bottom: 5px;
   background-color: #f7f7f7; }
   .gt-area .gt-area-title {
     min-width: 295px;
@@ -338,8 +336,12 @@ table {
     font-size: 10px;
     position: relative;
     top: -6px; }
-  .gt-area:first-child {
-    margin-top: 0px; }
+  .gt-area h3 {
+    margin: 0px;
+    padding-top: 20px;
+    padding-bottom: 10px; }
+  .gt-area:last-child {
+    margin-bottom: 0px; }
   .gt-area .gt-area-row {
     position: relative;
     height: 25px;
@@ -414,7 +416,6 @@ table {
   .gt-produce .inline {
     display: inline !important; }
 
-/*Calendar Styling*/
 #gt-cal-header {
   padding-bottom: 5px !important; }
 
@@ -505,12 +506,7 @@ h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-e
 /*
  * Custom Media Queries
  */
-/* Custom media queries for inline elements, bootstrap uses block elements*/
-.visible-lg-inline {
-  display: none; }
-
-/* XS Small devices (cell phones) */
-@media (max-width: 767px) {
+@media only screen and (max-width: 750px) {
   h1 {
     font-size: 30px; }
 
@@ -521,16 +517,16 @@ h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-e
     border-bottom: 0px; }
 
   .modal h2 {
-    border: 0px; }
+    border: 0px;
+    border-bottom: 1px solid #AA6C39; }
 
   h3 {
     font-size: 18px;
-    margin-top: 0px; }
+    margin-top: 0px;
+    position: relative; }
 
   .modal h3 {
-    padding-top: 15px;
-    border-top: 1px solid #AA6C39;
-    border-bottom: 0px; }
+    padding-top: 15px; }
 
   .gt-details {
     display: none; }
@@ -540,38 +536,33 @@ h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-e
 
   .gt-area .glyphicon {
     margin-right: 0px; }
-  .gt-area .delete, .gt-area .button {
+  .gt-area .delete {
     display: none; }
   .gt-area .gt-area-title {
     min-width: auto;
     top: 0px; }
   .gt-area .gtAdd {
-    top: -3px; } }
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .gt-produce span {
-    font-size: 10px; }
+    top: auto;
+    position: absolute;
+    right: 0px; }
+  .gt-area .gt-details {
+    float: left; }
 
+  .uib-datepicker-popup {
+    left: 0px !important;
+    right: 0px !important; } }
+@media only screen and (min-width: 751px) and (max-width: 970px) {
+  .gt-area .gt-area-title {
+    min-width: auto; }
   .gt-area .glyphicon {
     margin-right: 0px; }
-  .gt-area .gt-area-title {
-    min-width: auto;
-    top: 0px; }
-  .gt-area .gtAdd {
-    top: -3px; } }
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
+  .gt-area .gt-details {
+    float: left; } }
+@media only screen and (min-width: 971px) and (max-width: 1170px) {
   .gt-produce span {
     font-size: 14px; }
 
-  .visible-md-inline {
-    display: inherit !important; }
-
   .gt-area .glyphicon {
     margin-right: 10px; } }
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  .visible-lg-inline {
-    display: inherit !important; } }
 
 /*# sourceMappingURL=greenthumb.css.map */

@@ -1,5 +1,6 @@
 <div ng-controller="gtInteractive"> 
 
+    
     <!-- Add Area -->
     <div class="modal fade" id="gtModalArea" role="dialog">
         <div class="modal-dialog" role="document">
@@ -7,18 +8,19 @@
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3>Add New Growing Area</h3>
+                    <h3><span class="glyphicon glyphicon-plus"></span>Add New Growing Area</h3>
                 </div>
 
                 <div class="modal-body">
                     <p><input type="text" class="form-control" placeholder="Enter Area Name" ng-model="area.label" id="areaAdd"/></p>
-                    <p><a href="" class="button" ng-click="area.add()">Add Area</a></p>
+                    <p><a href="" class="button" ng-click="areaAdd()">Add Area</a></p>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Area -->
 
+    
     <!-- Delete Area/Produce -->
     <div class="modal fade" id="gtModalDelete" role="dialog">
         <div class="modal-dialog" role="document">
@@ -46,7 +48,7 @@
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h2><span class="fi fi-plus" ></span>Add Produce</h2>
+                    <h3><span class="glyphicon glyphicon-plus"></span>Add Produce</h3>
                 </div>
 
                 <div class="modal-body" style="padding:20px;">
@@ -312,8 +314,6 @@
         </div>
     </div>
     <!-- End info modal window -->
-    
-    
     
     
 </div>
