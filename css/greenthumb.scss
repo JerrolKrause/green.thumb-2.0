@@ -64,7 +64,7 @@ table{
 
 // Universal Styles
 .button, .reveal-modal .button.close-reveal-modal{
-    @include link-color-dk();padding: 10px;font-size: 14px;margin-bottom:0px;border-radius: 5px;position:initial;font-weight:initial;line-height:initial;display: inline-block;
+    @include link-color-dk();padding: 10px;font-size: 14px;margin-bottom:0px;border-radius: 5px;position:initial;font-weight:initial;line-height:initial;display: inline-block;border:0px;
     &:link, &:visited, &:active{@include link-color-dk();text-decoration:none!important;}
     &:hover, button:hover, &.close-reveal-modal:hover{color:#fff!important;background-color:$orange-dk;text-decoration:none!important;}
     &.reverse{@include link-color-lt();border:1px solid $link-color-hover;}
@@ -247,7 +247,6 @@ h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-e
         
 
     
-    
 /*
  * Custom Media Queries
  */
@@ -260,6 +259,7 @@ h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-e
         .modal h2{border:0px;border-bottom: 1px solid #AA6C39;}
     h3{font-size: 18px;margin-top:0px;position:relative;}
         .modal h3{padding-top:15px;}
+    li{font-size:12px;}    
    .gt-details{display:none;}
    .modal hr{display:none;}
    

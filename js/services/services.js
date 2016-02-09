@@ -76,32 +76,71 @@ window.greenthumb.factory("gtGetData", function ($http, $rootScope) {
             //Create container to hold the areas
             self.areas          = [];
 
+            //Create empty object to hold tasks
             self.tasks          = {};
 
             //Set the active/viewable garden to this garden, the newest created garden will always be referenced first
             data.activeGarden   = self;
 
+
             /**
              * Creates a new area for this garden
              * This is created on a garden level which allows us to trickle up information from the area level
-             * @param {type} areaObj
+             * @param {type} areaObj    - An object with the component to add
+             * @param {type} addToModel - Update the model for saving
              * @returns {undefined}
              */
-            self.addArea = function(areaObj){
-                //Create new rea
+            self.addArea = function(areaObj,addToModel){
+                //Create new area
                 var area = new data.create.area(areaObj);
+                //Store reference to this area's garden object
+                area.garden = self;
                 //Add to areas array
                 self.areas.push(area);
-                //Now get the position of this area in the array and add it as a parameter
-                //var position = self.areas.indexOf(area);
-                //self.areas[position].areaID = position;
-            };
+                //Update the model?
+                if(addToModel === true){
+                    data.model.areas.push(areaObj);
+                }
+            };//end self.addArea
+            
+            
+            /**
+             * Adds a new produce item to this area
+             * Having a closure allows us to trickle up information from the produce to the area level
+             * @param {type} produceObj     - An object with the produce ID to add
+             * @param {type} areaID         - Area ID
+             * @param {type} addToModel     - Update the JSON model?
+             * @returns {undefined}
+             */
+            self.addProduce = function (produceObj, areaID, addToModel) {
+                //Create new produce object
+                var produce = new data.create.produce(produceObj);
+                //Add reference to parent object
+                produce.area = self.areas[areaID];
+                
+                //Add this produce to the correct area
+                self.areas[areaID].produce.push(produce);
+                
+                 //Update the model?
+                if(addToModel === true){
+                    console.log(self);
+                    //data.model.areas.push(produceObj);
+                }
+            };//end self.addProduce
+
 
             //If this garden has areas on load, create them automatically
             if(angular.isDefined(garden.areas) && garden.areas.length > 0){
-                angular.forEach(garden.areas, function(value){
-                    self.addArea(value);
-                });
+                angular.forEach(garden.areas, function(value1,key1){
+                    self.addArea(value1);
+                    
+                    //If this area has produce on default load, create all the entries
+                    if (angular.isDefined(value1.produce) && value1.produce.length > 0) {
+                        angular.forEach(value1.produce, function (value2) {
+                            self.addProduce(value2,key1);
+                        });//end forEach
+                    }
+                });//end forEach
             }
 
             return self;
@@ -126,29 +165,6 @@ window.greenthumb.factory("gtGetData", function ($http, $rootScope) {
                 fall    :   false,
                 winter  :   false
             }; 
-
-            /**
-             * Adds a new produce item to this area
-             * Having a closure allows us to trickle up information from the produce to the area level
-             * @param {type} produceObj
-             * @returns {undefined}
-             */
-            self.addProduce = function (produceObj) {
-                var produce = new data.create.produce(produceObj);
-
-                //Add new produce item to the produce array
-                self.produce.push(produce);
-                //Update this area's season flag to true to make filtering possible on an area level
-                self.seasons[produce.season] = true;
-
-            };
-
-            //If this area has produce on default load, create all the entries
-            if(angular.isDefined(area.produce) && area.produce.length > 0){
-                angular.forEach(area.produce, function(value){
-                    self.addProduce(value);
-                });
-            }
 
             return self;
         },//end create.area

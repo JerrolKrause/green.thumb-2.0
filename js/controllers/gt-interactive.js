@@ -99,10 +99,10 @@ window.greenthumb.controller('gtInteractive', function ($scope, $rootScope, gtGe
             length: 12
         };
         //Add the new area to the model
-        gtGetData.activeGarden.addArea(obj);
+        gtGetData.activeGarden.addArea(obj,true);
         //Close modal window
         $('#gtModalArea').modal('hide');
-    }
+    };
    
    /**
     * Delete step 1, just closes the details window and opens the delete window
@@ -118,7 +118,6 @@ window.greenthumb.controller('gtInteractive', function ($scope, $rootScope, gtGe
     * @returns {undefined}
     */
     $scope.deleteStep2 = function () {
-        console.log(gtShared.params.type);
         //If this is a produce item
         if (gtShared.params.type === 'produce') {
             gtGetData.activeGarden.areas[gtShared.params.areaID].produce.splice(gtShared.params.produceID, gtShared.params.produceID + 1);
@@ -201,7 +200,7 @@ window.greenthumb.controller('gtInteractive', function ($scope, $rootScope, gtGe
         };
 
         //Add the new produce to the area
-        gtGetData.activeGarden.areas[gtShared.areaID].addProduce($scope.addProduce);
+        gtGetData.activeGarden.addProduce($scope.addProduce,gtShared.areaID,true);
         $rootScope.$broadcast('dataPassed');
 
         //Hide modal window on click

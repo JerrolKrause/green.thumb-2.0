@@ -12,8 +12,10 @@
                 </div>
 
                 <div class="modal-body">
+                    <form ng-submit="areaAdd()">
                     <p><input type="text" class="form-control" placeholder="Enter Area Name" ng-model="area.label" id="areaAdd"/></p>
-                    <p><a href="" class="button" ng-click="areaAdd()">Add Area</a></p>
+                    <p><input class="button" type="submit" value="Add Area"/></p>
+                    </form>
                 </div>
             </div>
         </div>
@@ -74,7 +76,8 @@
                             <div class="error" ng-if="error.plant">Please select a plant</div>
                         </div>
 
-                            <div ng-if="selection.label">
+                        <div ng-if="selection.label">
+                            <form ng-submit="addProduceStep3()">
                                 <div class="row">
                                     <hr/>
                                     <div class="col-md-6">
@@ -182,10 +185,11 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <hr/>
-                                        <a href="" class="button" ng-click="addProduceStep3()" ng-class="{ 'disabled': !error.date}">Add Produce</a>
+                                        <input class="button" type="submit" value="Add Produce"/>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
