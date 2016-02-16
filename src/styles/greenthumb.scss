@@ -1,0 +1,302 @@
+/*
+ * Variables
+ */
+
+$green-lt   :      #88cc88;
+$green-mid  :      #2d882d;
+$green-dk   :      #005300;
+
+$brown-mid  :      #aa6c39;
+
+$red-lt  :         #fff4f4;
+$red-mid  :        #aa3939;
+$red-dk  :         #550000;
+
+$blue-lt  :        #669999;
+$blue-mid  :       #489999;
+$blue-dk  :        #004d4d;
+
+$orange-lt  :      #fff7f1;
+$orange-mid  :     #aa6c39;
+$orange-dk  :      #552700;
+
+$link-color:        $orange-mid;
+$link-color-hover:  $orange-dk ;
+$border-color:      $orange-mid;
+$bg-color:          #f7f7f7;
+
+@mixin link-color-dk(){background-color:$orange-mid;color:#fff;}//Button coloring
+@mixin link-color-lt(){background-color:$orange-lt;color:$orange-dk;}//Button coloring
+@mixin sprite-vertical($position, $spacing){background-position:0px (-$position * $spacing) + px;}//Manage CSS sprites
+
+
+
+/*
+ * Content
+ */
+
+// Generic HTML
+@font-face{font-family:'BPreplay';src:url(../fonts/BPreplay.otf);}
+
+body{background-color:#fff;}
+h1, h2, h3, h4, h5{color:$green-dk;font-family: "BPreplay", sans-serif;position:relative;}
+    h2, .modal h3{border-bottom:1px solid $orange-mid;padding-bottom:10px;}
+a, a:link{color:$link-color;}
+a:hover{color:$link-color-hover;text-decoration:underline;}
+ul, ol{padding-left: 15px;}
+*:focus {outline: none;}
+label{color:$link-color;cursor:pointer;margin-right:0px!important;font-weight:normal;margin-left:10px;}
+    label:hover{color:$link-color-hover;text-decoration:underline;}
+input[type="checkbox"]{cursor:pointer;border-color:$link-color;position: relative;top: 2px;}
+    input.date{display:inline-block;width: 150px;border-radius:5px 0px 0px 5px;}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {display: none !important;}
+table{
+    border: 1px solid #DDD;width:100%;margin-bottom: 1.25rem;
+    th{padding: 5px;font-size: 14px;}
+    tr.alt, tr.even, tr:nth-of-type(2n){background: #F9F9F9 none repeat scroll 0% 0%;}
+    td{padding: 5px;font-size: 12px;}
+    &.quiet{
+        padding:0px;margin:0px;border:0px;
+        td, td{ padding:0px;margin:0px;border:0px;}
+    }
+};
+
+
+// Universal Styles
+.button, .reveal-modal .button.close-reveal-modal{
+    @include link-color-dk();padding: 10px;font-size: 14px;margin-bottom:0px;border-radius: 5px;position:initial;font-weight:initial;line-height:initial;display: inline-block;border:0px;
+    &:link, &:visited, &:active{@include link-color-dk();text-decoration:none!important;}
+    &:hover, button:hover, &.close-reveal-modal:hover{color:#fff!important;background-color:$orange-dk;text-decoration:none!important;}
+    &.reverse{@include link-color-lt();border:1px solid $link-color-hover;}
+    &.reverse:hover{@include link-color-dk();}
+    &.sm{padding:5px;position: relative;top: -2px;}
+    &.fade{opacity: 0.2;}
+    &.fade:hover{opacity: 1;}
+    &.disabled{cursor:not-allowed;background-color:#8A8A8A;}
+}
+.error{color:#f00;font-size:12px;}
+.glyphicon{
+    margin-right: 10px;
+    &:hover, &:visited{text-decoration:none;}
+}
+.subtext{font-size:12px;float:right;margin-top: 15px;}    
+.tooltip{
+    border-radius:5px;padding:5px 10px;display:inline!important;box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.5);background-color: #1e1f22!important;width:250px;
+    .tooltip-inner{background:none;width:100%!important;max-width:250px;}
+    &.top{margin-top:-10px;}
+}
+
+
+// Modal Window Styling
+.modal-header {
+    padding: 10px 15px 0px 15px;
+    border:0px;
+}
+#gtProduceSelect{
+    ul{list-style:none;margin:0px;margin-bottom: 1.25rem;}
+    li{margin-bottom:2px;}
+    table{width: 100%;}
+    td{padding:5px;font-size:12px;}
+    abbr{font-size:12px;}
+    td:first-child{width:120px;}
+    input{margin-bottom:0px;}
+    .gt-produce{display:inline-block;position: relative;top: 7px;}
+    .button.reverse{width:100%;text-align:left;}
+    .dropdown-menu{
+        td{padding:0px;}
+    }
+}
+#gtProduceSearch{
+    .dropdown-menu{
+        width:100%;
+        a{padding-left:5px;}
+    }
+}
+
+
+// Masterpage
+#gt-container{
+    font-size:0.9em;
+    .row {max-width: 100%;}
+}
+.gt-col{
+    float:left;text-align:center;width:8.333%;background: $bg-color url('../images/pixel-white.png') repeat-y right top;
+    &:first-child{border-radius: 5px 0px 0px 5px;}
+    &:last-child{border-radius: 0px 5px 5px 0px;}
+}
+#gt-schedule{
+    border-top:1px solid $border-color;padding-top:20px;
+    h3, .tabs{border-bottom:1px solid $border-color}
+}
+#gt-header{
+    background-color:#1e1f22;padding-left:20px;padding-bottom:10px;border-radius: 0px;border:0px;margin-bottom:0px;position:relative;
+    #logo{
+        color:$orange-mid;font-family: "BPreplay", sans-serif;font-size: 36px;margin-top: 20px;margin-bottom: 10px;display:block;text-decoration: none!important;
+        .green{color:$green-mid!important;}
+        .white{color:#fff!important;}
+        &:hover, &:active{color:$orange-mid!important;}
+    }
+    p{margin:0px;color:#fff;font-family: "BPreplay", sans-serif;position: relative;top: -20px;left: 25px;margin-bottom: -5px;display:inline;}
+    
+    #gtViewing{
+        position:absolute;right:20px;bottom:15px;color:#fff;
+        span{color:$green-mid;}
+    }
+}
+.dropcal{display:inline-block;border-radius: 0px 5px 5px 0px;padding:0px;padding-left: 10px;padding-right: 10px;height:auto;font-size:20px;line-height: 34px;}
+
+
+// Garden View
+#today{position:relative;top:-2px;}
+#gt-new-area{padding-bottom: 10px;padding-top: 10px;margin-bottom: 5px;display:inline-block;text-align:left;margin-left: 10px;margin-top: 5px;}
+
+#gt-calendar{
+    h2{border-top: 1px solid $border-color;border-bottom:0px;padding-top:20px;}
+    #legend{
+        font-size:9px;
+        span{padding:3px 5px;color:#fff;border-radius: 5px;}
+        .leg-seedling{background-color:#00a627;}
+        .leg-growing{background-color:#037200;}
+        .leg-harvest{background-color:#c79359;}
+        .leg-frost{background-color:#00aeef;}
+    }
+}
+
+#gt-areas{position:relative;clear:both;}       
+    #gt-today{position:absolute;left: 0px;right: 0px;top: 0px;bottom: 0px;}    
+      #gt-today .tall{height: 100%;position: relative;}  
+        #gt-main-line{background-color:#f00;position: absolute;width: 1px;height: 100%;}
+        #gt-today-line{background-color:#007ba4;position: absolute;width: 1px;height: 100%;}
+        #gt-frost-spring{position: absolute;left:0px;height: 100%;background-color:#00aeef;opacity:0.1;}
+        #gt-frost-fall{position: absolute;right:0px;height: 100%;background-color:#00aeef;opacity:0.1;}
+       
+.gt-area{
+    padding-bottom: 10px;margin-bottom:5px;background-color: $bg-color;
+    .gt-area-title{min-width: 295px;display: inline-block;}
+    .delete{float:right;}
+    .gtAdd{font-size:10px;position: relative; top: -6px;}
+    h3{margin:0px;padding-top: 20px; padding-bottom: 10px;}
+    
+    &:last-child{margin-bottom:0px;}
+    .gt-area-row{position:relative;height: 25px;overflow:hidden;}
+        .gt-seedlings{position:absolute;z-index:11;top:0px;background-color:#00a627;height: 25px;border-radius: 5px 0px 0px 5px;}
+        .gt-directsow{background-color:#037200;}
+        .gt-growing{position:absolute;z-index:12;top:0px;background-color:#037200;height: 25px;}
+        .gt-harvest{position:absolute;z-index:10;top:0px;background-color:#c79359;height: 25px;border-radius: 0px 5px 5px 0px;}
+        
+        .gt-area-item{
+            margin-bottom:1px;
+            images{margin-right:10px;float:left;}
+        }
+        
+        .gt-details{
+            float:right;padding-top:6px;
+            &:hover{text-decoration:none;}
+        }
+}     
+
+// Produce Sprite
+.gt-produce{
+    background: url('../images/sprite-produce.png') no-repeat 0px 0px;padding-left: 30px;line-height: 25px;    min-height: 25px;position:relative;
+    &.cucumber{             @include sprite-vertical(1,50)}
+    &.broccoli{             @include sprite-vertical(2,50)}
+    &.brussel_sprouts{      @include sprite-vertical(3,50)}
+    &.carrot{               @include sprite-vertical(4,50)}
+    &.lettuce{              @include sprite-vertical(5,50)}
+    &.melon{                @include sprite-vertical(6,50)}
+    &.potato{               @include sprite-vertical(7,50)}
+    &.pumpkin{              @include sprite-vertical(8,50)}
+    &.sweet_potato{         @include sprite-vertical(9,50)}
+    &.squash{               @include sprite-vertical(10,50)}
+    &.swiss_chard{          @include sprite-vertical(11,50)}
+    &.tomato{               @include sprite-vertical(12,50)}
+    &.bell_pepper{          @include sprite-vertical(13,50)}
+    &.spinach{              @include sprite-vertical(14,50)}
+    .inline {display:inline!important;}
+}
+        
+// Calendar Styling
+#gt-cal-header{padding-bottom: 5px!important;}
+input.calendar{border-radius: 5px 0px 0px 5px;}
+.dropdown-menu{
+    z-index: 20;font-size:14px;list-style:none;margin:0px;padding:0px;position:absolute;background-color: #f5f5f5;border: 1px solid #e3e3e3; box-shadow: 10px 10px 25px 0px rgba(0,0,0,0.5);outline:0px;
+    div:active{outline:none;}
+        li{list-style:none;margin:0px;padding:0px;}
+        table{min-width:350px;}
+        thead, tr, th{background:none;padding:0px;}
+
+        
+        td{background:none;border:0px;padding:0px;width:42px;}
+        button{font-size:14px;padding:0px;margin:0px; border-radius: 3px;border-color: #fff;padding: .5625rem .625rem;@include link-color-lt();}  
+            button:hover, button.btn-info{@include link-color-dk();}
+            .btn-group{width:100%;padding:0px 10px;}
+            .btn{width:100%;}
+                .btn.active span{color:#fff;}
+                .btn-group .btn-info{margin-bottom:10px;}
+                .btn-danger, .btn-success{display:none;}
+        button span{background-color: none;}
+        .glyphicon{margin:0px;}
+}
+.gt-edit{
+    display:none;font-size:75%;vertical-align: text-top;margin: 0px;margin-left:5px;border:0px;color:$link-color;
+    &:hover{text-decoration:none;border:0px;color:$link-color-hover;}
+    &.gt-delete{position:absolute;right:15px;padding-left:10px;}
+}  
+h2:hover .gt-edit, h3:hover .gt-edit, h4:hover .gt-edit, .gt-produce:hover .gt-edit{display:inline-block;}
+    .gt-produce .gt-edit{vertical-align: initial;font-size:100%;float:right;position:initial;}
+        
+
+    
+/*
+ * Custom Media Queries
+ */
+
+// Small screens 
+// max-width 640px, mobile-only styles, use when QAing mobile issues
+@media only screen and (max-width: 750px) { 
+    h1{font-size:30px;}
+    h2{font-size: 24px;padding-top:10px;border-top: 1px solid #AA6C39;border-bottom: 0px;}
+        .modal h2{border:0px;border-bottom: 1px solid #AA6C39;}
+    h3{font-size: 18px;margin-top:0px;position:relative;}
+        .modal h3{padding-top:15px;}
+    li{font-size:12px;}    
+   .gt-details{display:none;}
+   .modal hr{display:none;}
+   
+   .gt-area{
+       .glyphicon{margin-right:0px;}
+       .delete{display:none;}
+       .gt-area-title {min-width: auto;top:0px;}
+       .gtAdd {top: auto;position: absolute;right: 0px;}
+       .gt-details {float: left;}
+   }
+   
+   .uib-datepicker-popup{left:0px!important;right:0px!important;}
+} 
+
+// Medium screens 
+// min-width 641px and max-width 1024px, use when QAing tablet-only issues
+@media only screen and (min-width: 751px) and (max-width: 970px) { 
+    .gt-area{
+        .gt-area-title {min-width: auto;}
+        .glyphicon{margin-right:0px;}
+        .gt-details {float: left;}
+    }
+}
+
+// Large screens
+// min-width 1025px and max-width 1440px, use when QAing large screen-only issues
+@media only screen and (min-width: 971px) and (max-width: 1170px) { 
+    .gt-produce span{font-size:14px;}
+
+    .gt-area{
+        .glyphicon{margin-right:10px;}
+    }
+    
+} 
+
+// XLarge screens
+// min-width 1441px
+@media only screen and (min-width: 1171px){ 
+    
+} 

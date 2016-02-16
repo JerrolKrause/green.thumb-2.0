@@ -1,0 +1,5 @@
+// @koala-prepend "greenthumb.js"
+// @koala-prepend "services/services.js"
+// @koala-prepend "controllers/gt-garden.js"
+// @koala-prepend "controllers/gt-interactive.js"
+// @koala-prepend "controllers/gt-filter.js"
